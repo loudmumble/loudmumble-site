@@ -54,53 +54,41 @@ const LEDAscii = () => {
         return () => cancelAnimationFrame(animationFrameId);
     }, []);
 
-    // Complex LED Patterns (Sine waves, rainbows, trace lines)
     const getCharColor = (x: number, y: number, t: number) => {
-        // We'll use HSL for smooth transitions
-        // Pattern 1: Horizontal Sine Wave
-        const hue1 = (x * 4 + t * 2) % 360;
-        // Pattern 2: Diagonal "Trace" intensity
+        const hue1 = (x * 3 + t * 2) % 360;
         const intensity = Math.sin((x + y * 2 + t * 0.1) * 0.5) * 0.5 + 0.5;
 
-        // Mix different palettes based on frame
-        if ((Math.floor(t / 200) % 3) === 0) {
-            // Rainbow Wave
-            return `hsl(${hue1}, 80%, 60%)`;
-        } else if ((Math.floor(t / 200) % 3) === 1) {
-            // Cyber Cyan/Magenta pulse
-            const phase = Math.sin(x * 0.1 + t * 0.05);
-            return phase > 0 ? 'var(--terminal-cyan-hsl)' : 'var(--terminal-magenta-hsl)';
-        } else {
-            // Matrix Green Trace
-            const alpha = intensity > 0.8 ? 1 : 0.4;
-            return `hsla(120, 100%, 70%, ${alpha})`;
-        }
+        const mode = Math.floor(t / 300) % 3;
+        if (mode === 0) return `hsl(${hue1}, 80%, 60%)`;
+        if (mode === 1) return Math.sin(x * 0.2 + t * 0.05) > 0 ? 'var(--terminal-cyan-hsl)' : 'var(--terminal-magenta-hsl)';
+        return `hsla(120, 100%, 70%, ${intensity > 0.8 ? 1 : 0.4})`;
     };
 
     return (
-        <div className="relative group/ascii transition-transform duration-500 hover:scale-[1.02]">
-            <div className="font-bold leading-[1.05] select-none whitespace-pre overflow-hidden">
+        <div className="relative group/ascii transition-transform duration-500 hover:scale-[1.02] flex justify-center w-full min-w-0 overflow-hidden">
+            <div
+                className="font-bold leading-none select-none whitespace-pre flex flex-col items-center"
+                style={{ fontSize: 'clamp(5px, 0.7vw, 9px)', fontFamily: "'JetBrains Mono', monospace" }}
+            >
                 {ascii.map((line, i) => (
-                    <div key={i} className="flex gap-0 h-[8.5px] md:h-[11px]">
-                        {line.split('').map((char, j) => {
-                            if (char === ' ') return <span key={j} className="inline-block w-[6px] md:w-[7.5px]" />;
-                            return (
-                                <span
-                                    key={j}
-                                    className="inline-block transition-colors duration-200"
-                                    style={{
-                                        color: getCharColor(j, i, frame),
-                                        textShadow: `0 0 8px ${getCharColor(j, i, frame)}44`
-                                    }}
-                                >
-                                    {char}
-                                </span>
-                            );
-                        })}
+                    <div key={i} className="flex gap-0 min-w-0">
+                        {line.split('').map((char, j) => (
+                            <span
+                                key={j}
+                                style={{
+                                    color: char === ' ' ? 'transparent' : getCharColor(j, i, frame),
+                                    textShadow: char === ' ' ? 'none' : `0 0 5px ${getCharColor(j, i, frame)}44`,
+                                    width: '1ch',
+                                    display: 'inline-block',
+                                    textAlign: 'center'
+                                }}
+                            >
+                                {char}
+                            </span>
+                        ))}
                     </div>
                 ))}
             </div>
-            {/* Scanline overlay */}
             <div className="absolute top-0 left-0 w-full h-[3px] bg-white/10 blur-sm animate-scanline pointer-events-none" />
         </div>
     );
@@ -152,52 +140,52 @@ export const TerminalHUD = ({ activeSection, onNavigate }: HUDProps) => {
     }
 
     return (
-        <div className="w-full flex flex-col items-center gap-6 py-8 px-10 border-b border-border bg-black/60 relative overflow-hidden">
+        <div className="w-full flex flex-col items-center gap-6 py-6 px-10 border-b border-border bg-black/60 relative overflow-hidden">
             {/* Background Decor */}
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
                 style={{ backgroundImage: 'radial-gradient(circle, var(--terminal-cyan) 1px, transparent 1px)', backgroundSize: '40px 40px' }}
             />
 
-            <div className="w-full flex items-start justify-between gap-12 z-10">
+            <div className="w-full flex items-center justify-between gap-4 z-10 max-w-[1400px]">
                 {/* Left Section: Stats + Stream */}
-                <div className="flex flex-col gap-8 flex-none w-[160px]">
+                <div className="flex flex-col gap-8 flex-none w-[140px] shrink-0">
                     <div className="space-y-6">
                         <TelemetryWidget label="Memory (RAM)" value={stats.ram} unit="GB / 16" colorClass="text-terminal-magenta" />
                         <TelemetryWidget label="Inference" value={stats.inference} unit="TOK/S" colorClass="text-terminal-green" />
                     </div>
-                    <SideStream type="bin" rows={10} cols={16} />
+                    <SideStream type="bin" rows={10} cols={14} />
                 </div>
 
-                {/* Center Section: Branding & Single-Line Navigation */}
-                <div className="flex-1 flex flex-col items-center justify-center gap-8 -mt-2 min-w-0">
+                {/* Center Section: Branding & Navigation */}
+                <div className="flex-1 flex flex-col items-center justify-center gap-6 min-w-0">
                     <LEDAscii />
-                    <div className="w-full flex justify-center scale-95 lg:scale-100">
-                        <div className="border border-border/30 p-1 bg-black/20 rounded-sm">
+                    <div className="w-full flex justify-center">
+                        <div className="border border-border/30 p-1 bg-black/20 rounded-sm scale-90 lg:scale-100 origin-center">
                             <Navigation activeSection={activeSection} onNavigate={onNavigate} />
                         </div>
                     </div>
                 </div>
 
                 {/* Right Section: Stats + Stream */}
-                <div className="flex flex-col gap-8 flex-none w-[160px] text-right items-end">
+                <div className="flex flex-col gap-8 flex-none w-[140px] text-right items-end shrink-0">
                     <div className="space-y-6">
-                        <TelemetryWidget label="Neural (GPU)" value={`RTX-4090 | ${stats.gpu}%`} unit="LOAD" colorClass="text-terminal-cyan" />
+                        <TelemetryWidget label="Neural (GPU)" value={`${stats.gpu}%`} unit="RTX-4090" colorClass="text-terminal-cyan" />
                         <div className="flex flex-col items-end gap-1">
                             <span className="text-[8px] font-mono text-muted-foreground uppercase opacity-50 tracking-widest">Global Link</span>
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2">
                                 <div className="flex flex-col items-end">
-                                    <span className="text-xs text-terminal-green font-bold">{stats.up}KB/s</span>
-                                    <span className="text-[7px] opacity-40">UPLINK</span>
+                                    <span className="text-[10px] text-terminal-green font-bold">{stats.up}KB/s</span>
+                                    <span className="text-[6px] opacity-40">UP</span>
                                 </div>
-                                <div className="w-[1px] h-4 bg-border/30" />
+                                <div className="w-[1px] h-3 bg-border/30" />
                                 <div className="flex flex-col items-end">
-                                    <span className="text-xs text-terminal-cyan font-bold">{stats.down}MB/s</span>
-                                    <span className="text-[7px] opacity-40">DOWNLINK</span>
+                                    <span className="text-[10px] text-terminal-cyan font-bold">{stats.down}MB/s</span>
+                                    <span className="text-[6px] opacity-40">DOWN</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <SideStream type="hex" rows={10} cols={16} />
+                    <SideStream type="hex" rows={10} cols={14} />
                 </div>
             </div>
 
