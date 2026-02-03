@@ -1,7 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { TerminalWindow } from '@/components/terminal/TerminalWindow';
-import { AsciiHeader, AsciiHeaderMobile } from '@/components/terminal/AsciiHeader';
-import { Navigation } from '@/components/terminal/Navigation';
+import { TerminalHUD } from '@/components/terminal/TerminalHUD';
 import { SystemInit } from '@/components/terminal/SystemInit';
 import { CommandInput } from '@/components/terminal/CommandInput';
 import { HelpOutput, NeofetchOutput, WhoamiOutput } from '@/components/terminal/HelpOutput';
@@ -201,10 +200,9 @@ const Index = () => {
           className="flex-1 min-h-0"
         >
           <div className="flex flex-col h-full min-h-0">
-            {/* Header */}
-            <div className="flex-none border-b border-border pb-4">
-              {isMobile ? <AsciiHeaderMobile /> : <AsciiHeader />}
-              <Navigation activeSection={activeSection} onNavigate={navigateToSection} />
+            {/* Header / HUD */}
+            <div className="flex-none">
+              <TerminalHUD activeSection={activeSection} onNavigate={navigateToSection} />
             </div>
 
             {/* Scrollable content area */}

@@ -22,11 +22,11 @@ export const Navigation = ({ activeSection, onNavigate }: NavigationProps) => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   return (
-    <nav className="flex flex-wrap items-center justify-center gap-2 md:gap-4 py-3 px-2">
+    <nav className="flex flex-wrap items-center justify-center gap-2 md:gap-3">
       {navItems.map((item) => {
         const isActive = activeSection === item.id;
         const isHovered = hoveredItem === item.id;
-        
+
         return (
           <button
             key={item.id}
@@ -36,14 +36,14 @@ export const Navigation = ({ activeSection, onNavigate }: NavigationProps) => {
             className={`
               group relative px-3 md:px-4 py-1.5 font-mono text-xs md:text-sm font-medium
               transition-all duration-200 border
-              ${isActive 
-                ? 'bg-primary/20 border-primary text-primary' 
+              ${isActive
+                ? 'bg-primary/20 border-primary text-primary'
                 : 'bg-transparent border-border text-muted-foreground hover:border-primary/50 hover:text-foreground'
               }
             `}
             style={{
-              boxShadow: isActive || isHovered 
-                ? '0 0 10px hsl(120 100% 50% / 0.3)' 
+              boxShadow: isActive || isHovered
+                ? '0 0 10px hsl(120 100% 50% / 0.3)'
                 : 'none'
             }}
           >
@@ -51,9 +51,9 @@ export const Navigation = ({ activeSection, onNavigate }: NavigationProps) => {
               [{item.shortcut}]
             </span>
             <span>{item.label}</span>
-            
+
             {/* Hover underline effect */}
-            <span 
+            <span
               className={`
                 absolute bottom-0 left-0 h-[1px] bg-primary transition-all duration-300
                 ${isActive || isHovered ? 'w-full' : 'w-0'}
