@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { Navigation } from './Navigation';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -8,208 +8,209 @@ interface HUDProps {
 }
 
 const HEX_CHARS = '0123456789ABCDEF';
+const BIN_CHARS = '01';
 
-// Variation 1: The "Command Center" (Intricate, ASCII centric)
-const CommandCenterHUD = ({ activeSection, onNavigate }: HUDProps) => {
+// Animated Data Stream (Bin/Hex)
+const SideStream = ({ type = 'hex', rows = 12, cols = 10 }: { type?: 'hex' | 'bin'; rows?: number; cols?: number }) => {
+    const [data, setData] = useState<string[]>([]);
+    useEffect(() => {
+        const chars = type === 'hex' ? HEX_CHARS : BIN_CHARS;
+        const interval = setInterval(() => {
+            setData(Array.from({ length: rows }, () =>
+                Array.from({ length: cols }, () => chars[Math.floor(Math.random() * chars.length)]).join('')
+            ));
+        }, 150);
+        return () => clearInterval(interval);
+    }, [type, rows, cols]);
+
+    return (
+        <div className="font-mono text-[9px] leading-tight text-primary/30 select-none">
+            {data.map((row, i) => (
+                <div key={i}>{row}</div>
+            ))}
+        </div>
+    );
+};
+
+// High-Fidelity Pixel-LED Color Animated ASCII
+const LEDAscii = () => {
+    const [frame, setFrame] = useState(0);
+    const ascii = useMemo(() => [
+        "██╗      ██████╗ ██╗   ██╗██████╗ ███╗   ███╗██╗   ██╗███╗   ███╗██████╗ ██╗     ███████╗",
+        "██║     ██╔═══██╗██║   ██║██╔══██╗████╗ ████║██║   ██║████╗ ████║██╔══██╗██║     ██╔════╝",
+        "██║     ██║   ██║██║   ██║██║  ██║██╔████╔██║██║   ██║██╔████╔██║██████╔╝██║     █████╗  ",
+        "██║     ██║   ██║██║   ██║██║  ██║██║╚██╔╝██║██║   ██║██║╚██╔╝██║██╔══██╗██║     ██╔══╝  ",
+        "███████╗╚██████╔╝╚██████╔╝██████╔╝██║ ╚═╝ ██║╚██████╔╝██║ ╚═╝ ██║██████╔╝███████╗███████╗",
+        "╚══════╝ ╚═════╝  ╚═════╝ ╚═════╝ ╚═╝     ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚═════╝ ╚══════╝╚══════╝"
+    ], []);
+
+    useEffect(() => {
+        let animationFrameId: number;
+        const update = () => {
+            setFrame(prev => prev + 1);
+            animationFrameId = requestAnimationFrame(update);
+        };
+        animationFrameId = requestAnimationFrame(update);
+        return () => cancelAnimationFrame(animationFrameId);
+    }, []);
+
+    // Complex LED Patterns (Sine waves, rainbows, trace lines)
+    const getCharColor = (x: number, y: number, t: number) => {
+        // We'll use HSL for smooth transitions
+        // Pattern 1: Horizontal Sine Wave
+        const hue1 = (x * 4 + t * 2) % 360;
+        // Pattern 2: Diagonal "Trace" intensity
+        const intensity = Math.sin((x + y * 2 + t * 0.1) * 0.5) * 0.5 + 0.5;
+
+        // Mix different palettes based on frame
+        if ((Math.floor(t / 200) % 3) === 0) {
+            // Rainbow Wave
+            return `hsl(${hue1}, 80%, 60%)`;
+        } else if ((Math.floor(t / 200) % 3) === 1) {
+            // Cyber Cyan/Magenta pulse
+            const phase = Math.sin(x * 0.1 + t * 0.05);
+            return phase > 0 ? 'var(--terminal-cyan-hsl)' : 'var(--terminal-magenta-hsl)';
+        } else {
+            // Matrix Green Trace
+            const alpha = intensity > 0.8 ? 1 : 0.4;
+            return `hsla(120, 100%, 70%, ${alpha})`;
+        }
+    };
+
+    return (
+        <div className="relative group/ascii transition-transform duration-500 hover:scale-[1.02]">
+            <div className="font-bold leading-[1.05] select-none whitespace-pre overflow-hidden">
+                {ascii.map((line, i) => (
+                    <div key={i} className="flex gap-0 h-[8.5px] md:h-[11px]">
+                        {line.split('').map((char, j) => {
+                            if (char === ' ') return <span key={j} className="inline-block w-[6px] md:w-[7.5px]" />;
+                            return (
+                                <span
+                                    key={j}
+                                    className="inline-block transition-colors duration-200"
+                                    style={{
+                                        color: getCharColor(j, i, frame),
+                                        textShadow: `0 0 8px ${getCharColor(j, i, frame)}44`
+                                    }}
+                                >
+                                    {char}
+                                </span>
+                            );
+                        })}
+                    </div>
+                ))}
+            </div>
+            {/* Scanline overlay */}
+            <div className="absolute top-0 left-0 w-full h-[3px] bg-white/10 blur-sm animate-scanline pointer-events-none" />
+        </div>
+    );
+};
+
+// Refined Telemetry Widget
+const TelemetryWidget = ({ label, value, unit, colorClass }: { label: string; value: string | number; unit: string; colorClass: string }) => (
+    <div className="flex flex-col gap-0.5 min-w-[120px]">
+        <span className="text-[8px] font-mono text-muted-foreground uppercase tracking-[0.2em] opacity-50">{label}</span>
+        <div className="flex items-baseline gap-1">
+            <span className={`text-sm font-bold font-mono ${colorClass} tracking-tighter`}>{value}</span>
+            <span className="text-[10px] text-muted-foreground/60">{unit}</span>
+        </div>
+        <div className="h-[1px] w-full bg-border/20 mt-1" />
+    </div>
+);
+
+export const TerminalHUD = ({ activeSection, onNavigate }: HUDProps) => {
+    const isMobile = useIsMobile();
     const [stats, setStats] = useState({
-        ram: { used: 4.2, total: 16.0 },
-        gpu: { load: 12, temp: 45 },
-        net: { up: 245, down: 12.4 },
-        cpu: 32
+        ram: 4.8,
+        gpu: 14,
+        inference: 88,
+        up: 142,
+        down: 12.6
     });
 
     useEffect(() => {
         const interval = setInterval(() => {
             setStats(prev => ({
-                ram: { ...prev.ram, used: Math.min(16, Math.max(2, prev.ram.used + (Math.random() * 0.2 - 0.1))) },
-                gpu: { load: Math.min(100, Math.max(0, prev.gpu.load + Math.floor(Math.random() * 5 - 2))), temp: 45 + Math.floor(Math.random() * 3) },
-                net: { up: Math.floor(Math.random() * 500 + 100), down: Number((Math.random() * 20 + 5).toFixed(1)) },
-                cpu: Math.min(100, Math.max(0, prev.cpu + Math.floor(Math.random() * 7 - 3)))
+                ram: Number((prev.ram + (Math.random() * 0.2 - 0.1)).toFixed(2)),
+                gpu: Math.min(100, Math.max(0, prev.gpu + Math.floor(Math.random() * 5 - 2))),
+                inference: Math.min(100, Math.max(0, prev.inference + Math.floor(Math.random() * 9 - 4))),
+                up: Math.floor(Math.random() * 300 + 50),
+                down: Number((Math.random() * 10 + 5).toFixed(1))
             }));
-        }, 800);
+        }, 1200);
         return () => clearInterval(interval);
     }, []);
-
-    const ascii = `
-██╗      ██████╗ ██╗   ██╗██████╗ ███╗   ███╗██╗   ██╗███╗   ███╗██████╗ ██╗     ███████╗
-██║     ██╔═══██╗██║   ██║██╔══██╗████╗ ████║██║   ██║████╗ ████║██╔══██╗██║     ██╔════╝
-██║     ██║   ██║██║   ██║██║  ██║██╔████╔██║██║   ██║██╔████╔██║██████╔╝██║     █████╗  
-██║     ██║   ██║██║   ██║██║  ██║██║╚██╔╝██║██║   ██║██║╚██╔╝██║██╔══██╗██║     ██╔══╝  
-███████╗╚██████╔╝╚██████╔╝██████╔╝██║ ╚═╝ ██║╚██████╔╝██║ ╚═╝ ██║██████╔╝███████╗███████╗
-╚══════╝ ╚═════╝  ╚═════╝ ╚═════╝ ╚═╝     ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚═════╝ ╚══════╝╚══════╝`;
-
-    return (
-        <div className="w-full flex flex-col items-center gap-6 py-4 px-6 border-b border-border bg-black/60 relative overflow-hidden group">
-            {/* Intricate background pattern */}
-            <div className="absolute inset-0 opacity-[0.05] pointer-events-none"
-                style={{
-                    backgroundImage: 'linear-gradient(90deg, var(--border) 1px, transparent 1px), linear-gradient(var(--border) 1px, transparent 1px)',
-                    backgroundSize: '40px 40px'
-                }}
-            />
-
-            {/* Top Telemetry Row */}
-            <div className="w-full flex justify-between items-center text-[10px] font-mono tracking-tighter text-muted-foreground/80">
-                <div className="flex gap-6">
-                    <div className="flex flex-col">
-                        <span className="text-terminal-cyan/60">SYSTEM_MEMORY [RAM]</span>
-                        <div className="flex items-center gap-2">
-                            <div className="w-24 h-1 bg-muted/20 rounded-full overflow-hidden">
-                                <div className="h-full bg-terminal-magenta" style={{ width: `${(stats.ram.used / stats.ram.total) * 100}%` }} />
-                            </div>
-                            <span className="text-terminal-magenta">{stats.ram.used.toFixed(1)}GB <span className="text-[8px]">/ {stats.ram.total}GB</span></span>
-                        </div>
-                    </div>
-                    <div className="flex flex-col border-l border-border/30 pl-6">
-                        <span className="text-terminal-yellow/60">NEURAL_ENGINE [GPU]</span>
-                        <span className="text-terminal-yellow uppercase">RTX-4090 | {stats.gpu.load}% | {stats.gpu.temp}°C</span>
-                    </div>
-                </div>
-
-                <div className="flex gap-6 items-end text-right">
-                    <div className="flex flex-col border-r border-border/30 pr-6">
-                        <span className="text-terminal-green/60">UPLINK_RATE</span>
-                        <span className="text-terminal-green">{stats.net.up} KB/s</span>
-                    </div>
-                    <div className="flex flex-col">
-                        <span className="text-terminal-cyan/60">DOWNLINK_RATE</span>
-                        <span className="text-terminal-cyan">{stats.net.down} MB/s</span>
-                    </div>
-                </div>
-            </div>
-
-            {/* Center: ASCII Art */}
-            <div className="relative py-2 group-hover:scale-[1.02] transition-transform duration-500">
-                <pre className="text-[6px] md:text-[8px] leading-[1.1] text-terminal-magenta/90 text-glow-subtle whitespace-pre select-none font-bold">
-                    {ascii}
-                </pre>
-                {/* Animated scanline through ASCII */}
-                <div className="absolute top-0 left-0 w-full h-[2px] bg-terminal-magenta/30 blur-sm animate-scanline pointer-events-none" />
-            </div>
-
-            {/* Bottom Row: Unified Navigation */}
-            <div className="w-full flex flex-col items-center gap-4">
-                <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-border to-transparent" />
-                <div className="w-full max-w-2xl px-4">
-                    <Navigation activeSection={activeSection} onNavigate={onNavigate} />
-                </div>
-            </div>
-        </div>
-    );
-};
-
-// Selection logic
-export const TerminalHUD = (props: HUDProps) => {
-    const isMobile = useIsMobile();
-    const [theme, setTheme] = useState<'command' | 'cyber' | 'aggressive'>('command');
 
     if (isMobile) {
         return (
             <div className="w-full flex flex-col items-center gap-4 py-4 border-b border-border bg-black/20">
                 <h1 className="text-xl font-bold text-terminal-magenta tracking-widest text-glow-subtle">LOUDMUMBLE</h1>
                 <div className="h-[1px] w-[80%] bg-border/30" />
-                <Navigation activeSection={props.activeSection} onNavigate={props.onNavigate} />
+                <Navigation activeSection={activeSection} onNavigate={onNavigate} />
             </div>
         );
     }
 
-    const themes = {
-        command: <CommandCenterHUD {...props} />,
-        cyber: <CyberneticHUD {...props} />,
-        aggressive: <AggressiveHUD {...props} />
-    };
-
     return (
-        <div className="relative group/hud">
-            {themes[theme]}
+        <div className="w-full flex flex-col items-center gap-6 py-8 px-10 border-b border-border bg-black/60 relative overflow-hidden">
+            {/* Background Decor */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+                style={{ backgroundImage: 'radial-gradient(circle, var(--terminal-cyan) 1px, transparent 1px)', backgroundSize: '40px 40px' }}
+            />
 
-            <div className="absolute top-2 right-2 opacity-0 group-hover/hud:opacity-100 transition-opacity flex gap-1 z-50">
-                {(['command', 'cyber', 'aggressive'] as const).map(t => (
-                    <button
-                        key={t}
-                        onClick={() => setTheme(t)}
-                        className={`
-                            px-1.5 py-0.5 text-[7px] font-mono border transition-all
-                            ${theme === t ? 'bg-terminal-magenta text-white border-terminal-magenta' : 'bg-black/60 text-muted-foreground border-border hover:border-terminal-magenta/50'}
-                        `}
-                    >
-                        {t.toUpperCase()}
-                    </button>
-                ))}
-            </div>
-        </div>
-    );
-};
+            <div className="w-full flex items-start justify-between gap-12 z-10">
+                {/* Left Section: Stats + Stream */}
+                <div className="flex flex-col gap-8 flex-none w-[160px]">
+                    <div className="space-y-6">
+                        <TelemetryWidget label="Memory (RAM)" value={stats.ram} unit="GB / 16" colorClass="text-terminal-magenta" />
+                        <TelemetryWidget label="Inference" value={stats.inference} unit="TOK/S" colorClass="text-terminal-green" />
+                    </div>
+                    <SideStream type="bin" rows={10} cols={16} />
+                </div>
 
-// Variation 2: Cybernetic (Minimalist Trace Lines)
-const CyberneticHUD = ({ activeSection, onNavigate }: HUDProps) => {
-    return (
-        <div className="w-full flex flex-col py-6 px-10 border-b border-terminal-cyan/20 bg-black/40 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-terminal-cyan to-transparent animate-pulse" />
-
-            <div className="flex justify-between items-center mb-6">
-                <div className="flex flex-col gap-1">
-                    <div className="text-[10px] text-terminal-cyan font-bold tracking-[0.4em]">TRACE_DETECTION: INACTIVE</div>
-                    <div className="h-0.5 w-32 bg-terminal-cyan/20 overflow-hidden">
-                        <div className="h-full bg-terminal-cyan w-[60%]" />
+                {/* Center Section: Branding & Single-Line Navigation */}
+                <div className="flex-1 flex flex-col items-center justify-center gap-8 -mt-2 min-w-0">
+                    <LEDAscii />
+                    <div className="w-full flex justify-center scale-95 lg:scale-100">
+                        <div className="border border-border/30 p-1 bg-black/20 rounded-sm">
+                            <Navigation activeSection={activeSection} onNavigate={onNavigate} />
+                        </div>
                     </div>
                 </div>
-                <h1 className="text-3xl font-light tracking-[0.3em] text-terminal-cyan/80">L O U D M U M B L E</h1>
-                <div className="text-right flex flex-col gap-1 items-end">
-                    <div className="text-[10px] text-terminal-magenta font-bold tracking-[0.2em]">SIGNAL_STRENGTH: 100%</div>
-                    <div className="flex gap-1">
-                        {[1, 2, 3, 4, 5].map(i => <div key={i} className="w-2 h-1 bg-terminal-magenta" />)}
+
+                {/* Right Section: Stats + Stream */}
+                <div className="flex flex-col gap-8 flex-none w-[160px] text-right items-end">
+                    <div className="space-y-6">
+                        <TelemetryWidget label="Neural (GPU)" value={`RTX-4090 | ${stats.gpu}%`} unit="LOAD" colorClass="text-terminal-cyan" />
+                        <div className="flex flex-col items-end gap-1">
+                            <span className="text-[8px] font-mono text-muted-foreground uppercase opacity-50 tracking-widest">Global Link</span>
+                            <div className="flex items-center gap-3">
+                                <div className="flex flex-col items-end">
+                                    <span className="text-xs text-terminal-green font-bold">{stats.up}KB/s</span>
+                                    <span className="text-[7px] opacity-40">UPLINK</span>
+                                </div>
+                                <div className="w-[1px] h-4 bg-border/30" />
+                                <div className="flex flex-col items-end">
+                                    <span className="text-xs text-terminal-cyan font-bold">{stats.down}MB/s</span>
+                                    <span className="text-[7px] opacity-40">DOWNLINK</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div className="flex flex-col items-center gap-6">
-                <div className="flex gap-12 text-[10px] font-mono text-muted-foreground">
-                    <div className="flex gap-2 items-center"><span className="w-1.5 h-1.5 rounded-full bg-terminal-cyan" />LINK_ESTABLISHED</div>
-                    <div className="flex gap-2 items-center"><span className="w-1.5 h-1.5 rounded-full bg-terminal-magenta" />ENCRYPT_AES_256</div>
-                    <div className="flex gap-2 items-center"><span className="w-1.5 h-1.5 rounded-full bg-terminal-yellow" />LATENCY: 14ms</div>
-                </div>
-                <div className="w-full max-w-xl">
-                    <Navigation activeSection={activeSection} onNavigate={onNavigate} />
-                </div>
-            </div>
-        </div>
-    );
-};
-
-// Variation 3: Aggressive (High density activity feed)
-const AggressiveHUD = ({ activeSection, onNavigate }: HUDProps) => {
-    const [logs, setLogs] = useState<string[]>([]);
-    useEffect(() => {
-        const lines = ["SYS_INIT", "MOD_LOAD", "AUTH_REQ", "NET_MAPPING", "PORT_SCAN_01", "FIREWALL_BYPASS", "PAYLOAD_INJECT"];
-        const interval = setInterval(() => {
-            setLogs(prev => [lines[Math.floor(Math.random() * lines.length)], ...prev].slice(0, 4));
-        }, 1200);
-        return () => clearInterval(interval);
-    }, []);
-
-    return (
-        <div className="w-full flex py-4 px-6 border-b-2 border-terminal-red/40 bg-zinc-950/90 relative">
-            <div className="flex-1 flex flex-col justify-center">
-                <div className="flex items-end gap-4 mb-2">
-                    <h1 className="text-4xl font-black text-terminal-red leading-none italic uppercase tracking-tighter">LoudMumble</h1>
-                    <div className="text-[9px] font-mono text-terminal-red/50 bg-terminal-red/10 px-1 py-0.5 border border-terminal-red/20 mb-1">
-                        SEC_LEVEL: ALPHA
-                    </div>
-                </div>
-                <div className="max-w-md">
-                    <Navigation activeSection={activeSection} onNavigate={onNavigate} />
+                    <SideStream type="hex" rows={10} cols={16} />
                 </div>
             </div>
 
-            <div className="w-48 flex flex-col gap-1 font-mono text-[8px] border-l border-terminal-red/20 pl-4 py-2">
-                <div className="text-terminal-red/70 font-bold mb-1 underline text-[7px]">LIVE_ACTIVITY_FEED</div>
-                {logs.map((log, i) => (
-                    <div key={i} className="flex justify-between items-center bg-terminal-red/5 p-1 border-b border-terminal-red/5">
-                        <span className="text-terminal-red/60">{log}</span>
-                        <span className="text-[6px] text-terminal-red/30">[{new Date().toLocaleTimeString().split(' ')[0]}]</span>
-                    </div>
-                ))}
+            {/* Footer info strip */}
+            <div className="w-full flex justify-between items-center text-[8px] font-mono text-muted-foreground/30 border-t border-border/10 pt-3">
+                <div className="flex gap-4">
+                    <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-terminal-green animate-pulse" /> NETWORK_STATE: STABLE</span>
+                    <span>LOCATION: [34.0522° N, 118.2437° W]</span>
+                </div>
+                <div className="flex gap-4">
+                    <span>ENCR_KEY: 0x7E3...A21</span>
+                    <span className="text-terminal-magenta">KERNEL_VER: 6.1.0-SECURITY</span>
+                </div>
             </div>
         </div>
     );
