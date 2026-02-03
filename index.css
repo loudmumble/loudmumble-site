@@ -315,4 +315,13 @@
   .delay-300 { animation-delay: 0.3s; }
   .delay-400 { animation-delay: 0.4s; }
   .delay-500 { animation-delay: 0.5s; }
+
+  @keyframes scanline {
+    0% { transform: translateY(-100%); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(1000%); opacity: 0; }
+  }
+  .animate-scanline {
+    animation: scanline 4s linear infinite;
+  }
 }
