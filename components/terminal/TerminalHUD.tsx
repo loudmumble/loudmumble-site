@@ -98,11 +98,8 @@ const TickerItem = ({ label, value, unit, colorClass }: { label: string; value: 
     </div>
 );
 
-type HUDProfile = 'INTEGRATED' | 'SIDECAR' | 'FUSION' | 'MINIMAL';
-
 export const TerminalHUD = ({ activeSection, onNavigate }: HUDProps) => {
     const isMobile = useIsMobile();
-    const [profile, setProfile] = useState<HUDProfile>('INTEGRATED');
     const [stats, setStats] = useState({
         ram: 4.8,
         gpu: 14,
@@ -110,8 +107,6 @@ export const TerminalHUD = ({ activeSection, onNavigate }: HUDProps) => {
         up: 142,
         down: 12.6
     });
-
-    const profiles: HUDProfile[] = ['INTEGRATED', 'SIDECAR', 'FUSION', 'MINIMAL'];
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -126,11 +121,6 @@ export const TerminalHUD = ({ activeSection, onNavigate }: HUDProps) => {
         return () => clearInterval(interval);
     }, []);
 
-    const cycleProfile = () => {
-        const currentIndex = profiles.indexOf(profile);
-        setProfile(profiles[(currentIndex + 1) % profiles.length]);
-    };
-
     if (isMobile) {
         return (
             <div className="w-full flex flex-col items-center gap-4 py-4 border-b border-border bg-black/20">
@@ -142,67 +132,38 @@ export const TerminalHUD = ({ activeSection, onNavigate }: HUDProps) => {
     }
 
     return (
-        <div className={`w-full flex flex-col border-b border-border bg-black/80 relative transition-all duration-700 ease-in-out z-20 ${profile === 'MINIMAL' ? 'h-0 border-0 opacity-0' : ''}`}>
-            {/* Profile Switcher (Absolute) */}
-            <button
-                onClick={cycleProfile}
-                className="absolute top-2 right-4 z-50 p-1.5 border border-border/20 rounded bg-black/40 hover:bg-white/10 transition-colors group/p"
-                title="Cycle HUD Profile"
-            >
-                <div className="flex gap-1">
-                    {profiles.map(p => (
-                        <div key={p} className={`w-1 h-1 rounded-full ${profile === p ? 'bg-terminal-cyan shadow-[0_0_5px_var(--terminal-cyan)]' : 'bg-white/10'}`} />
-                    ))}
-                </div>
-            </button>
-
-            {/* 1. Header Row (Telemetry + Nav in INTEGRATED, Ticker in others) */}
-            <div className={`w-full flex items-center bg-zinc-950/80 border-b border-border/10 overflow-hidden transition-all duration-500
-        ${profile === 'INTEGRATED' ? 'h-10 px-4 justify-between' : 'h-8 justify-center'}`}>
-
+        <div className="w-full flex flex-col border-b border-border bg-black/80 relative transition-all duration-700 ease-in-out z-20">
+            {/* 1. Integrated Ticker + Navigation Row */}
+            <div className="w-full h-10 flex items-center justify-between px-4 bg-zinc-950/80 border-b border-border/10 overflow-hidden">
                 <div className="flex items-center h-full min-w-0">
                     <TickerItem label="RAM" value={stats.ram} unit="GB" colorClass="text-terminal-magenta" />
                     <TickerItem label="GPU" value={`${stats.gpu}%`} unit="LOAD" colorClass="text-terminal-cyan" />
                     <TickerItem label="INF" value={stats.inference} unit="T/S" colorClass="text-terminal-green" />
                     <TickerItem label="UP" value={stats.up} unit="KB" colorClass="text-terminal-yellow" />
                     <TickerItem label="DOWN" value={stats.down} unit="MB" colorClass="text-terminal-blue" />
-                    {profile !== 'INTEGRATED' && (
-                        <div className="px-4 flex items-center gap-2 border-l border-border/10 h-full">
-                            <div className="w-1.5 h-1.5 rounded-full bg-terminal-green animate-pulse shadow-[0_0_5px_var(--terminal-green)]" />
-                            <span className="text-[8px] text-terminal-green/60 font-mono">STABLE</span>
-                        </div>
-                    )}
+                    <div className="px-4 flex items-center gap-2 border-l border-border/10 h-full">
+                        <div className="w-1.5 h-1.5 rounded-full bg-terminal-green animate-pulse shadow-[0_0_5px_var(--terminal-green)]" />
+                        <span className="text-[8px] text-terminal-green/60 font-mono">SECURE</span>
+                    </div>
                 </div>
 
-                {profile === 'INTEGRATED' && (
-                    <div className="flex-none scale-75 origin-right">
-                        <Navigation activeSection={activeSection} onNavigate={onNavigate} />
-                    </div>
-                )}
+                <div className="flex-none scale-75 origin-right">
+                    <Navigation activeSection={activeSection} onNavigate={onNavigate} />
+                </div>
             </div>
 
-            {/* 2. Middle Row (ASCII + Data Streams) */}
-            <div className={`w-full flex items-center justify-between transition-all duration-500 bg-white/[0.01] backdrop-blur-sm
-        ${profile === 'FUSION' ? 'h-0 py-0 opacity-0 overflow-hidden' : 'px-8 py-2 opacity-100'}`}>
-
-                <div className={`flex-none w-[120px] transition-all duration-700 ${profile === 'SIDECAR' ? 'opacity-100' : 'opacity-40'}`}>
-                    <SideStream type="bin" rows={profile === 'SIDECAR' ? 12 : 5} cols={20} />
+            {/* 2. Main Branding Area (ASCII flanked by Binary) */}
+            <div className="w-full px-8 py-2 flex items-center justify-between gap-6 bg-white/[0.01] backdrop-blur-sm">
+                <div className="flex-none w-[120px] opacity-40">
+                    <SideStream type="bin" rows={5} cols={20} />
                 </div>
 
                 <div className="flex-1 min-w-0">
-                    <LEDAscii scale={profile === 'SIDECAR' ? 1.2 : 0.9} />
+                    <LEDAscii scale={0.9} />
                 </div>
 
-                <div className={`flex-none w-[120px] text-right transition-all duration-700 ${profile === 'SIDECAR' ? 'opacity-100' : 'opacity-40'}`}>
-                    <SideStream type="hex" rows={profile === 'SIDECAR' ? 12 : 5} cols={20} />
-                </div>
-            </div>
-
-            {/* 3. Footer Row (Navigation) */}
-            <div className={`w-full flex items-center justify-center border-t border-border/5 bg-zinc-950/40 transition-all duration-500 overflow-hidden
-        ${profile === 'INTEGRATED' || profile === 'FUSION' ? 'h-0 border-0 opacity-0' : 'h-10 opacity-100'}`}>
-                <div className="scale-90 origin-center opacity-80 hover:opacity-100 transition-opacity">
-                    <Navigation activeSection={activeSection} onNavigate={onNavigate} />
+                <div className="flex-none w-[120px] text-right opacity-40">
+                    <SideStream type="hex" rows={5} cols={20} />
                 </div>
             </div>
         </div>
