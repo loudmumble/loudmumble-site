@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Terminal Green Theme */
+    --background: 220 20% 4%;
+    --foreground: 120 100% 70%;
+    
+    --card: 220 20% 6%;
+    --card-foreground: 120 100% 70%;
+    
+    --popover: 220 20% 6%;
+    --popover-foreground: 120 100% 70%;
+    
+    --primary: 120 100% 50%;
+    --primary-foreground: 220 20% 4%;
+    
+    --secondary: 280 100% 60%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 220 15% 15%;
+    --muted-foreground: 120 40% 50%;
+    
+    --accent: 45 100% 50%;
+    --accent-foreground: 220 20% 4%;
+    
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 120 100% 25%;
+    --input: 220 15% 12%;
+    --ring: 120 100% 50%;
+    
+    --radius: 0.25rem;
+    
+    /* Custom Terminal Colors */
+    --terminal-green: 120 100% 50%;
+    --terminal-bright-green: 120 100% 70%;
+    --terminal-cyan: 180 100% 50%;
+    --terminal-magenta: 300 100% 60%;
+    --terminal-yellow: 45 100% 50%;
+    --terminal-red: 0 100% 60%;
+    --terminal-orange: 30 100% 50%;
+    --terminal-blue: 210 100% 60%;
+    
+    /* Glow effects */
+    --glow-green: 0 0 20px hsl(120 100% 50% / 0.5);
+    --glow-cyan: 0 0 20px hsl(180 100% 50% / 0.5);
+    --glow-magenta: 0 0 20px hsl(300 100% 60% / 0.5);
+    
+    /* Sidebar - dark terminal style */
+    --sidebar-background: 220 20% 3%;
+    --sidebar-foreground: 120 100% 70%;
+    --sidebar-primary: 120 100% 50%;
+    --sidebar-primary-foreground: 220 20% 4%;
+    --sidebar-accent: 220 15% 10%;
+    --sidebar-accent-foreground: 120 100% 70%;
+    --sidebar-border: 120 100% 20%;
+    --sidebar-ring: 120 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-mono antialiased;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.6);
+  }
+  
+  /* Selection */
+  ::selection {
+    background: hsl(var(--primary) / 0.3);
+    color: hsl(var(--foreground));
+  }
+}
+
+@layer components {
+  /* Terminal window styling */
+  .terminal-window {
+    @apply bg-card border border-border rounded-sm overflow-hidden;
+    box-shadow: 
+      0 0 0 1px hsl(var(--border) / 0.5),
+      0 4px 20px hsl(0 0% 0% / 0.5),
+      inset 0 1px 0 hsl(var(--primary) / 0.1);
+  }
+  
+  /* Title bar buttons */
+  .title-bar-button {
+    @apply w-3 h-3 rounded-full transition-all duration-200;
+  }
+  
+  .title-bar-button.close {
+    @apply bg-red-500 hover:bg-red-400;
+    box-shadow: 0 0 6px hsl(0 100% 50% / 0.5);
+  }
+  
+  .title-bar-button.minimize {
+    @apply bg-yellow-500 hover:bg-yellow-400;
+    box-shadow: 0 0 6px hsl(45 100% 50% / 0.5);
+  }
+  
+  .title-bar-button.maximize {
+    @apply bg-green-500 hover:bg-green-400;
+    box-shadow: 0 0 6px hsl(120 100% 50% / 0.5);
+  }
+  
+  /* Text glow effects */
+  .text-glow {
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+  
+  .text-glow-subtle {
+    text-shadow: 0 0 8px hsl(var(--primary) / 0.5);
+  }
+  
+  /* Typing cursor */
+  .cursor-blink {
+    animation: blink 1s step-end infinite;
+  }
+  
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  
+  /* Scanline effect */
+  .scanlines::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 1px,
+      hsl(0 0% 0% / 0.03) 1px,
+      hsl(0 0% 0% / 0.03) 2px
+    );
+    pointer-events: none;
+    z-index: 10;
+  }
+  
+  /* CRT flicker effect (subtle) */
+  .crt-flicker {
+    animation: flicker 0.15s infinite;
+  }
+  
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.98; }
+  }
+  
+  /* Terminal output animation */
+  .terminal-line {
+    animation: typeIn 0.05s ease-out;
+  }
+  
+  @keyframes typeIn {
+    from { 
+      opacity: 0;
+      transform: translateY(2px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Hover highlight for interactive elements */
+  .terminal-interactive {
+    @apply transition-all duration-150;
+  }
+  
+  .terminal-interactive:hover {
+    @apply text-primary;
+    text-shadow: 0 0 8px hsl(var(--primary) / 0.6);
+  }
+  
+  /* ASCII art container */
+  .ascii-art {
+    font-size: clamp(0.35rem, 1.2vw, 0.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  
+  /* Status indicators */
+  .status-ok {
+    color: hsl(var(--terminal-green));
+  }
+  
+  .status-warning {
+    color: hsl(var(--terminal-yellow));
+  }
+  
+  .status-error {
+    color: hsl(var(--terminal-red));
+  }
+  
+  .status-info {
+    color: hsl(var(--terminal-cyan));
+  }
+  
+  /* Progress bar animation */
+  .progress-fill {
+    animation: progressFill 1.5s ease-out forwards;
+  }
+  
+  @keyframes progressFill {
+    from { width: 0%; }
+  }
+  
+  /* Fade in animation for sections */
+  .fade-in-up {
+    animation: fadeInUp 0.4s ease-out forwards;
+    opacity: 0;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Stagger children */
+  .stagger-children > * {
+    opacity: 0;
+    animation: fadeInUp 0.3s ease-out forwards;
+  }
+  
+  .stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
+  .stagger-children > *:nth-child(2) { animation-delay: 0.1s; }
+  .stagger-children > *:nth-child(3) { animation-delay: 0.15s; }
+  .stagger-children > *:nth-child(4) { animation-delay: 0.2s; }
+  .stagger-children > *:nth-child(5) { animation-delay: 0.25s; }
+  .stagger-children > *:nth-child(6) { animation-delay: 0.3s; }
+  .stagger-children > *:nth-child(7) { animation-delay: 0.35s; }
+  .stagger-children > *:nth-child(8) { animation-delay: 0.4s; }
+  .stagger-children > *:nth-child(9) { animation-delay: 0.45s; }
+  .stagger-children > *:nth-child(10) { animation-delay: 0.5s; }
+  .stagger-children > *:nth-child(11) { animation-delay: 0.55s; }
+  .stagger-children > *:nth-child(12) { animation-delay: 0.6s; }
+  
+  /* Border glow */
+  .border-glow {
+    box-shadow: 
+      0 0 0 1px hsl(var(--border)),
+      0 0 15px hsl(var(--primary) / 0.15),
+      inset 0 0 20px hsl(var(--primary) / 0.05);
+  }
+  
+  /* Command highlight */
+  .cmd-highlight {
+    @apply text-primary font-medium;
+    text-shadow: 0 0 6px hsl(var(--primary) / 0.5);
+  }
+  
+  /* Bracket styling */
+  .bracket {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .bracket-content {
+    color: hsl(var(--terminal-yellow));
+  }
+}
+
+@layer utilities {
+  .text-terminal-green { color: hsl(var(--terminal-green)); }
+  .text-terminal-bright-green { color: hsl(var(--terminal-bright-green)); }
+  .text-terminal-cyan { color: hsl(var(--terminal-cyan)); }
+  .text-terminal-magenta { color: hsl(var(--terminal-magenta)); }
+  .text-terminal-yellow { color: hsl(var(--terminal-yellow)); }
+  .text-terminal-red { color: hsl(var(--terminal-red)); }
+  .text-terminal-orange { color: hsl(var(--terminal-orange)); }
+  .text-terminal-blue { color: hsl(var(--terminal-blue)); }
+  
+  .bg-terminal-green { background-color: hsl(var(--terminal-green)); }
+  
+  /* Animation delays */
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+  .delay-500 { animation-delay: 0.5s; }
+}
