@@ -124,7 +124,7 @@ const Index = () => {
         break;
 
       case 'pwd':
-        addOutput('output', <span className="text-foreground font-mono text-sm">/home/loudmumble</span>);
+        addOutput('output', <span className="text-foreground font-mono text-sm">/home/loud</span>);
         break;
 
       case 'date':
@@ -148,7 +148,7 @@ const Index = () => {
       case 'sudo su':
         addOutput('output', (
           <span className="text-terminal-red font-bold font-mono text-sm">
-            [sudo] password for loudmumble: **********<br />
+            [sudo] password for loud: **********<br />
             Wait... you didn't think it would be that easy, did you? ;)
           </span>
         ));
@@ -193,16 +193,16 @@ const Index = () => {
   }, [outputs, scrollToBottom]);
 
   return (
-    <div className="min-h-screen bg-background p-2 md:p-4 lg:p-8 flex flex-col">
+    <div className="h-screen bg-background p-2 md:p-4 flex flex-col overflow-hidden">
       {/* Main terminal container */}
-      <div className="flex-1 max-w-6xl mx-auto w-full flex flex-col">
+      <div className="flex-1 max-w-6xl mx-auto w-full flex flex-col min-h-0">
         <TerminalWindow
           title={`loud@mumble:~${activeSection ? '/' + activeSection : ''}`}
-          className="flex-1 flex flex-col"
+          className="flex-1 min-h-0"
         >
-          <div className="flex flex-col h-full">
+          <div className="flex flex-col h-full min-h-0">
             {/* Header */}
-            <div className="border-b border-border pb-4">
+            <div className="flex-none border-b border-border pb-4">
               {isMobile ? <AsciiHeaderMobile /> : <AsciiHeader />}
               <Navigation activeSection={activeSection} onNavigate={navigateToSection} />
             </div>
@@ -210,7 +210,7 @@ const Index = () => {
             {/* Scrollable content area */}
             <div
               ref={contentRef}
-              className="flex-1 overflow-y-auto py-4 min-h-0 terminal-scrollbar"
+              className="flex-1 overflow-y-auto py-4 terminal-scrollbar"
             >
               {/* Initial boot sequence */}
               {showInit && <SystemInit />}

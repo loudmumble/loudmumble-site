@@ -86,9 +86,9 @@ export const CommandInput = ({ onCommand }: CommandInputProps) => {
   return (
     <div className="relative">
       <form onSubmit={handleSubmit} className="flex items-center gap-0 font-mono text-sm">
-        <span className="text-terminal-cyan">loudmumble</span>
+        <span className="text-terminal-cyan">loud</span>
         <span className="text-muted-foreground">@</span>
-        <span className="text-terminal-magenta">kitty</span>
+        <span className="text-terminal-magenta">mumble</span>
         <span className="text-muted-foreground">:</span>
         <span className="text-terminal-blue">~</span>
         <span className="text-foreground">% </span>

@@ -39,7 +39,7 @@ export const SystemInit = () => {
   }, []);
 
   const authLines: InitLine[] = [
-    { prefix: 'AUTH', prefixColor: 'magenta', content: 'User: loudmumble' },
+    { prefix: 'AUTH', prefixColor: 'magenta', content: 'User: loud' },
     { prefix: 'AUTH', prefixColor: 'magenta', content: `Session ID: ${sessionId}` },
     { prefix: 'AUTH', prefixColor: 'magenta', content: `Login time: ${loginTime}` },
     { prefix: 'AUTH', prefixColor: 'magenta', content: 'Status:', status: 'AUTHENTICATED', statusColor: 'text-terminal-green' },
@@ -57,17 +57,17 @@ export const SystemInit = () => {
           )}
         </TerminalLine>
       ))}
-      
+
       {visibleLines > allLines.length - 1 && <TerminalDivider />}
-      
+
       {visibleLines > allLines.length && (
         <div className="text-center text-foreground/80 text-sm py-2">
           Welcome to the LOUDMUMBLE Security Terminal. Type '<span className="text-primary">help</span>' for commands.
         </div>
       )}
-      
+
       {visibleLines > allLines.length + 1 && <TerminalDivider />}
-      
+
       {visibleLines > allLines.length + 2 && <TerminalPrompt />}
     </div>
   );

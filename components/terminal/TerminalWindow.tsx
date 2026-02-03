@@ -24,8 +24,8 @@ export const TerminalWindow = ({
       </div>
 
       {/* Content area with scanlines */}
-      <div className="relative flex-1 overflow-hidden scanlines">
-        <div className="h-full w-full p-4 md:p-6 overflow-hidden flex flex-col">
+      <div className="relative flex-1 min-h-0 scanlines">
+        <div className="h-full w-full p-4 md:p-6 flex flex-col min-h-0">
           {children}
         </div>
       </div>
