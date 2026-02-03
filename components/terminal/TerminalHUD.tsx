@@ -24,7 +24,7 @@ const SideStream = ({ type = 'hex', rows = 6, cols = 8 }: { type?: 'hex' | 'bin'
     }, [type, rows, cols]);
 
     return (
-        <div className="font-mono text-[8px] leading-tight text-primary/20 select-none">
+        <div className="font-mono text-[9px] leading-tight text-primary/40 select-none text-glow-subtle">
             {data.map((row, i) => (
                 <div key={i}>{row}</div>
             ))}
@@ -147,17 +147,17 @@ export const TerminalHUD = ({ activeSection, onNavigate }: HUDProps) => {
             </div>
 
             {/* 2. Main Branding Area (ASCII flanked by Binary) */}
-            <div className="w-full px-6 py-2 flex items-center justify-between gap-6 bg-black/20">
-                <div className="flex-none w-[80px] opacity-60">
-                    <SideStream type="bin" rows={6} cols={14} />
+            <div className="w-full px-6 py-2 flex items-center justify-between gap-6 bg-white/[0.02] backdrop-blur-sm">
+                <div className="flex-none w-[100px] opacity-80">
+                    <SideStream type="bin" rows={6} cols={18} />
                 </div>
 
                 <div className="flex-1 min-w-0">
                     <LEDAscii />
                 </div>
 
-                <div className="flex-none w-[80px] text-right opacity-60">
-                    <SideStream type="hex" rows={6} cols={14} />
+                <div className="flex-none w-[100px] text-right opacity-80">
+                    <SideStream type="hex" rows={6} cols={18} />
                 </div>
             </div>
 
