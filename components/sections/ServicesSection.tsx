@@ -1,4 +1,4 @@
-import { TerminalLine, TerminalDivider, TerminalPrompt } from '../terminal/TerminalLine';
+import { TerminalLine, TerminalDivider } from '../terminal/TerminalLine';
 import { Crosshair, Network, Bug, Wrench } from 'lucide-react';
 
 interface Service {
@@ -14,33 +14,33 @@ const services: Service[] = [
   {
     icon: Crosshair,
     title: 'Penetration Testing',
-    description: 'Comprehensive security assessments across web applications, network infrastructure, and cloud environments.',
+    description: 'Security assessments targeting web applications, network infrastructure, and internal environments. Finding what scanners miss.',
     tag: 'METHODOLOGIES',
     tagValue: 'BLACK/GREY/WHITE BOX',
     tagColor: 'text-terminal-red',
   },
   {
     icon: Network,
-    title: 'Lateral Movement Analysis',
-    description: 'Adversarial emulation scenarios testing enterprise defenses against advanced persistent threats.',
+    title: 'Active Directory Assessments',
+    description: 'Attack path analysis through AD environments — identifying misconfigurations, weak ACLs, and privilege escalation routes.',
     tag: 'FOCUS',
     tagValue: 'ACTIVE DIRECTORY',
     tagColor: 'text-terminal-cyan',
   },
   {
     icon: Bug,
-    title: 'Malware Analysis',
-    description: 'Static and dynamic reverse engineering of malicious binaries. Extract indicators of compromise and develop countermeasures.',
-    tag: 'EXPERTISE',
-    tagValue: 'REVERSE ENGINEERING',
+    title: 'Vulnerability Research',
+    description: 'Manual testing and validation beyond automated scanning. Web app logic flaws, authentication bypasses, and injection vectors.',
+    tag: 'APPROACH',
+    tagValue: 'MANUAL + AUTOMATED',
     tagColor: 'text-terminal-magenta',
   },
   {
     icon: Wrench,
-    title: 'Custom Tool Development',
-    description: 'Tailored security assessment tools and automation frameworks.',
-    tag: 'PROFICIENCY',
-    tagValue: 'PYTHON/C/C++/Go/ASM',
+    title: 'Security Tooling',
+    description: 'Building custom scripts and tools to automate repetitive assessment tasks and extend existing frameworks.',
+    tag: 'STACK',
+    tagValue: 'PYTHON/C/BASH/PS/JS',
     tagColor: 'text-terminal-yellow',
   },
 ];
@@ -101,7 +101,9 @@ export const ServicesSection = () => {
         Run <span className="text-primary">--help</span> for detailed specifications.
       </div>
 
-      <TerminalPrompt command="./show_projects.sh" />
+      <div className="mt-3 text-xs text-muted-foreground/50 font-mono">
+        try: <span className="text-primary/60">projects</span>
+      </div>
     </div>
   );
 };

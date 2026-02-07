@@ -10,6 +10,7 @@ const commands: Command[] = [
   { name: 'help', description: 'Display this help message' },
   { name: 'about', description: 'View profile and expertise', shortcut: 'F1' },
   { name: 'services', description: 'List available services', shortcut: 'F2' },
+  { name: 'skills', description: 'View skills and certifications' },
   { name: 'projects', description: 'Browse project portfolio', shortcut: 'F3' },
   { name: 'contact', description: 'Get contact information', shortcut: 'F4' },
   { name: 'clear', description: 'Clear the terminal', shortcut: 'Ctrl+L' },

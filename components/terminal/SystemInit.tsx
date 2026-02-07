@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { TerminalLine, TerminalDivider, TerminalPrompt } from './TerminalLine';
+import { TerminalLine, TerminalDivider } from './TerminalLine';
 
 interface InitLine {
   prefix: string;
@@ -68,7 +68,6 @@ export const SystemInit = () => {
 
       {visibleLines > allLines.length + 1 && <TerminalDivider />}
 
-      {visibleLines > allLines.length + 2 && <TerminalPrompt />}
     </div>
   );
 };

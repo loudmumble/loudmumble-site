@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TerminalLine, TerminalDivider, TerminalPrompt } from '../terminal/TerminalLine';
+import { TerminalLine, TerminalDivider } from '../terminal/TerminalLine';
 import { Mail, MessageSquare, Lock, Copy, Check } from 'lucide-react';
 
 interface ContactMethod {
@@ -96,7 +96,9 @@ export const ContactSection = () => {
         </div>
       </div>
 
-      <TerminalPrompt />
+      <div className="mt-3 text-xs text-muted-foreground/50 font-mono">
+        try: <span className="text-primary/60">help</span>
+      </div>
     </div>
   );
 };

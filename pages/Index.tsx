@@ -143,30 +143,6 @@ const Index = () => {
         navigateToSection('skills');
         break;
 
-      case 'sudo':
-      case 'sudo su':
-        addOutput('output', (
-          <span className="text-terminal-red font-bold font-mono text-sm">
-            [sudo] password for loud: **********<br />
-            Wait... you didn't think it would be that easy, did you? ;)
-          </span>
-        ));
-        break;
-
-      case 'exploit':
-      case 'exploit.exe':
-      case './exploit':
-        addOutput('output', (
-          <div className="text-terminal-green font-mono text-sm">
-            [+] Targeting mainframe...<br />
-            [+] Bypassing firewalls...<br />
-            [+] Injecting payload...<br />
-            [!] ACCESS GRANTED.<br />
-            Just kidding. Stay ethical, hacker. 🛡️
-          </div>
-        ));
-        break;
-
       case 'exit':
       case 'logout':
         addOutput('output', <span className="text-terminal-yellow font-mono text-sm">Connection terminated. Refresh to reconnect.</span>);

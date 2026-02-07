@@ -92,22 +92,29 @@ export const CommandInput = ({ onCommand }: CommandInputProps) => {
         <span className="text-muted-foreground">:</span>
         <span className="text-terminal-blue">~</span>
         <span className="text-foreground">% </span>
-        <input
-          ref={inputRef}
-          type="text"
-          value={input}
-          onChange={(e) => {
-            setInput(e.target.value);
-            setShowSuggestions(e.target.value.length > 0);
-          }}
-          onKeyDown={handleKeyDown}
-          onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-          className="flex-1 bg-transparent outline-none text-terminal-bright-green caret-transparent"
-          placeholder="type 'help' for commands..."
-          autoComplete="off"
-          spellCheck={false}
-        />
-        <span className="cursor-blink text-terminal-green -ml-1">▊</span>
+        <div className="flex-1 relative">
+          <input
+            ref={inputRef}
+            type="text"
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+              setShowSuggestions(e.target.value.length > 0);
+            }}
+            onKeyDown={handleKeyDown}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+            className="w-full bg-transparent outline-none text-terminal-bright-green caret-transparent"
+            placeholder="type 'help' for commands..."
+            autoComplete="off"
+            spellCheck={false}
+          />
+          <span
+            className="absolute top-0 left-0 pointer-events-none whitespace-pre"
+            aria-hidden="true"
+          >
+            <span className="invisible">{input}</span><span className="cursor-blink text-terminal-green">▊</span>
+          </span>
+        </div>
       </form>
 
       {/* Autocomplete suggestions */}

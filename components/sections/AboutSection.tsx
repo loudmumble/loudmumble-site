@@ -1,11 +1,11 @@
-import { TerminalLine, TerminalDivider, TerminalPrompt, TerminalOutput } from '../terminal/TerminalLine';
+import { TerminalLine, TerminalDivider, TerminalOutput } from '../terminal/TerminalLine';
 import { Shield, Target, Code, Lock } from 'lucide-react';
 
 const expertise = [
-  { icon: Shield, label: 'Enterprise security assessments & malware reverse engineering' },
-  { icon: Target, label: 'Infrastructure hardening across diverse technology stacks' },
-  { icon: Lock, label: 'Network penetration & lateral movement techniques' },
-  { icon: Code, label: 'Custom tool development for security validation' },
+  { icon: Shield, label: 'Network & web application penetration testing' },
+  { icon: Target, label: 'Active Directory attack path analysis' },
+  { icon: Lock, label: 'Infrastructure security assessments & hardening' },
+  { icon: Code, label: 'Security tooling & automation development' },
 ];
 
 export const AboutSection = () => {
@@ -22,15 +22,15 @@ export const AboutSection = () => {
           <div className="flex items-center gap-2 mb-3">
             <span className="text-terminal-magenta text-lg font-bold">▶</span>
             <h2 className="text-xl md:text-2xl font-bold text-terminal-cyan">
-              Senior Security Consultant
+              Security Researcher & Penetration Tester
             </h2>
           </div>
         </TerminalOutput>
 
         <TerminalOutput className="text-foreground/80 leading-relaxed max-w-3xl">
-          Specializing in adversarial emulation, penetration testing, and advanced persistent
-          threat analysis. Committed to strengthening defensive postures through controlled
-          adversarial simulation and comprehensive threat modeling.
+          Focused on offensive security — breaking into networks, web applications, and Active
+          Directory environments to find what defenders miss. Currently building tools and
+          sharpening methodology through hands-on lab work and real-world engagements.
         </TerminalOutput>
 
         <TerminalDivider />
@@ -65,13 +65,14 @@ export const AboutSection = () => {
             Mission Statement
           </TerminalLine>
           <p className="mt-2 text-sm text-foreground/70 italic">
-            "Strengthening defensive postures through controlled adversarial simulation
-            and comprehensive threat modeling."
+            "The goal isn't to prove something is secure — it's to prove it isn't."
           </p>
         </div>
       </div>
 
-      <TerminalPrompt command="./load_services.sh" />
+      <div className="mt-3 text-xs text-muted-foreground/50 font-mono">
+        try: <span className="text-primary/60">services</span>
+      </div>
     </div>
   );
 };

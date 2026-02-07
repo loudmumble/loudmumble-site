@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { TerminalLine, TerminalDivider, TerminalPrompt } from '../terminal/TerminalLine';
-import { Folder, GitBranch, ExternalLink } from 'lucide-react';
+import { TerminalLine, TerminalDivider } from '../terminal/TerminalLine';
+import { Folder, GitBranch } from 'lucide-react';
 
 interface Project {
   name: string;
@@ -12,27 +12,21 @@ interface Project {
 const projects: Project[] = [
   {
     name: 'hog',
-    description: 'Hand of God (HOG) - A sophisticated C2 framework designed for comprehensive security testing and red team operations. Features modular architecture, encrypted communications, and extensive post-exploitation capabilities.',
-    tech: ['TypeScript', 'Node.js', 'React', 'C++'],
+    description: 'Security testing platform with modular architecture. Web-based interface for managing assessments, tracking findings, and generating reports. Built with session-based auth and PostgreSQL.',
+    tech: ['TypeScript', 'Node.js', 'React', 'PostgreSQL'],
     status: 'development',
   },
   {
-    name: 'c-sync',
-    description: 'Custom file synchronization tool - Multi-threaded server/client in C with encrypted transmission, automated real-time file monitoring and synchronization. Rolling 30-day directory level rollback (btrfs).',
-    tech: ['C', 'Encryption', 'Multi-threading', 'BTRFS'],
+    name: 'sec-automation',
+    description: 'Collection of scripts and tools for automating common pentest workflows — enumeration, credential spraying, and report generation.',
+    tech: ['Python', 'Bash', 'API Integration'],
     status: 'stable',
   },
   {
-    name: 'chackr',
-    description: 'Comprehensive LLM-Attack framework & toolkit for automated testing of large-language model API endpoints.',
-    tech: ['Python', 'ML/AI', 'API Testing', 'Security'],
-    status: 'alpha',
-  },
-  {
-    name: 'fester',
-    description: 'Network Attack Path visualization tool - Graphical analysis highlighting potential initial access points & lateral movement paths, utilizing machine-learning.',
-    tech: ['Go', 'ML', 'Graph Theory', 'Network Security'],
-    status: 'development',
+    name: 'lab-infra',
+    description: 'Home lab environment for practicing AD attacks, hosting vulnerable applications, and testing tooling. Documented build process and configurations.',
+    tech: ['Virtualization', 'Active Directory', 'Networking'],
+    status: 'stable',
   },
 ];
 
@@ -114,14 +108,10 @@ export const ProjectsSection = () => {
                   </div>
 
                   <div className="flex items-center gap-4 ml-8 text-xs">
-                    <button className="flex items-center gap-1 text-muted-foreground hover:text-terminal-green transition-colors">
+                    <div className="flex items-center gap-1 text-muted-foreground">
                       <GitBranch className="w-3 h-3" />
                       <span>main</span>
-                    </button>
-                    <button className="flex items-center gap-1 text-muted-foreground hover:text-terminal-cyan transition-colors">
-                      <ExternalLink className="w-3 h-3" />
-                      <span>view source</span>
-                    </button>
+                    </div>
                   </div>
                 </div>
               )}
@@ -137,7 +127,9 @@ export const ProjectsSection = () => {
         Click to expand details.
       </div>
 
-      <TerminalPrompt command="./contact.sh" />
+      <div className="mt-3 text-xs text-muted-foreground/50 font-mono">
+        try: <span className="text-primary/60">contact</span>
+      </div>
     </div>
   );
 };

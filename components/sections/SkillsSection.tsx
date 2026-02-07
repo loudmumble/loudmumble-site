@@ -1,4 +1,4 @@
-import { TerminalLine, TerminalDivider, TerminalPrompt } from '../terminal/TerminalLine';
+import { TerminalLine, TerminalDivider } from '../terminal/TerminalLine';
 
 interface SkillCategory {
     name: string;
@@ -11,32 +11,31 @@ const skillCategories: SkillCategory[] = [
         name: 'OFFENSIVE SECURITY',
         color: 'text-terminal-red',
         skills: [
-            { name: 'Network Penetration', level: 9, max: 10 },
-            { name: 'Web App Security', level: 8, max: 10 },
-            { name: 'Active Directory', level: 9, max: 10 },
-            { name: 'Reverse Engineering', level: 7, max: 10 },
-            { name: 'Social Engineering', level: 6, max: 10 },
+            { name: 'Network Penetration', level: 7, max: 10 },
+            { name: 'Web App Security', level: 6, max: 10 },
+            { name: 'Active Directory', level: 7, max: 10 },
+            { name: 'OSINT / Recon', level: 7, max: 10 },
+            { name: 'Privilege Escalation', level: 6, max: 10 },
         ]
     },
     {
         name: 'INFRASTRUCTURE',
         color: 'text-terminal-blue',
         skills: [
-            { name: 'Linux/Unix', level: 10, max: 10 },
-            { name: 'Windows Internals', level: 8, max: 10 },
-            { name: 'Docker/K8s', level: 7, max: 10 },
-            { name: 'Cloud (AWS/Azure)', level: 8, max: 10 },
+            { name: 'Linux/Unix', level: 7, max: 10 },
+            { name: 'Windows', level: 6, max: 10 },
+            { name: 'Networking', level: 7, max: 10 },
+            { name: 'Cloud (Azure)', level: 5, max: 10 },
         ]
     },
     {
         name: 'DEVELOPMENT',
         color: 'text-terminal-green',
         skills: [
-            { name: 'Python', level: 9, max: 10 },
-            { name: 'C/C++', level: 7, max: 10 },
-            { name: 'Go', level: 6, max: 10 },
-            { name: 'JavaScript/TypeScript', level: 8, max: 10 },
-            { name: 'Rust', level: 5, max: 10 },
+            { name: 'Python', level: 6, max: 10 },
+            { name: 'JavaScript/TypeScript', level: 6, max: 10 },
+            { name: 'Bash/Scripting', level: 7, max: 10 },
+            { name: 'SQL', level: 5, max: 10 },
         ]
     }
 ];
@@ -88,10 +87,12 @@ export const SkillsSection = () => {
             <TerminalDivider />
 
             <div className="p-3 bg-muted/20 rounded border border-white/10 text-sm">
-                <span className="text-terminal-yellow">certifications_loaded:</span> OSCP, CISSP, OSCE, AWS_Security_Specialty
+                <span className="text-terminal-yellow">certifications_loaded:</span> industry_pentest_certs: 1 | cloud_fundamentals: 4 | active_study: 2
             </div>
 
-            <TerminalPrompt command="./show_projects.sh" />
+            <div className="mt-3 text-xs text-muted-foreground/50 font-mono">
+                try: <span className="text-primary/60">projects</span>
+            </div>
         </div>
     );
 };
