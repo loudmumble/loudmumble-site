@@ -133,22 +133,23 @@ export const TerminalHUD = ({ activeSection, onNavigate }: HUDProps) => {
 
     return (
         <div className="w-full flex flex-col border-b border-border bg-black/80 relative transition-all duration-700 ease-in-out z-20">
-            {/* 1. Integrated Ticker + Navigation Row */}
             <div className="w-full h-10 flex items-center justify-between px-4 bg-zinc-950/80 border-b border-border/10 overflow-hidden">
-                <div className="flex items-center h-full min-w-0">
+                <div className="flex items-center h-full min-w-0 overflow-hidden">
                     <TickerItem label="RAM" value={stats.ram} unit="GB" colorClass="text-terminal-magenta" />
                     <TickerItem label="GPU" value={`${stats.gpu}%`} unit="LOAD" colorClass="text-terminal-cyan" />
                     <TickerItem label="INF" value={stats.inference} unit="T/S" colorClass="text-terminal-green" />
                     <TickerItem label="UP" value={stats.up} unit="KB" colorClass="text-terminal-yellow" />
                     <TickerItem label="DOWN" value={stats.down} unit="MB" colorClass="text-terminal-blue" />
-                    <div className="px-4 flex items-center gap-2 border-l border-border/10 h-full">
+                </div>
+
+                <div className="flex items-center gap-3 flex-none">
+                    <div className="flex items-center gap-1.5">
                         <div className="w-1.5 h-1.5 rounded-full bg-terminal-green animate-pulse shadow-[0_0_5px_var(--terminal-green)]" />
                         <span className="text-[8px] text-terminal-green/60 font-mono">SECURE</span>
                     </div>
-                </div>
-
-                <div className="flex-none scale-75 origin-right">
-                    <Navigation activeSection={activeSection} onNavigate={onNavigate} />
+                    <div className="scale-75 origin-right">
+                        <Navigation activeSection={activeSection} onNavigate={onNavigate} />
+                    </div>
                 </div>
             </div>
 

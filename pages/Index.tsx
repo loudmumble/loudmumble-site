@@ -24,6 +24,7 @@ const Index = () => {
   const [activeSection, setActiveSection] = useState<Section>('init');
   const [outputs, setOutputs] = useState<OutputItem[]>([]);
   const [showInit, setShowInit] = useState(true);
+  const [autoDisplayDone, setAutoDisplayDone] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
 
@@ -161,6 +162,38 @@ const Index = () => {
     (section) => navigateToSection(section as Section),
     clearOutputs
   );
+
+  // Auto-display key sections after boot sequence completes
+  useEffect(() => {
+    if (autoDisplayDone) return;
+    // Boot sequence has 11 lines at 80ms each = ~880ms, plus buffer
+    const bootDuration = 1200;
+    const timer = setTimeout(() => {
+      const sections: { section: Section; component: React.ReactNode }[] = [
+        { section: 'about', component: <AboutSection key={`auto-about-${Date.now()}`} /> },
+        { section: 'services', component: <ServicesSection key={`auto-services-${Date.now()}`} /> },
+        { section: 'projects', component: <ProjectsSection key={`auto-projects-${Date.now()}`} /> },
+      ];
+
+      sections.forEach(({ section, component }, i) => {
+        setTimeout(() => {
+          setOutputs(prev => [
+            ...prev,
+            { id: `auto-cmd-${section}-${Date.now()}`, type: 'command', content: `cd ~/${section}` },
+            { id: `auto-section-${section}-${Date.now()}`, type: 'section', content: component },
+          ]);
+          setActiveSection(section);
+          if (i === sections.length - 1) {
+            setAutoDisplayDone(true);
+          }
+        }, i * 400);
+      });
+
+      setShowInit(false);
+    }, bootDuration);
+
+    return () => clearTimeout(timer);
+  }, [autoDisplayDone]);
 
   // Auto-scroll on new outputs
   useEffect(() => {

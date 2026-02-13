@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { TerminalLine, TerminalDivider } from '../terminal/TerminalLine';
-import { Mail, MessageSquare, Lock, Copy, Check } from 'lucide-react';
+import { Mail, GitBranch, Lock, Copy, Check } from 'lucide-react';
 
 interface ContactMethod {
   icon: typeof Mail;
   label: string;
   value: string;
-  type: 'email' | 'handle' | 'status';
+  href?: string;
+  type: 'email' | 'link';
   color: string;
 }
 
 const contactMethods: ContactMethod[] = [
-  { icon: Mail, label: 'SIGNAL', value: 'contact@loudmumble.com', type: 'email', color: 'text-terminal-cyan' },
-  { icon: MessageSquare, label: 'FREQUENCY', value: '@loudmumble', type: 'handle', color: 'text-terminal-magenta' },
-  { icon: Lock, label: 'CHANNEL', value: 'encrypted', type: 'status', color: 'text-terminal-green' },
+  { icon: Mail, label: 'EMAIL', value: 'contact@loudmumble.com', href: 'mailto:contact@loudmumble.com', type: 'email', color: 'text-terminal-cyan' },
+  { icon: GitBranch, label: 'GITHUB', value: 'github.com/loudmumble', href: 'https://github.com/loudmumble', type: 'link', color: 'text-terminal-green' },
 ];
 
 export const ContactSection = () => {
@@ -38,7 +38,6 @@ export const ContactSection = () => {
           Establish secure communication channel. All transmissions are encrypted.
         </div>
 
-        {/* Contact methods */}
         <div className="space-y-3">
           {contactMethods.map((method, index) => (
             <div
@@ -53,24 +52,33 @@ export const ContactSection = () => {
                 <div className="text-xs text-muted-foreground mb-0.5">
                   [{method.label}]
                 </div>
-                <div className={`font-mono font-medium ${method.color}`}>
-                  {method.value}
-                </div>
+                {method.href ? (
+                  <a
+                    href={method.href}
+                    target={method.type === 'link' ? '_blank' : undefined}
+                    rel={method.type === 'link' ? 'noopener noreferrer' : undefined}
+                    className={`font-mono font-medium ${method.color} hover:underline`}
+                  >
+                    {method.value}
+                  </a>
+                ) : (
+                  <div className={`font-mono font-medium ${method.color}`}>
+                    {method.value}
+                  </div>
+                )}
               </div>
 
-              {method.type !== 'status' && (
-                <button
-                  onClick={() => handleCopy(method.value, index)}
-                  className="p-2 text-muted-foreground hover:text-primary transition-colors"
-                  title="Copy to clipboard"
-                >
-                  {copiedIndex === index ? (
-                    <Check className="w-4 h-4 text-terminal-green" />
-                  ) : (
-                    <Copy className="w-4 h-4" />
-                  )}
-                </button>
-              )}
+              <button
+                onClick={() => handleCopy(method.value, index)}
+                className="p-2 text-muted-foreground hover:text-primary transition-colors"
+                title="Copy to clipboard"
+              >
+                {copiedIndex === index ? (
+                  <Check className="w-4 h-4 text-terminal-green" />
+                ) : (
+                  <Copy className="w-4 h-4" />
+                )}
+              </button>
             </div>
           ))}
         </div>

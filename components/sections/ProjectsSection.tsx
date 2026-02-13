@@ -1,32 +1,41 @@
 import { useState } from 'react';
 import { TerminalLine, TerminalDivider } from '../terminal/TerminalLine';
-import { Folder, GitBranch } from 'lucide-react';
+import { Folder, GitBranch, ExternalLink } from 'lucide-react';
 
 interface Project {
   name: string;
   description: string;
   tech: string[];
   status: 'stable' | 'alpha' | 'development';
+  github?: string;
 }
 
 const projects: Project[] = [
   {
     name: 'hog',
-    description: 'Security testing platform with modular architecture. Web-based interface for managing assessments, tracking findings, and generating reports. Built with session-based auth and PostgreSQL.',
-    tech: ['TypeScript', 'Node.js', 'React', 'PostgreSQL'],
-    status: 'development',
+    description: 'Hand of God — Modular security testing & C2 framework. 27+ integrated modules covering recon, exploitation, AD attacks, reporting, and real-time multi-operator collaboration. Web UI with session-based auth, PostgreSQL-backed, Socket.IO for live updates. 269K CVEs indexed, 11K arsenal items, 1,769 atomic tests.',
+    tech: ['TypeScript', 'React', 'Node.js', 'PostgreSQL', 'Socket.IO'],
+    status: 'alpha',
   },
   {
     name: 'sec-automation',
-    description: 'Collection of scripts and tools for automating common pentest workflows — enumeration, credential spraying, and report generation.',
-    tech: ['Python', 'Bash', 'API Integration'],
+    description: '50+ scripts for automated reconnaissance, credential analysis, and reporting workflows. Integrates with Nmap, BloodHound, CrackMapExec, and custom APIs. Handles everything from subdomain enum to hash cracking pipelines.',
+    tech: ['Python', 'Bash', 'Nmap', 'BloodHound'],
     status: 'stable',
+    github: 'https://github.com/loudmumble',
   },
   {
     name: 'lab-infra',
-    description: 'Home lab environment for practicing AD attacks, hosting vulnerable applications, and testing tooling. Documented build process and configurations.',
-    tech: ['Virtualization', 'Active Directory', 'Networking'],
+    description: 'Self-hosted offensive security lab — Active Directory forest with cross-forest trust relationships, segmented VLANs, vulnerable web applications, and C2 infrastructure. Proxmox hypervisor, pfSense routing, Windows Server 2019/2022 DCs, Kali attack nodes.',
+    tech: ['Proxmox', 'pfSense', 'Active Directory', 'Windows Server', 'Kali'],
     status: 'stable',
+  },
+  {
+    name: 'loudmumble.com',
+    description: 'This terminal. Interactive CLI portfolio with system HUD, CRT scanline effects, animated ASCII branding, and live data streams. You\'re looking at it right now.',
+    tech: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
+    status: 'stable',
+    github: 'https://github.com/loudmumble/loudmumble-site',
   },
 ];
 
@@ -112,6 +121,17 @@ export const ProjectsSection = () => {
                       <GitBranch className="w-3 h-3" />
                       <span>main</span>
                     </div>
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-terminal-cyan hover:text-primary transition-colors"
+                      >
+                        <ExternalLink className="w-3 h-3" />
+                        <span>source</span>
+                      </a>
+                    )}
                   </div>
                 </div>
               )}

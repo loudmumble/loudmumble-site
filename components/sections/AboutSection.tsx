@@ -1,11 +1,11 @@
 import { TerminalLine, TerminalDivider, TerminalOutput } from '../terminal/TerminalLine';
-import { Shield, Target, Code, Lock } from 'lucide-react';
+import { Crosshair, Target, Code, Cpu } from 'lucide-react';
 
 const expertise = [
-  { icon: Shield, label: 'Network & web application penetration testing' },
-  { icon: Target, label: 'Active Directory attack path analysis' },
-  { icon: Lock, label: 'Infrastructure security assessments & hardening' },
-  { icon: Code, label: 'Security tooling & automation development' },
+  { icon: Crosshair, label: 'Network & web app penetration testing — OWASP/PTES methodology, manual exploitation' },
+  { icon: Target, label: 'Active Directory attack paths — Kerberoasting, DACL abuse, forest trust exploitation' },
+  { icon: Cpu, label: 'Infrastructure hardening — Linux/Windows, firewall audits, segmentation validation' },
+  { icon: Code, label: 'Security tooling — custom frameworks, automation pipelines, CI/CD security integration' },
 ];
 
 export const AboutSection = () => {
@@ -22,15 +22,15 @@ export const AboutSection = () => {
           <div className="flex items-center gap-2 mb-3">
             <span className="text-terminal-magenta text-lg font-bold">▶</span>
             <h2 className="text-xl md:text-2xl font-bold text-terminal-cyan">
-              Security Researcher & Penetration Tester
+              Offensive Security Researcher & Builder
             </h2>
           </div>
         </TerminalOutput>
 
         <TerminalOutput className="text-foreground/80 leading-relaxed max-w-3xl">
-          Focused on offensive security — breaking into networks, web applications, and Active
-          Directory environments to find what defenders miss. Currently building tools and
-          sharpening methodology through hands-on lab work and real-world engagements.
+          I break into networks, web applications, and Active Directory environments for a living —
+          then build the tools to do it faster next time. Automation-first approach to offensive
+          security, with a focus on what scanners miss and defenders overlook.
         </TerminalOutput>
 
         <TerminalDivider />
@@ -59,6 +59,17 @@ export const AboutSection = () => {
         </div>
 
         <TerminalDivider />
+
+        <div className="p-3 bg-terminal-cyan/5 border border-terminal-cyan/20 rounded">
+          <TerminalLine prefix="FOCUS" prefixColor="cyan">
+            Current workstreams:
+          </TerminalLine>
+          <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-foreground/70">
+            <span>• Building offensive security frameworks</span>
+            <span>• AD attack automation</span>
+            <span>• CVE research in self-hosted OSS</span>
+          </div>
+        </div>
 
         <div className="bg-primary/5 border border-border p-4 rounded">
           <TerminalLine prefix="NOTE" prefixColor="magenta">
