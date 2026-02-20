@@ -22,15 +22,14 @@ export const AboutSection = () => {
           <div className="flex items-center gap-2 mb-3">
             <span className="text-terminal-magenta text-lg font-bold">▶</span>
             <h2 className="text-xl md:text-2xl font-bold text-terminal-cyan">
-              Offensive Security Researcher & Builder
+              Security tools and adversary research.
             </h2>
           </div>
         </TerminalOutput>
 
         <TerminalOutput className="text-foreground/80 leading-relaxed max-w-3xl">
-          I break into networks, web applications, and Active Directory environments for a living —
-          then build the tools to do it faster next time. Automation-first approach to offensive
-          security, with a focus on what scanners miss and defenders overlook.
+          Offensive security — network and AD pentesting, vulnerability research,
+          detection engineering. The tools below are what came out of that work.
         </TerminalOutput>
 
         <TerminalDivider />
@@ -72,11 +71,11 @@ export const AboutSection = () => {
         </div>
 
         <div className="bg-primary/5 border border-border p-4 rounded">
-          <TerminalLine prefix="NOTE" prefixColor="magenta">
-            Mission Statement
+          <TerminalLine prefix="FOCUS" prefixColor="magenta">
+            Current research
           </TerminalLine>
-          <p className="mt-2 text-sm text-foreground/70 italic">
-            "The goal isn't to prove something is secure — it's to prove it isn't."
+          <p className="mt-2 text-sm text-foreground/70">
+            Agentic threat detection — catching LLM-driven attacks through behavioral analysis and cadence fingerprinting.
           </p>
         </div>
       </div>
