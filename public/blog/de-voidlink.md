@@ -34,7 +34,7 @@ The published VoidLink research describes a multi-component architecture. DE-Voi
 
 **C2 Server (Go):** The command-and-control server is Go. It handles operator sessions, task queuing, and the HTTP camouflage layer. Go's standard library makes it easy to serve convincing fake web content while multiplexing actual C2 traffic underneath.
 
-**Arsenal (C):** Capability modules are C. These are the "tools" the beacon can load and execute — things like process enumeration, file staging, and the memfd-based execution chain. Keeping these in C gives maximum control over the syscall surface, which matters for both evasion fidelity and detection research.
+**Arsenal (C):** Capability modules are C. These are the "tools" the beacon can load and execute — system info collection (hostname, kernel, architecture, UID), credential path enumeration, and persistence vector checking. Keeping these in C gives maximum control over the syscall surface, which matters for both evasion fidelity and detection research.
 
 The three-language architecture isn't accidental. It reflects how real tooling gets built when different components have different requirements: the beacon needs to be small and portable, the server needs to be maintainable and concurrent, and the capability modules need to be close to the metal.
 
@@ -57,7 +57,7 @@ write(1)
 
 Walk through what this means operationally. The `fork` creates a child process for the implant work. `prctl` is called to set process attributes — in VoidLink's case, this is used for process name manipulation to blend into process listings. `socket` and `connect` establish the C2 channel. `recvfrom` pulls down the payload. `memfd_create` creates an anonymous in-memory file descriptor — no file touches disk. `write` stages the payload into that memory region. `execveat` (when present) executes from the memory descriptor.
 
-That sequence is a fingerprint. Any process that hits `memfd_create` followed by `write` followed by `execveat` in close temporal proximity, after establishing an outbound connection, is doing something worth looking at. This is the basis for AEGIS-003 and AEGIS-004 in the published rule set.
+That sequence is a fingerprint. Any process that hits `memfd_create` followed by `write` followed by `execveat` in close temporal proximity, after establishing an outbound connection, is doing something worth looking at. The published Sigma rules in the DE-VoidLink repo target this syscall chain directly.
 
 One important note on DE-VoidLink's safety controls: the `execveat` step is disabled by default. The simulation stages a benign payload into the memfd region but does not execute it. More on safety controls below.
 
@@ -77,7 +77,7 @@ DE-VoidLink implements five camouflage modes:
 
 **HTML mode:** Full page responses. Higher overhead but the most convincing cover for environments with web proxies doing content inspection.
 
-**JSON mode:** API-style traffic. This is the most flexible mode for environments where REST API calls are common and inspected less carefully than page loads.
+**API mode:** API-style JSON traffic. This is the most flexible mode for environments where REST API calls are common and inspected less carefully than page loads.
 
 The mode selection matters for detection. Each mode produces different traffic patterns, different response sizes, and different timing characteristics. A detection approach that only looks at one mode will miss the others. Aegis's cadence analysis operates at the timing layer, which is mode-agnostic — the inter-arrival time patterns are similar regardless of what the HTTP wrapper looks like.
 
@@ -92,14 +92,12 @@ Underneath the HTTP camouflage layer sits VoidStream, the actual C2 protocol. Th
 
 ```
 [4 bytes: frame length]
-[16 bytes: GCM nonce]
-[4 bytes: message type]
-[4 bytes: session ID]
-[N bytes: encrypted payload]
+[12 bytes: GCM nonce]
+[N bytes: ciphertext]
 [16 bytes: GCM auth tag]
 ```
 
-The nonce is generated fresh per frame. Session IDs are assigned at check-in and used to correlate beacon traffic across multiple connections. Message types cover the standard C2 operations: check-in, task request, task response, heartbeat, and session close.
+The wire format is deliberately minimal — just a length-prefixed authenticated encryption envelope. The nonce is generated fresh per frame from `crypto/rand`. Session IDs and message types live at the HTTP layer, not in the wire format: session IDs are assigned at check-in and passed via header, while message types are implicit in the endpoint path (handshake, sync, heartbeat, kill).
 
 Nothing revolutionary here — AES-GCM is the right choice for this use case, and the frame structure is clean. What's interesting from a detection standpoint is the frame size distribution. Heartbeats produce small, consistent frames. Task responses vary based on output size. That size distribution, combined with timing, creates a behavioral signature that's hard to fully suppress.
 
@@ -115,7 +113,7 @@ This is where VoidLink gets genuinely interesting from a detection research pers
 
 In 2026, LLM API traffic is everywhere. An endpoint making periodic HTTPS requests with timing that matches GPT-4 token generation is... normal. That's the point.
 
-For Aegis, this was the hardest test case. The cadence analysis module had to learn to distinguish genuine LLM API traffic from VoidLink's mimicry. The distinguishing features turn out to be subtle: genuine LLM traffic has session-level patterns (prompt-response pairs with variable prompt lengths), while VoidLink's mimicry produces a more stationary distribution without the session structure. AEGIS-006 and AEGIS-007 target this specifically.
+For Aegis, this was the hardest test case. The cadence analysis module had to learn to distinguish genuine LLM API traffic from VoidLink's mimicry. The distinguishing features turn out to be subtle: genuine LLM traffic has session-level patterns (prompt-response pairs with variable prompt lengths), while VoidLink's mimicry produces a more stationary distribution without the session structure. AEGIS-006 catches the LLM timing fingerprint; the session-structure distinction is the active area of research.
 
 ---
 
@@ -131,9 +129,9 @@ Building adversary simulation tooling responsibly means the safety controls aren
 
 **Localhost binding:** The C2 server binds to localhost only. No external connectivity by default. Connecting to an external C2 requires explicit configuration changes.
 
-**No execveat:** The final stage of the syscall chain — actually executing the staged payload — is disabled. The simulation stages a benign payload (a simple "hello world" binary) into the memfd region but does not call execveat. This preserves the behavioral fingerprint for detection purposes without creating actual code execution risk.
+**No execveat:** The final stage of the syscall chain — actually executing the staged payload — is disabled. The simulation stages a benign marker string (`PHANTOM_LINK_SIMULATED_PAYLOAD`) into the memfd region but does not call execveat. This preserves the behavioral fingerprint for detection purposes without creating actual code execution risk.
 
-**Benign payloads only:** The arsenal modules in the published version perform only read-only operations: process listing, environment enumeration, and similar. No privilege escalation, no persistence mechanisms, no lateral movement.
+**Benign payloads only:** The arsenal modules in the published version perform only read-only operations: system info collection, credential path existence checks (not reading contents), and persistence vector writeability checks (not writing). No privilege escalation, no persistence installation, no lateral movement.
 
 These aren't suggestions. They're enforced in the code. The goal is a tool that's useful for detection research and genuinely difficult to misuse.
 
@@ -141,19 +139,21 @@ These aren't suggestions. They're enforced in the code. The goal is a tool that'
 
 ## Testing Aegis: What We Found
 
-Aegis is a behavioral IDS built around two core detection approaches: cadence analysis (inter-arrival time fingerprinting of network connections) and syscall sequence analysis (tracking process behavior through kernel call patterns).
+Aegis is a behavioral IDS built around cadence analysis — inter-arrival time fingerprinting of network connections. Rather than matching signatures, it profiles the timing patterns of network flows and classifies them against known behavioral models.
 
-Running DE-VoidLink against Aegis produced seven detection rules, AEGIS-001 through AEGIS-007:
+Running DE-VoidLink against Aegis produced nine detection rules, AEGIS-001 through AEGIS-009. The first seven are general agentic-traffic detectors; the last two target C2 beaconing specifically:
 
-- **AEGIS-001:** Process name manipulation via prctl following fork. Catches the early initialization sequence.
-- **AEGIS-002:** Outbound connection from a process with manipulated name. Combines AEGIS-001 context with network behavior.
-- **AEGIS-003:** memfd_create following network receive. The in-memory staging pattern.
-- **AEGIS-004:** write to memfd following network receive. Payload staging confirmation.
-- **AEGIS-005:** IAT fingerprint matching voidlink beaconing distribution. Catches the risk-based timing mode.
-- **AEGIS-006:** IAT fingerprint matching ai-cadence distribution without session structure. The LLM mimicry detector.
-- **AEGIS-007:** HTTP response size distribution anomaly correlated with IAT pattern. Combines content and timing signals.
+- **AEGIS-001:** LLM Streaming Cadence Detected. Flow exhibits inter-arrival timing consistent with LLM token streaming (15-80ms mean IAT, low variance). Flags AI-generated traffic — benign or malicious.
+- **AEGIS-002:** High-Confidence Agent Traffic. Strong model fingerprint match with >80% confidence. The flow looks like a specific known LLM.
+- **AEGIS-003:** Human-to-Agent Transition. Session shifts from human-like timing to agent-like timing mid-flow. Characteristic of an attacker handing off to an AI agent after initial access.
+- **AEGIS-004:** Sustained Agent Session. Agent-classified flow active for 120+ seconds with 200+ packets. Suggests autonomous operation — recon, lateral movement, or data collection running unattended.
+- **AEGIS-005:** Perfectly Regular Traffic. Near-zero timing variance (regularity >0.9, CV <0.1). No human produces this pattern. Strong indicator of scripted or automated activity.
+- **AEGIS-006:** Known LLM Model in Encrypted Traffic. Inter-token timing fingerprint matches a known LLM model even through encryption. The model may be driving commands on the target.
+- **AEGIS-007:** High-Volume Agent Data Transfer. Agent-classified flow exceeding 1MB transferred. Potential exfiltration or bulk collection.
+- **AEGIS-008:** C2 Beaconing Pattern. Periodic timing in the 500ms-10s range with low jitter (CV <0.30) and high regularity (>0.70). This is the classic C2 beacon signature — the one VoidLink's risk-based mode produces.
+- **AEGIS-009:** Periodic Network Beaconing. Strong autocorrelation at second-scale intervals combined with beaconing-range timing. High-confidence C2 indicator that catches VoidLink even when individual intervals vary.
 
-The cadence analysis approach held up well against voidlink mode. The ai-cadence mode was harder — AEGIS-006 required training on genuine LLM API traffic to establish a baseline, and the false positive rate was higher than I'd like before tuning. That's an honest result. The mimicry is good.
+The cadence analysis approach held up well against voidlink mode — AEGIS-008 and AEGIS-009 catch the risk-based beaconing reliably. The ai-cadence mode was harder. AEGIS-006 flags the LLM timing fingerprint, but distinguishing genuine LLM API traffic from VoidLink's mimicry requires looking at session-level structure: genuine traffic has prompt-response pairs with variable prompt lengths, while VoidLink's mimicry produces a more stationary distribution. That distinction is harder to codify as a rule, and the false positive rate was higher than I'd like before tuning. That's an honest result. The mimicry is good.
 
 ---
 
@@ -189,7 +189,7 @@ A few things worth noting from this project:
 
 A few directions I'm planning to explore:
 
-The ai-cadence detection in AEGIS-006 needs more work. The current approach relies on statistical comparison against a baseline distribution, which requires collecting that baseline. I want to explore whether the session-structure difference can be detected without a pre-trained baseline, which would make the rule more deployable in new environments.
+The ai-cadence detection needs more work. AEGIS-006 catches the LLM timing fingerprint, but distinguishing mimicry from genuine LLM traffic at the session-structure level isn't codified as a rule yet. I want to explore whether the prompt-response pattern difference can be detected without a pre-trained baseline, which would make the detection more deployable in new environments.
 
 The YARA rules cover the current DE-VoidLink binary characteristics. As the project evolves, I want to develop more abstract rules that target the behavioral patterns rather than specific binary artifacts — rules that would catch variants, not just the current build.
 
