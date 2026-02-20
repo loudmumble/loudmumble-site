@@ -12,30 +12,66 @@ interface Project {
 
 const projects: Project[] = [
   {
+    name: 'de-voidlink',
+    description: 'True-to-form VoidLink adversary simulation framework for detection engineering research. Zig beacon with direct syscall fingerprinting, Go C2 server with AES-256-GCM encryption and 5 HTTP camouflage modes, C arsenal plugins. Published 10 YARA, 7 Sigma, and Suricata detection rules. Built to validate Aegis IDS.',
+    tech: ['Zig', 'Go', 'C', 'YARA', 'Sigma', 'Suricata'],
+    status: 'stable',
+    github: 'https://github.com/loudmumble/de-voidlink',
+  },
+  {
+    name: 'aegis',
+    description: 'Behavioral IDS for agentic AI attacks. Detects LLM-driven threats via cadence analysis and inter-arrival time fingerprinting. Network flow tracking, 9 known LLM model profiles, human-to-agent transition detection, 7 detection rules (AEGIS-001 to AEGIS-007). 125 tests passing.',
+    tech: ['Python', 'eBPF', 'NumPy', 'scapy', 'Ollama'],
+    status: 'stable',
+    github: 'https://github.com/loudmumble/aegis',
+  },
+  {
+    name: 'ebpf-sensors',
+    description: '7 eBPF kernel sensors providing process, network, file, and syscall telemetry. Shared framework consumed by Sentinel, Malscope, and Aegis. Guest VM agent for sandbox monitoring. 290 tests passing.',
+    tech: ['Python', 'eBPF', 'BCC', 'libbpf'],
+    status: 'stable',
+    github: 'https://github.com/loudmumble/ebpf-sensors',
+  },
+  {
+    name: 'phantom',
+    description: 'LLM-powered vulnerability discovery engine. Multi-language AST parsing via tree-sitter, 4-phase scan pipeline (Parse > Surface Map > LLM Analysis > Report), wave-based scanning with configurable limits. 117 tests passing.',
+    tech: ['Python', 'Ollama', 'tree-sitter', 'Click', 'Rich'],
+    status: 'stable',
+    github: 'https://github.com/loudmumble/phantom',
+  },
+  {
+    name: 'burrow',
+    description: 'Post-exploitation network pivoting tool. Multi-transport: Raw TCP/TLS, WebSocket, DNS tunnel, ICMP tunnel. Socat-style relay, SOCKS5 session routing. Cross-compiled for 5 platforms. 168 tests, 15 packages.',
+    tech: ['Go', 'WebSocket', 'gvisor', 'SOCKS5', 'ChaCha20-Poly1305'],
+    status: 'stable',
+    github: 'https://github.com/loudmumble/burrow',
+  },
+  {
+    name: 'dossier',
+    description: 'AI-powered OSINT intelligence platform. Identity resolution, infrastructure mapping, breach correlation, social graph analysis. Agentic correlator with 5 recon modules. 467 tests passing.',
+    tech: ['Python', 'FastAPI', 'Ollama', 'Neo4j', 'Redis'],
+    status: 'stable',
+    github: 'https://github.com/loudmumble/dossier',
+  },
+  {
+    name: 'malscope',
+    description: 'Agentic malware analysis sandbox. Static analysis (entropy, strings, PE imports, YARA), LLM-driven triage with MITRE ATT&CK mapping, FastAPI web UI with drag-drop upload. 99 tests passing.',
+    tech: ['Python', 'FastAPI', 'Ollama', 'YARA', 'pefile'],
+    status: 'stable',
+    github: 'https://github.com/loudmumble/malscope',
+  },
+  {
+    name: 'aisec',
+    description: 'AI security testing toolkit. 154 payloads across 18 categories — prompt injection, jailbreaking, agent hijacking, data exfiltration. Supports Ollama, OpenAI, and Anthropic connectors. 55 tests passing.',
+    tech: ['Python', 'Ollama', 'OpenAI', 'Anthropic'],
+    status: 'stable',
+    github: 'https://github.com/loudmumble/aisec',
+  },
+  {
     name: 'hog',
-    description: 'Hand of God — Modular security testing & C2 framework. 27+ integrated modules covering recon, exploitation, AD attacks, reporting, and real-time multi-operator collaboration. Web UI with session-based auth, PostgreSQL-backed, Socket.IO for live updates. 269K CVEs indexed, 11K arsenal items, 1,769 atomic tests.',
+    description: 'Hand of God — Modular security testing & C2 framework. 27 phases, Burp Suite parity proxy, AI Red Team suite, 1,769 atomic tests. Operator-driven workflow unifying recon through reporting. Private repo — available on request.',
     tech: ['TypeScript', 'React', 'Node.js', 'PostgreSQL', 'Socket.IO'],
     status: 'alpha',
-  },
-  {
-    name: 'sec-automation',
-    description: '50+ scripts for automated reconnaissance, credential analysis, and reporting workflows. Integrates with Nmap, BloodHound, CrackMapExec, and custom APIs. Handles everything from subdomain enum to hash cracking pipelines.',
-    tech: ['Python', 'Bash', 'Nmap', 'BloodHound'],
-    status: 'stable',
-    github: 'https://github.com/loudmumble',
-  },
-  {
-    name: 'lab-infra',
-    description: 'Self-hosted offensive security lab — Active Directory forest with cross-forest trust relationships, segmented VLANs, vulnerable web applications, and C2 infrastructure. Proxmox hypervisor, pfSense routing, Windows Server 2019/2022 DCs, Kali attack nodes.',
-    tech: ['Proxmox', 'pfSense', 'Active Directory', 'Windows Server', 'Kali'],
-    status: 'stable',
-  },
-  {
-    name: 'loudmumble.com',
-    description: 'This terminal. Interactive CLI portfolio with system HUD, CRT scanline effects, animated ASCII branding, and live data streams. You\'re looking at it right now.',
-    tech: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
-    status: 'stable',
-    github: 'https://github.com/loudmumble/loudmumble-site',
   },
 ];
 
@@ -144,11 +180,12 @@ export const ProjectsSection = () => {
 
       <div className="text-xs text-muted-foreground">
         <span className="text-terminal-green">{projects.length}</span> projects indexed.
-        Click to expand details.
+        <span className="text-terminal-yellow ml-2">1,500+ tests across all repos.</span>
+        {' '}Click to expand details.
       </div>
 
       <div className="mt-3 text-xs text-muted-foreground/50 font-mono">
-        try: <span className="text-primary/60">contact</span>
+        try: <span className="text-primary/60">contact</span> | read: <a href="https://loudmumble.com/blog/de-voidlink.md" target="_blank" rel="noopener noreferrer" className="text-terminal-cyan hover:text-primary transition-colors">blog/de-voidlink</a>
       </div>
     </div>
   );
