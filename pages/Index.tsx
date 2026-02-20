@@ -144,6 +144,28 @@ const Index = () => {
         navigateToSection('skills');
         break;
 
+      case 'blog':
+      case 'cat blog':
+      case 'read blog':
+        window.location.hash = '/blog/de-voidlink';
+        break;
+
+      case 'github':
+        window.open('https://github.com/loudmumble', '_blank', 'noopener,noreferrer');
+        addOutput('output', <span className="text-terminal-cyan font-mono text-sm">Opening github.com/loudmumble...</span>);
+        break;
+
+      case 'enterprise':
+        addOutput('output', (
+          <div className="font-mono text-sm space-y-1">
+            <div className="text-terminal-yellow">[ENTERPRISE]</div>
+            <div className="text-foreground">Advanced C2 detection &amp; behavioral analysis platform.</div>
+            <div className="text-foreground">Available for enterprise deployment and managed detection workflows.</div>
+            <div className="text-muted-foreground mt-1">Inquire: <span className="text-terminal-cyan">dev@loudmumble.com</span></div>
+          </div>
+        ));
+        break;
+
       case 'exit':
       case 'logout':
         addOutput('output', <span className="text-terminal-yellow font-mono text-sm">Connection terminated. Refresh to reconnect.</span>);
@@ -171,8 +193,6 @@ const Index = () => {
     const timer = setTimeout(() => {
       const sections: { section: Section; component: React.ReactNode }[] = [
         { section: 'about', component: <AboutSection key={`auto-about-${Date.now()}`} /> },
-        { section: 'services', component: <ServicesSection key={`auto-services-${Date.now()}`} /> },
-        { section: 'projects', component: <ProjectsSection key={`auto-projects-${Date.now()}`} /> },
       ];
 
       sections.forEach(({ section, component }, i) => {
@@ -257,7 +277,7 @@ const Index = () => {
         <footer className="text-center py-4 text-xs text-muted-foreground">
           <span className="text-terminal-green">●</span> SECURE CONNECTION ESTABLISHED
           <span className="mx-2">|</span>
-          © {new Date().getFullYear()} LOUDMUMBLE
+          © {new Date().getFullYear()} loudmumble
           <span className="mx-2">|</span>
           <span className="text-terminal-cyan">v4.2.0</span>
         </footer>

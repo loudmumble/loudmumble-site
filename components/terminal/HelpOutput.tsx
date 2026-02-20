@@ -12,7 +12,10 @@ const commands: Command[] = [
   { name: 'services', description: 'List available services', shortcut: 'F2' },
   { name: 'skills', description: 'View skills and certifications' },
   { name: 'projects', description: 'Browse project portfolio', shortcut: 'F3' },
+  { name: 'blog', description: 'Read the latest research writeup', shortcut: 'F5' },
   { name: 'contact', description: 'Get contact information', shortcut: 'F4' },
+  { name: 'enterprise', description: 'Enterprise detection capabilities' },
+  { name: 'github', description: 'Open github.com/loudmumble' },
   { name: 'clear', description: 'Clear the terminal', shortcut: 'Ctrl+L' },
   { name: 'whoami', description: 'Display current user info' },
   { name: 'neofetch', description: 'System information display' },
@@ -22,7 +25,7 @@ export const HelpOutput = () => {
   return (
     <div className="font-mono text-sm space-y-2">
       <div className="text-terminal-yellow font-bold">
-        LOUDMUMBLE Security Terminal - Command Reference
+        loudmumble security terminal - command reference
       </div>
 
       <TerminalDivider />

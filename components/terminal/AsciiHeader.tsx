@@ -30,7 +30,7 @@ export const AsciiHeaderMobile = () => {
           textShadow: '0 0 10px hsl(300 100% 60% / 0.6), 0 0 20px hsl(300 100% 60% / 0.3)'
         }}
       >
-        LOUDMUMBLE
+        loudmumble
       </h1>
     </div>
   );

@@ -7,6 +7,7 @@ interface Project {
   description: string;
   tech: string[];
   status: 'stable' | 'alpha' | 'development';
+  wave?: 1 | 2 | 3;
   github?: string;
 }
 
@@ -16,6 +17,7 @@ const projects: Project[] = [
     description: 'True-to-form VoidLink adversary simulation framework for detection engineering research. Zig beacon with direct syscall fingerprinting, Go C2 server with AES-256-GCM encryption and 5 HTTP camouflage modes, C arsenal plugins. Published 10 YARA, 7 Sigma, and Suricata detection rules. Built to validate Aegis IDS.',
     tech: ['Zig', 'Go', 'C', 'YARA', 'Sigma', 'Suricata'],
     status: 'stable',
+    wave: 1,
     github: 'https://github.com/loudmumble/de-voidlink',
   },
   {
@@ -23,6 +25,7 @@ const projects: Project[] = [
     description: 'Behavioral IDS for agentic AI attacks. Detects LLM-driven threats via cadence analysis and inter-arrival time fingerprinting. Network flow tracking, 9 known LLM model profiles, human-to-agent transition detection, 7 detection rules (AEGIS-001 to AEGIS-007). 125 tests passing.',
     tech: ['Python', 'eBPF', 'NumPy', 'scapy', 'Ollama'],
     status: 'stable',
+    wave: 1,
     github: 'https://github.com/loudmumble/aegis',
   },
   {
@@ -30,6 +33,7 @@ const projects: Project[] = [
     description: '7 eBPF kernel sensors providing process, network, file, and syscall telemetry. Shared framework consumed by Sentinel, Malscope, and Aegis. Guest VM agent for sandbox monitoring. 290 tests passing.',
     tech: ['Python', 'eBPF', 'BCC', 'libbpf'],
     status: 'stable',
+    wave: 1,
     github: 'https://github.com/loudmumble/ebpf-sensors',
   },
   {
@@ -37,6 +41,7 @@ const projects: Project[] = [
     description: 'LLM-powered vulnerability discovery engine. Multi-language AST parsing via tree-sitter, 4-phase scan pipeline (Parse > Surface Map > LLM Analysis > Report), wave-based scanning with configurable limits. 117 tests passing.',
     tech: ['Python', 'Ollama', 'tree-sitter', 'Click', 'Rich'],
     status: 'stable',
+    wave: 2,
     github: 'https://github.com/loudmumble/phantom',
   },
   {
@@ -44,6 +49,7 @@ const projects: Project[] = [
     description: 'Post-exploitation network pivoting tool. Multi-transport: Raw TCP/TLS, WebSocket, DNS tunnel, ICMP tunnel. Socat-style relay, SOCKS5 session routing. Cross-compiled for 5 platforms. 168 tests, 15 packages.',
     tech: ['Go', 'WebSocket', 'gvisor', 'SOCKS5', 'ChaCha20-Poly1305'],
     status: 'stable',
+    wave: 3,
     github: 'https://github.com/loudmumble/burrow',
   },
   {
@@ -51,6 +57,7 @@ const projects: Project[] = [
     description: 'AI-powered OSINT intelligence platform. Identity resolution, infrastructure mapping, breach correlation, social graph analysis. Agentic correlator with 5 recon modules. 467 tests passing.',
     tech: ['Python', 'FastAPI', 'Ollama', 'Neo4j', 'Redis'],
     status: 'stable',
+    wave: 2,
     github: 'https://github.com/loudmumble/dossier',
   },
   {
@@ -58,6 +65,7 @@ const projects: Project[] = [
     description: 'Agentic malware analysis sandbox. Static analysis (entropy, strings, PE imports, YARA), LLM-driven triage with MITRE ATT&CK mapping, FastAPI web UI with drag-drop upload. 99 tests passing.',
     tech: ['Python', 'FastAPI', 'Ollama', 'YARA', 'pefile'],
     status: 'stable',
+    wave: 3,
     github: 'https://github.com/loudmumble/malscope',
   },
   {
@@ -65,6 +73,7 @@ const projects: Project[] = [
     description: 'AI security testing toolkit. 154 payloads across 18 categories — prompt injection, jailbreaking, agent hijacking, data exfiltration. Supports Ollama, OpenAI, and Anthropic connectors. 55 tests passing.',
     tech: ['Python', 'Ollama', 'OpenAI', 'Anthropic'],
     status: 'stable',
+    wave: 2,
     github: 'https://github.com/loudmumble/aisec',
   },
   {
@@ -79,6 +88,12 @@ const statusConfig = {
   stable: { label: 'STABLE', color: 'text-terminal-green', bg: 'bg-terminal-green/10' },
   alpha: { label: 'ALPHA', color: 'text-terminal-yellow', bg: 'bg-yellow-500/10' },
   development: { label: 'DEV', color: 'text-terminal-cyan', bg: 'bg-cyan-500/10' },
+};
+
+const waveConfig: Record<1 | 2 | 3, { label: string; color: string }> = {
+  1: { label: '[LIVE]', color: 'text-terminal-green' },
+  2: { label: '[WAVE-2]', color: 'text-terminal-yellow' },
+  3: { label: '[WAVE-3]', color: 'text-terminal-yellow' },
 };
 
 export const ProjectsSection = () => {
@@ -102,6 +117,7 @@ export const ProjectsSection = () => {
           const isLast = index === projects.length - 1;
           const isExpanded = expandedProject === project.name;
           const status = statusConfig[project.status];
+          const wave = project.wave !== undefined ? waveConfig[project.wave] : null;
 
           return (
             <div key={project.name} className="font-mono">
@@ -121,6 +137,11 @@ export const ProjectsSection = () => {
                   <span className={`text-[10px] px-1.5 py-0.5 rounded ${status.bg} ${status.color} font-bold`}>
                     {status.label}
                   </span>
+                  {wave && (
+                    <span className={`font-mono text-xs font-bold ${wave.color}`}>
+                      {wave.label}
+                    </span>
+                  )}
                   <span className="text-muted-foreground/50 ml-auto text-xs">
                     {isExpanded ? '[-]' : '[+]'}
                   </span>
@@ -157,7 +178,7 @@ export const ProjectsSection = () => {
                       <GitBranch className="w-3 h-3" />
                       <span>main</span>
                     </div>
-                    {project.github && (
+                    {project.github && project.wave === 1 && (
                       <a
                         href={project.github}
                         target="_blank"
@@ -167,6 +188,15 @@ export const ProjectsSection = () => {
                         <ExternalLink className="w-3 h-3" />
                         <span>source</span>
                       </a>
+                    )}
+                    {project.github && project.wave !== undefined && project.wave > 1 && (
+                      <span
+                        className="flex items-center gap-1 text-muted-foreground/30 font-mono cursor-not-allowed"
+                        title="launching soon"
+                      >
+                        <ExternalLink className="w-3 h-3" />
+                        <span>launching soon</span>
+                      </span>
                     )}
                   </div>
                 </div>
@@ -185,7 +215,7 @@ export const ProjectsSection = () => {
       </div>
 
       <div className="mt-3 text-xs text-muted-foreground/50 font-mono">
-        try: <span className="text-primary/60">contact</span> | read: <a href="https://loudmumble.com/blog/de-voidlink.md" target="_blank" rel="noopener noreferrer" className="text-terminal-cyan hover:text-primary transition-colors">blog/de-voidlink</a>
+        try: <span className="text-primary/60">contact</span> | read: <a href="/#/blog/de-voidlink" className="text-terminal-cyan hover:text-primary transition-colors">blog/de-voidlink</a>
       </div>
     </div>
   );

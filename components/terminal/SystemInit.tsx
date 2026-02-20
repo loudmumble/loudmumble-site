@@ -10,7 +10,7 @@ interface InitLine {
 }
 
 const initSequence: InitLine[] = [
-  { prefix: 'SYSTEM', prefixColor: 'yellow', content: 'LOUDMUMBLE Security Terminal v4.2.0' },
+  { prefix: 'SYSTEM', prefixColor: 'yellow', content: 'loudmumble security terminal v4.2.0' },
   { prefix: 'SYSTEM', prefixColor: 'yellow', content: 'Initializing secure connection...', status: 'OK', statusColor: 'text-terminal-green' },
   { prefix: 'CRYPTO', prefixColor: 'cyan', content: 'Loading AES-256 encryption modules...', status: 'OK', statusColor: 'text-terminal-green' },
   { prefix: 'CRYPTO', prefixColor: 'cyan', content: 'Verifying TLS 1.3 handshake...', status: 'OK', statusColor: 'text-terminal-green' },
@@ -62,7 +62,7 @@ export const SystemInit = () => {
 
       {visibleLines > allLines.length && (
         <div className="text-center text-foreground/80 text-sm py-2">
-          Welcome to the LOUDMUMBLE Security Terminal. Type '<span className="text-primary">help</span>' for commands.
+          Welcome to the loudmumble security terminal. Type '<span className="text-primary">help</span>' for commands.
         </div>
       )}
 

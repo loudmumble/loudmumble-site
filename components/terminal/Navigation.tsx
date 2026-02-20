@@ -1,16 +1,21 @@
 import { useState } from 'react';
+import { ExternalLink } from 'lucide-react';
 
 interface NavItem {
   id: string;
   label: string;
   shortcut: string;
+  href?: string;
+  external?: boolean;
 }
 
 const navItems: NavItem[] = [
   { id: 'about', label: 'ABOUT', shortcut: 'F1' },
   { id: 'services', label: 'SERVICES', shortcut: 'F2' },
   { id: 'projects', label: 'PROJECTS', shortcut: 'F3' },
+  { id: 'blog', label: 'BLOG', shortcut: 'F5', href: '#/blog/de-voidlink' },
   { id: 'contact', label: 'CONTACT', shortcut: 'F4' },
+  { id: 'github', label: 'GITHUB', shortcut: '↗', href: 'https://github.com/loudmumble', external: true },
 ];
 
 interface NavigationProps {
@@ -27,10 +32,20 @@ export const Navigation = ({ activeSection, onNavigate }: NavigationProps) => {
         const isActive = activeSection === item.id;
         const isHovered = hoveredItem === item.id;
 
+        const handleClick = () => {
+          if (item.external && item.href) {
+            window.open(item.href, '_blank', 'noopener,noreferrer');
+          } else if (item.href) {
+            window.location.hash = item.href.replace('#', '');
+          } else {
+            onNavigate(item.id);
+          }
+        };
+
         return (
           <button
             key={item.id}
-            onClick={() => onNavigate(item.id)}
+            onClick={handleClick}
             onMouseEnter={() => setHoveredItem(item.id)}
             onMouseLeave={() => setHoveredItem(null)}
             className={`
@@ -51,6 +66,9 @@ export const Navigation = ({ activeSection, onNavigate }: NavigationProps) => {
               [{item.shortcut}]
             </span>
             <span>{item.label}</span>
+            {item.external && (
+              <ExternalLink className="inline-block ml-1 w-3 h-3 opacity-50" />
+            )}
 
             {/* Hover underline effect */}
             <span

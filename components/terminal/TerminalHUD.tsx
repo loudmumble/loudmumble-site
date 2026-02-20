@@ -124,7 +124,7 @@ export const TerminalHUD = ({ activeSection, onNavigate }: HUDProps) => {
     if (isMobile) {
         return (
             <div className="w-full flex flex-col items-center gap-4 py-4 border-b border-border bg-black/20">
-                <h1 className="text-xl font-bold text-terminal-magenta tracking-widest text-glow-subtle">LOUDMUMBLE</h1>
+                <h1 className="text-xl font-bold text-terminal-magenta tracking-widest text-glow-subtle">loudmumble</h1>
                 <div className="h-[1px] w-[80%] bg-border/30" />
                 <Navigation activeSection={activeSection} onNavigate={onNavigate} />
             </div>

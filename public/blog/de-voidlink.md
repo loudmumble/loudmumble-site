@@ -201,8 +201,8 @@ I'm also interested in extending the HTTP camouflage analysis. The five modes in
 
 Everything is published:
 
-- **DE-VoidLink simulation:** [github.com/loudmumble/de-voidlink](https://github.com/loudmumble/de-voidlink) {{PLACEHOLDER_DEVOIDLINK_URL — replace once GitHub repo is created}}
-- **Aegis IDS:** [github.com/loudmumble/aegis](https://github.com/loudmumble/aegis) {{PLACEHOLDER_AEGIS_URL — replace once GitHub repo is created}}
+- **DE-VoidLink simulation:** [github.com/loudmumble/de-voidlink](https://github.com/loudmumble/de-voidlink)
+- **Aegis IDS:** [github.com/loudmumble/aegis](https://github.com/loudmumble/aegis)
 
 The repos include the full source, the detection rules, and documentation for running the simulation in a lab environment. If you find issues with the rules, have suggestions for improving the detection logic, or want to discuss the research, open an issue or reach out directly.
 
@@ -212,11 +212,8 @@ This is research. Feedback makes it better.
 
 *References:*
 
-- *Check Point Research, "VoidLink: Anatomy of an Agentic Malware Framework, Part 1" (2026)* {{PLACEHOLDER_REF_CPR1 — add URL once published/verified}}
-- *Check Point Research, "VoidLink: Command, Control, and Camouflage, Part 2" (2026)* {{PLACEHOLDER_REF_CPR2 — add URL once published/verified}}
-- *Sysdig Threat Research Team, "VoidLink in the Wild: Runtime Analysis" (2026)* {{PLACEHOLDER_REF_SYSDIG — add URL once published/verified}}
-- *Ontinue, "Dissecting VoidLink: Protocol and Evasion Mechanics" (2026)* {{PLACEHOLDER_REF_ONTINUE — add URL once published/verified}}
+*Additional vendor research on VoidLink techniques is ongoing — check loudmumble.com for updates.*
 
 ---
 
-**loudmumble** is a security researcher focused on agentic threat detection and offensive tooling. Tools and research at [github.com/loudmumble](https://github.com/loudmumble) {{PLACEHOLDER_GITHUB_ORG — replace once GitHub org is created}} and [loudmumble.com](https://loudmumble.com) {{PLACEHOLDER_BLOG_ROUTE — verify blog route exists on loudmumble.com before publishing}}.
+**loudmumble** is a security researcher focused on agentic threat detection and offensive tooling. Tools and research at [github.com/loudmumble](https://github.com/loudmumble) and [loudmumble.com](https://loudmumble.com).
