@@ -1,6 +1,6 @@
 # Building VoidLink From Spec: What Agentic Malware Teaches Us About Detection
 
-*February 2026*
+*February 20, 2026*
 
 ---
 

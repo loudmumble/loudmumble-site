@@ -4,6 +4,54 @@ import { marked } from 'marked';
 import { TerminalWindow } from '@/components/terminal/TerminalWindow';
 import styles from './BlogPost.module.css';
 
+const BlogNav = () => (
+  <nav className="flex items-center justify-between flex-wrap gap-x-4 gap-y-2 py-2 px-3 mb-3 border-b border-border font-mono">
+    <Link
+      to="/"
+      className="text-sm font-semibold group flex items-center gap-0 leading-none"
+    >
+      <span className="text-muted-foreground group-hover:text-terminal-green transition-colors duration-150">~/</span>
+      <span className="text-terminal-green group-hover:text-terminal-bright-green transition-colors duration-150">loudmumble</span>
+    </Link>
+
+    <div className="flex items-center flex-wrap text-xs text-muted-foreground leading-none">
+      <Link
+        to="/"
+        className="px-2 py-1 hover:text-terminal-green transition-colors duration-150"
+      >
+        HOME
+      </Link>
+      <span className="opacity-30 select-none">|</span>
+      <Link
+        to="/"
+        className="px-2 py-1 hover:text-terminal-green transition-colors duration-150"
+      >
+        PROJECTS
+      </Link>
+      <span className="opacity-30 select-none">|</span>
+      <span className="px-2 py-1 text-terminal-cyan font-medium" aria-current="page">
+        BLOG
+      </span>
+      <span className="opacity-30 select-none">|</span>
+      <Link
+        to="/"
+        className="px-2 py-1 hover:text-terminal-green transition-colors duration-150"
+      >
+        CONTACT
+      </Link>
+      <span className="opacity-30 select-none">|</span>
+      <a
+        href="https://github.com/loudmumble"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-2 py-1 hover:text-terminal-cyan transition-colors duration-150"
+      >
+        GITHUB<span className="text-[9px] ml-0.5 opacity-50">↗</span>
+      </a>
+    </div>
+  </nav>
+);
+
 const PLACEHOLDER_PATTERN = /\{\{PLACEHOLDER_[^}]+\}\}/g;
 
 const BlogPost = () => {
@@ -59,6 +107,7 @@ const BlogPost = () => {
   return (
     <div className="min-h-screen bg-background p-2 md:p-4 flex flex-col">
       <div className="max-w-4xl mx-auto w-full flex flex-col flex-1">
+        <BlogNav />
         <TerminalWindow title={termTitle} className="flex-1">
           <div className="flex flex-col min-h-0 overflow-y-auto terminal-scrollbar">
 
