@@ -70,7 +70,7 @@ const projects: Project[] = [
   },
   {
     name: 'aisec',
-    description: 'AI security testing toolkit. 154 payloads across 18 categories — prompt injection, jailbreaking, agent hijacking, data exfiltration. Supports Ollama, OpenAI, and Anthropic connectors. 55 tests passing.',
+    description: 'AI security testing toolkit. 154 payloads across 18 categories: prompt injection, jailbreaking, agent hijacking, data exfiltration. Supports Ollama, OpenAI, and Anthropic connectors. 55 tests passing.',
     tech: ['Python', 'Ollama', 'OpenAI', 'Anthropic'],
     status: 'stable',
     wave: 2,
@@ -78,7 +78,7 @@ const projects: Project[] = [
   },
   {
     name: 'hog',
-    description: 'Hand of God — Modular security testing & C2 framework. 27 phases, Burp Suite parity proxy, AI Red Team suite, 1,769 atomic tests. Operator-driven workflow unifying recon through reporting. Private repo — available on request.',
+    description: 'Hand of God -- Modular security testing & C2 framework. 27 phases, Burp Suite parity proxy, AI Red Team suite, 1,769 atomic tests. Operator-driven workflow unifying recon through reporting. Private repo, available on request.',
     tech: ['TypeScript', 'React', 'Node.js', 'PostgreSQL', 'Socket.IO'],
     status: 'alpha',
   },

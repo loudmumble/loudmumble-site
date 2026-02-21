@@ -22,7 +22,7 @@ const services: Service[] = [
   {
     icon: Network,
     title: 'Active Directory Assessments',
-    description: 'Attack path analysis through AD environments — Kerberoasting, AS-REP roasting, DACL abuse, GPO exploitation, forest trust attacks. BloodHound-driven analysis with manual validation of every escalation route.',
+    description: 'Attack path analysis through AD environments: Kerberoasting, AS-REP roasting, DACL abuse, GPO exploitation, forest trust attacks. BloodHound-driven analysis with manual validation of every escalation route.',
     tag: 'TOOLING',
     tagValue: 'BLOODHOUND / IMPACKET / CRACKMAPEXEC',
     tagColor: 'text-terminal-cyan',
@@ -38,7 +38,7 @@ const services: Service[] = [
   {
     icon: Wrench,
     title: 'Security Tooling',
-    description: 'Custom framework development for offensive operations. Automation pipelines, C2 integration, API security testing harnesses. Python, Go, TypeScript, Bash — whatever the job needs.',
+    description: 'Custom framework development for offensive operations. Automation pipelines, C2 integration, API security testing harnesses. Python, Go, TypeScript, Bash. Whatever the job needs.',
     tag: 'STACK',
     tagValue: 'PYTHON / GO / TS / BASH',
     tagColor: 'text-terminal-yellow',

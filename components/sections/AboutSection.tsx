@@ -2,10 +2,10 @@ import { TerminalLine, TerminalDivider, TerminalOutput } from '../terminal/Termi
 import { Crosshair, Target, Code, Cpu } from 'lucide-react';
 
 const expertise = [
-  { icon: Crosshair, label: 'Network & web app penetration testing — OWASP/PTES methodology, manual exploitation' },
-  { icon: Target, label: 'Active Directory attack paths — Kerberoasting, DACL abuse, forest trust exploitation' },
-  { icon: Cpu, label: 'Infrastructure hardening — Linux/Windows, firewall audits, segmentation validation' },
-  { icon: Code, label: 'Security tooling — custom frameworks, automation pipelines, CI/CD security integration' },
+  { icon: Crosshair, label: 'Network & web app penetration testing: OWASP/PTES methodology, manual exploitation' },
+  { icon: Target, label: 'Active Directory attack paths: Kerberoasting, DACL abuse, forest trust exploitation' },
+  { icon: Cpu, label: 'Infrastructure hardening: Linux/Windows, firewall audits, segmentation validation' },
+  { icon: Code, label: 'Security tooling: custom frameworks, automation pipelines, CI/CD security integration' },
 ];
 
 export const AboutSection = () => {
@@ -28,7 +28,7 @@ export const AboutSection = () => {
         </TerminalOutput>
 
         <TerminalOutput className="text-foreground/80 leading-relaxed max-w-3xl">
-          Offensive security — network and AD pentesting, vulnerability research,
+          Offensive security: network and AD pentesting, vulnerability research,
           detection engineering. The tools below are what came out of that work.
         </TerminalOutput>
 
@@ -75,7 +75,7 @@ export const AboutSection = () => {
             Current research
           </TerminalLine>
           <p className="mt-2 text-sm text-foreground/70">
-            Agentic threat detection — catching LLM-driven attacks through behavioral analysis and cadence fingerprinting.
+            Agentic threat detection: catching LLM-driven attacks through behavioral analysis and cadence fingerprinting.
           </p>
         </div>
       </div>

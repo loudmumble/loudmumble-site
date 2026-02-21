@@ -48,9 +48,12 @@ const skillCategories: SkillCategory[] = [
         skills: [
             { name: 'Python', level: 7, max: 10 },
             { name: 'JavaScript / TS', level: 7, max: 10 },
+            { name: 'C / C++', level: 7, max: 10 },
             { name: 'Bash / PowerShell', level: 8, max: 10 },
-            { name: 'Go', level: 4, max: 10 },
+            { name: 'Go', level: 5, max: 10 },
+            { name: 'Zig', level: 4, max: 10 },
             { name: 'SQL / PostgreSQL', level: 6, max: 10 },
+            { name: 'eBPF', level: 4, max: 10 },
         ]
     }
 ];
