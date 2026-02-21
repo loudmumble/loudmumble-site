@@ -22,7 +22,7 @@ const projects: Project[] = [
   },
   {
     name: 'aegis',
-    description: 'Behavioral IDS for agentic AI attacks. Detects LLM-driven threats via cadence analysis and inter-arrival time fingerprinting. Network flow tracking, 9 known LLM model profiles, human-to-agent transition detection, 7 detection rules (AEGIS-001 to AEGIS-007). 125 tests passing.',
+    description: 'Behavioral IDS for agentic AI attacks. Detects LLM-driven threats via cadence analysis and inter-arrival time fingerprinting. Network flow tracking, 9 known LLM model profiles, human-to-agent transition detection, 7 detection rules (AEGIS-001 to AEGIS-007). 164 tests passing.',
     tech: ['Python', 'eBPF', 'NumPy', 'scapy', 'Ollama'],
     status: 'stable',
     wave: 1,
@@ -38,7 +38,7 @@ const projects: Project[] = [
   },
   {
     name: 'phantom',
-    description: 'LLM-powered vulnerability discovery engine. Multi-language AST parsing via tree-sitter, 4-phase scan pipeline (Parse > Surface Map > LLM Analysis > Report), wave-based scanning with configurable limits. 117 tests passing.',
+    description: 'LLM-powered vulnerability discovery engine. Multi-language AST parsing via tree-sitter, 4-phase scan pipeline (Parse > Surface Map > LLM Analysis > Report), wave-based scanning with configurable limits. 167 tests passing.',
     tech: ['Python', 'Ollama', 'tree-sitter', 'Click', 'Rich'],
     status: 'stable',
     wave: 2,
@@ -62,11 +62,19 @@ const projects: Project[] = [
   },
   {
     name: 'malscope',
-    description: 'Agentic malware analysis sandbox. Static analysis (entropy, strings, PE imports, YARA), LLM-driven triage with MITRE ATT&CK mapping, FastAPI web UI with drag-drop upload. 99 tests passing.',
+    description: 'Malware analysis sandbox for agentic threats. Static analysis (entropy, strings, PE imports, YARA), LLM-driven triage with MITRE ATT&CK mapping, FastAPI web UI with drag-drop upload. 183 tests passing.',
     tech: ['Python', 'FastAPI', 'Ollama', 'YARA', 'pefile'],
     status: 'stable',
     wave: 3,
     github: 'https://github.com/loudmumble/malscope',
+  },
+  {
+    name: 'lamprey',
+    description: 'Real-time network traffic analysis and interception companion. Packet capture, protocol dissection, live traffic monitoring with scapy. MCP server for AI-assisted analysis. 136 tests passing.',
+    tech: ['Python', 'scapy', 'Click', 'Rich', 'MCP'],
+    status: 'stable',
+    wave: 2,
+    github: 'https://github.com/loudmumble/lamprey',
   },
   {
     name: 'aisec',
