@@ -14,7 +14,7 @@ const skillCategories: SkillCategory[] = [
             { name: 'Network Penetration', level: 8, max: 10 },
             { name: 'Web App Security', level: 7, max: 10 },
             { name: 'Active Directory', level: 8, max: 10 },
-            { name: 'OSINT / Recon', level: 7, max: 10 },
+            { name: 'OSINT / Recon', level: 9, max: 10 },
             { name: 'Privilege Escalation', level: 7, max: 10 },
         ]
     },
