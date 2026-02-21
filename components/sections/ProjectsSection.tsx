@@ -209,7 +209,7 @@ export const ProjectsSection = () => {
       <TerminalDivider />
 
       <div className="text-xs text-muted-foreground">
-        <span className="text-terminal-green">{projects.length}/44</span> projects indexed.
+        <span className="text-terminal-green">{projects.length}/42</span> projects indexed.
         <span className="text-terminal-yellow ml-2">2,700+ tests across all repos.</span>
         {' '}Click to expand details.
       </div>
