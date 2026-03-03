@@ -13,7 +13,7 @@ const navItems: NavItem[] = [
   { id: 'about', label: 'ABOUT', shortcut: 'F1' },
   { id: 'services', label: 'SERVICES', shortcut: 'F2' },
   { id: 'projects', label: 'PROJECTS', shortcut: 'F3' },
-  { id: 'blog', label: 'BLOG', shortcut: 'F5', href: '#/blog/de-voidlink' },
+
   { id: 'contact', label: 'CONTACT', shortcut: 'F4' },
   { id: 'github', label: 'GITHUB', shortcut: '↗', href: 'https://github.com/loudmumble', external: true },
 ];

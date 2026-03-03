@@ -12,7 +12,7 @@ const commands: Command[] = [
   { name: 'services', description: 'List available services', shortcut: 'F2' },
   { name: 'skills', description: 'View skills and certifications' },
   { name: 'projects', description: 'Browse project portfolio', shortcut: 'F3' },
-  { name: 'blog', description: 'Read the latest research writeup', shortcut: 'F5' },
+
   { name: 'contact', description: 'Get contact information', shortcut: 'F4' },
   { name: 'enterprise', description: 'Enterprise detection capabilities' },
   { name: 'github', description: 'Open github.com/loudmumble' },

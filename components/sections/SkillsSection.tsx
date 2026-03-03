@@ -108,12 +108,12 @@ export const SkillsSection = () => {
                 <div>
                     <span className="text-terminal-yellow">[CERTS]</span>
                     <span className="text-terminal-green ml-2">pursuing:</span>
-                    <span className="text-foreground/70 ml-1">OSCP, PNPT</span>
+                    <span className="text-foreground/70 ml-1">OSCP, PNPT, BSCP</span>
                 </div>
                 <div>
                     <span className="text-terminal-yellow">[CERTS]</span>
                     <span className="text-terminal-cyan ml-2">completed:</span>
-                    <span className="text-foreground/70 ml-1">TCM Security (PEH, PNPT prep), Cloud Fundamentals x4</span>
+                    <span className="text-foreground/70 ml-1">PJPT, TCM Security (PEH, PNPT prep), Cloud Fundamentals x4</span>
                 </div>
                 <div>
                     <span className="text-terminal-yellow">[CERTS]</span>

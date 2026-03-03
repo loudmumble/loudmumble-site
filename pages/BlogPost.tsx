@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import DOMPurify from 'dompurify';
 import { useParams, Link } from 'react-router-dom';
 import { marked } from 'marked';
 import { TerminalWindow } from '@/components/terminal/TerminalWindow';
@@ -160,7 +161,7 @@ const BlogPost = () => {
             {!loading && !fetchError && (
               <article
                 className={styles.blogContent}
-                dangerouslySetInnerHTML={{ __html: html }}
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html) }}
               />
             )}
 

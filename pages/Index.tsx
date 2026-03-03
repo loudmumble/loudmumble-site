@@ -147,7 +147,7 @@ const Index = () => {
       case 'blog':
       case 'cat blog':
       case 'read blog':
-        window.location.hash = '/blog/de-voidlink';
+        addOutput('output', <span className="text-muted-foreground font-mono text-sm">no posts published yet.</span>);
         break;
 
       case 'github':

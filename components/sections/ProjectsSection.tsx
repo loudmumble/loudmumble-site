@@ -14,7 +14,7 @@ interface Project {
 const projects: Project[] = [
   {
     name: 'de-voidlink',
-    description: 'True-to-form VoidLink adversary simulation framework for detection engineering research. Zig beacon with direct syscall fingerprinting, Go C2 server with AES-256-GCM encryption and 5 HTTP camouflage modes, C arsenal plugins. Published 10 YARA, 7 Sigma, and Suricata detection rules. Built to validate Aegis IDS.',
+    description: 'True-to-form VoidLink adversary simulation framework for detection engineering research. Zig beacon with direct syscall fingerprinting, Go C2 server with AES-256-GCM encryption and 5 HTTP camouflage modes, C arsenal plugins. Published 11 YARA, 7 Sigma, and Suricata detection rules. Built to validate Aegis IDS.',
     tech: ['Zig', 'Go', 'C', 'YARA', 'Sigma', 'Suricata'],
     status: 'stable',
     wave: 1,
@@ -22,7 +22,7 @@ const projects: Project[] = [
   },
   {
     name: 'aegis',
-    description: 'Behavioral IDS for agentic AI attacks. Detects LLM-driven threats via cadence analysis and inter-arrival time fingerprinting. Network flow tracking, 9 known LLM model profiles, human-to-agent transition detection, 7 detection rules (AEGIS-001 to AEGIS-007). 164 tests passing.',
+    description: 'Behavioral IDS for agentic AI attacks. Detects LLM-driven threats via cadence analysis and inter-arrival time fingerprinting. Network flow tracking, 9 known LLM model profiles, human-to-agent transition detection, 9 detection rules (AEGIS-001 to AEGIS-009). 164+ tests passing.',
     tech: ['Python', 'eBPF', 'NumPy', 'scapy', 'Ollama'],
     status: 'stable',
     wave: 1,
@@ -78,7 +78,7 @@ const projects: Project[] = [
   },
   {
     name: 'aisec',
-    description: 'AI security testing toolkit. 154 payloads across 18 categories: prompt injection, jailbreaking, agent hijacking, data exfiltration. Supports Ollama, OpenAI, and Anthropic connectors. 55 tests passing.',
+    description: 'AI security testing toolkit. 154 payloads across 17 categories: prompt injection, jailbreaking, agent hijacking, data exfiltration. Supports Ollama, OpenAI, and Anthropic connectors. 55 tests passing.',
     tech: ['Python', 'Ollama', 'OpenAI', 'Anthropic'],
     status: 'stable',
     wave: 2,
@@ -223,7 +223,7 @@ export const ProjectsSection = () => {
       </div>
 
       <div className="mt-3 text-xs text-muted-foreground/50 font-mono">
-        try: <span className="text-primary/60">contact</span> | read: <a href="/#/blog/de-voidlink" className="text-terminal-cyan hover:text-primary transition-colors">blog/de-voidlink</a>
+        try: <span className="text-primary/60">contact</span>
       </div>
     </div>
   );
