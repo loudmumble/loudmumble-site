@@ -10,8 +10,6 @@ import { ProjectsSection } from '@/components/sections/ProjectsSection';
 import { SkillsSection } from '@/components/sections/SkillsSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { useKeyboardNavigation } from '@/hooks/useKeyboardNavigation';
-import { useIsMobile } from '@/hooks/use-mobile';
-
 type Section = 'init' | 'about' | 'services' | 'projects' | 'skills' | 'contact';
 
 interface OutputItem {
@@ -26,8 +24,6 @@ const Index = () => {
   const [showInit, setShowInit] = useState(true);
   const [autoDisplayDone, setAutoDisplayDone] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
-  const isMobile = useIsMobile();
-
   const scrollToBottom = useCallback(() => {
     setTimeout(() => {
       contentRef.current?.scrollTo({
