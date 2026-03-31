@@ -69,6 +69,14 @@ const projects: Project[] = [
     github: 'https://github.com/loudmumble/burrow',
   },
   {
+    name: 'certstrike',
+    description: 'ADCS exploitation framework covering ESC1-14 with dedicated Scan/Exploit functions for every ESC type. Shadow credentials, golden certificate forging, auto-pwn orchestration, cert-auth C2 with file delivery and deploy. SmartPotato privilege escalation implant. MCP server, TUI console.',
+    tech: ['Go', 'LDAP', 'X.509', 'Kerberos', 'MCP'],
+    status: 'stable',
+    wave: 1,
+    github: 'https://github.com/loudmumble/certstrike',
+  },
+  {
     name: 'dossier',
     description: 'AI-powered OSINT intelligence platform. Identity resolution, infrastructure mapping, breach correlation, social graph analysis. Agentic correlator with 5 recon modules. 467 tests passing.',
     tech: ['Python', 'FastAPI', 'Ollama', 'Neo4j', 'Redis'],
@@ -241,7 +249,7 @@ export const ProjectsSection = () => {
       <TerminalDivider />
 
       <div className="text-xs text-muted-foreground">
-        <span className="text-terminal-green">{projects.length}/42</span> projects indexed.
+        <span className="text-terminal-green">{projects.length}/43</span> projects indexed.
         <span className="text-terminal-yellow ml-2">2,700+ tests across all repos.</span>
         {' '}Click to expand details.
       </div>
