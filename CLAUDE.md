@@ -59,7 +59,7 @@ npm run test         # Vitest
 
 - **Boot sequence**: SystemInit.tsx animates 11 lines at 80ms intervals (system, crypto, net, auth)
 - **Scrollable pager**: Content area with `overflow-y-auto terminal-scrollbar`, auto-shows `about` after boot
-- **10 projects**: 9 across 3 waves (Wave 1: 3 LIVE, Wave 2: 4, Wave 3: 2) + hog (private, no wave)
+- **13 projects**: 7 in Wave 1 (LIVE on GitHub), 4 in Wave 2 (launching soon), 1 in Wave 3, + hog (private, no wave)
 - **Blog system**: BlogPost.tsx fetches `/blog/{slug}.md`, renders with `marked`, sanitizes with DOMPurify. Route: `/#/blog/:slug`
 - **Enterprise command**: Generic HOG reference with contact email
 - **HUD**: Animated LED ASCII banner, binary/hex side streams, live fake stats ticker (RAM, GPU, inference, up/down)
@@ -69,9 +69,13 @@ npm run test         # Vitest
 
 | Wave | Tool | Status |
 |------|------|--------|
-| 1 | de-voidlink | STABLE [LIVE] |
-| 1 | aegis | STABLE [LIVE] |
-| 1 | ebpf-sensors | STABLE [LIVE] |
+| 1 | de-voidlink | STABLE [LIVE] — github.com/loudmumble/de-voidlink |
+| 1 | aegis | STABLE [LIVE] — github.com/loudmumble/aegis |
+| 1 | syscalld (ebpf-sensors) | STABLE [LIVE] — github.com/loudmumble/syscalld |
+| 1 | sentinel | STABLE [LIVE] — github.com/loudmumble/sentinel |
+| 1 | crack-ng | STABLE [LIVE] — github.com/loudmumble/crack-ng |
+| 1 | burrow | STABLE [LIVE] — github.com/loudmumble/burrow |
+| 1 | 00_oneoffs | STABLE [LIVE] — github.com/loudmumble/00_oneoffs |
 | 2 | phantom | STABLE [WAVE-2] |
 | 2 | dossier | STABLE [WAVE-2] |
 | 2 | lamprey | STABLE [WAVE-2] |
