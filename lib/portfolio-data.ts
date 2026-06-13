@@ -191,16 +191,34 @@ export const projects: Project[] = [
   },
 ];
 
+// Categories ordered as a narrative: what I do -> how I build it -> what I use
+// -> where I run it. Within each category, skills are sorted by level so the
+// progress bars form a clean descending staircase. Levels are calibrated against
+// demonstrated work across the public repos on github.com/loudmumble.
 export const skillCategories: SkillCategory[] = [
   {
     name: 'OFFENSIVE SECURITY',
     accent: '#ff4d4d',
     skills: [
-      { name: 'Network Penetration', level: 8, max: 10 },
-      { name: 'Web App Security', level: 7, max: 10 },
-      { name: 'Active Directory', level: 8, max: 10 },
       { name: 'OSINT / Recon', level: 9, max: 10 },
+      { name: 'Active Directory', level: 8, max: 10 },
+      { name: 'Network Penetration', level: 8, max: 10 },
       { name: 'Privilege Escalation', level: 7, max: 10 },
+      { name: 'Web App Security', level: 7, max: 10 },
+    ],
+  },
+  {
+    name: 'DEVELOPMENT',
+    accent: '#33ff99',
+    skills: [
+      { name: 'Go', level: 9, max: 10 },
+      { name: 'Bash / Shell', level: 8, max: 10 },
+      { name: 'TypeScript', level: 8, max: 10 },
+      { name: 'C / C++', level: 7, max: 10 },
+      { name: 'Python', level: 7, max: 10 },
+      { name: 'Rust', level: 7, max: 10 },
+      { name: 'Zig', level: 4, max: 10 },
+      { name: 'eBPF', level: 4, max: 10 },
     ],
   },
   {
@@ -210,9 +228,10 @@ export const skillCategories: SkillCategory[] = [
       { name: 'Nmap / Masscan', level: 9, max: 10 },
       { name: 'Burp Suite', level: 8, max: 10 },
       { name: 'BloodHound', level: 7, max: 10 },
-      { name: 'Metasploit', level: 7, max: 10 },
       { name: 'Impacket / CME', level: 7, max: 10 },
+      { name: 'Metasploit', level: 7, max: 10 },
       { name: 'Nuclei', level: 7, max: 10 },
+      { name: 'YARA / Sigma / Suricata', level: 7, max: 10 },
       { name: 'Ghidra / RE', level: 4, max: 10 },
     ],
   },
@@ -221,24 +240,10 @@ export const skillCategories: SkillCategory[] = [
     accent: '#3399ff',
     skills: [
       { name: 'Linux / Unix', level: 8, max: 10 },
-      { name: 'Windows Server / AD', level: 7, max: 10 },
       { name: 'Networking / VLANs', level: 8, max: 10 },
+      { name: 'Windows Server / AD', level: 7, max: 10 },
       { name: 'Docker / Containers', level: 6, max: 10 },
       { name: 'Cloud (Azure/AWS)', level: 5, max: 10 },
-    ],
-  },
-  {
-    name: 'DEVELOPMENT',
-    accent: '#33ff99',
-    skills: [
-      { name: 'Python', level: 7, max: 10 },
-      { name: 'JavaScript / TS', level: 7, max: 10 },
-      { name: 'C / C++', level: 7, max: 10 },
-      { name: 'Bash / PowerShell', level: 8, max: 10 },
-      { name: 'Go', level: 5, max: 10 },
-      { name: 'Zig', level: 4, max: 10 },
-      { name: 'SQL / PostgreSQL', level: 6, max: 10 },
-      { name: 'eBPF', level: 4, max: 10 },
     ],
   },
 ];
@@ -264,7 +269,7 @@ export const contactMethods: ContactMethod[] = [
 ];
 
 // Aggregate stats used by hero/dashboard layouts. Derived from real repo data.
-export const primaryLanguages = ['Go', 'Rust', 'Zig', 'C', 'TypeScript', 'Python'];
+export const primaryLanguages = ['Go', 'TypeScript', 'Rust', 'C', 'Python', 'Zig'];
 
 export const stats = {
   publicRepos: projects.length,
