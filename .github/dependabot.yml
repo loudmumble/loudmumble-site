@@ -8,3 +8,26 @@ updates:
       interval: "weekly"
     commit-message:
       prefix: "ci"
+    groups:
+      # One PR for all action bumps instead of one per action.
+      github-actions:
+        patterns:
+          - "*"
+
+  # Keep npm dependencies patched. Minor/patch bumps are batched into a single
+  # weekly PR to cut noise; major bumps come as separate PRs so potentially
+  # breaking changes get reviewed individually.
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps"
+    groups:
+      npm-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
