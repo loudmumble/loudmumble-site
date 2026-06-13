@@ -39,7 +39,9 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "tailwind-merge"
         update-types: ["version-update:semver-major"]
-      # @eslint/js v10 requires ESLint v10; the whole eslint + typescript-eslint
-      # stack must move together. Defer until a coordinated ESLint 10 upgrade.
+      # ESLint v10: @eslint/js, eslint, and the typescript-eslint stack must
+      # move together. Defer both halves until a coordinated ESLint 10 upgrade.
       - dependency-name: "@eslint/js"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "eslint"
         update-types: ["version-update:semver-major"]
