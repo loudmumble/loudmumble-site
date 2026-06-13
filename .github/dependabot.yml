@@ -31,3 +31,11 @@ updates:
         update-types:
           - "minor"
           - "patch"
+    ignore:
+      # Defer Tailwind v4 — it's a breaking rewrite that needs a deliberate
+      # migration. tailwind-merge v3 targets v4, so hold it to v2 to match.
+      # Remove these blocks when ready to migrate to Tailwind v4.
+      - dependency-name: "tailwindcss"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "tailwind-merge"
+        update-types: ["version-update:semver-major"]
