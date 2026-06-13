@@ -201,10 +201,10 @@ export const skillCategories: SkillCategory[] = [
     accent: '#ff4d4d',
     skills: [
       { name: 'OSINT / Recon', level: 9, max: 10 },
-      { name: 'Active Directory', level: 8, max: 10 },
-      { name: 'Network Penetration', level: 8, max: 10 },
-      { name: 'Privilege Escalation', level: 7, max: 10 },
-      { name: 'Web App Security', level: 7, max: 10 },
+      { name: 'Active Directory', level: 9, max: 10 },
+      { name: 'Network Penetration', level: 9, max: 10 },
+      { name: 'Privilege Escalation', level: 9, max: 10 },
+      { name: 'Web App Security', level: 8, max: 10 },
     ],
   },
   {
@@ -239,11 +239,11 @@ export const skillCategories: SkillCategory[] = [
     name: 'INFRASTRUCTURE',
     accent: '#3399ff',
     skills: [
-      { name: 'Linux / Unix', level: 8, max: 10 },
-      { name: 'Networking / VLANs', level: 8, max: 10 },
-      { name: 'Windows Server / AD', level: 7, max: 10 },
-      { name: 'Docker / Containers', level: 6, max: 10 },
-      { name: 'Cloud (Azure/AWS)', level: 5, max: 10 },
+      { name: 'Linux / Unix', level: 9, max: 10 },
+      { name: 'Networking / VLANs', level: 9, max: 10 },
+      { name: 'Windows Server / AD', level: 9, max: 10 },
+      { name: 'Docker / Containers', level: 8, max: 10 },
+      { name: 'Cloud (Azure/AWS)', level: 7, max: 10 },
     ],
   },
 ];
