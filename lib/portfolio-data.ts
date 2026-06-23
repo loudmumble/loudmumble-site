@@ -103,6 +103,14 @@ export const services: Service[] = [
 // intentionally excluded.
 export const projects: Project[] = [
   {
+    name: 'hog',
+    description:
+      'C2 orchestration platform. Unified session management across Sliver, Havoc, Empire, and Metasploit — single TUI, single binary, embedded React web UI via go:embed. Real-time Sentinel alert correlation maps host-level events to active C2 sessions. MCP server for AI agent integration, marshald dispatch for autonomous attack chains, JWT auth, SSE feeds, PostgreSQL persistence. The orchestration layer for the full platform.',
+    tech: ['Go', 'React', 'TypeScript', 'PostgreSQL'],
+    status: 'stable',
+    github: 'https://github.com/loudmumble/hog',
+  },
+  {
     name: 'burrow',
     description:
       'Post-exploitation pivot framework combining Raw TCP, WebSocket, DNS, and ICMP transports in one static binary. Userspace TUN/TAP, SOCKS5, port forwarding, bidirectional relay, subnet scanner, file transfer, and in-place payload upgrade. Profile-based deployment deploys a full relay stack in under 30 seconds. Functional equivalent of ligolo-ng + chisel + pivotnacci + dnscat2 + socat — one binary, zero dependencies.',
