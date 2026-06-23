@@ -173,7 +173,7 @@ const BlogPost = () => {
           <span className="mx-2">|</span>
           © {new Date().getFullYear()} loudmumble
           <span className="mx-2">|</span>
-          <span className="text-terminal-cyan">v4.2.0</span>
+          <span className="text-terminal-cyan">v4.2.1</span>
         </footer>
       </div>
     </div>

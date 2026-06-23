@@ -33,29 +33,38 @@ export interface ContactMethod {
 
 export const identity = {
   handle: 'loudmumble',
-  tagline: 'Security tools and adversary research.',
+  tagline: 'Autonomous red team platform. Built solo. Production-ready.',
   blurb:
-    'Offensive security: network and AD pentesting, vulnerability research, detection engineering. The tools below are what came out of that work.',
+    'Two years of continuous solo development producing an integrated offensive security platform: C2 orchestration, multi-transport pivoting, ADCS exploitation, behavioral detection, PCAP credential harvesting, and agentic attack-chain automation — all single-binary, no Docker. HTB global rank #902. Top 1% Academy. Available for senior red team roles and consulting engagements.',
   location: 'remote / encrypted',
-  status: 'available for engagements',
-  version: 'v4.2.0',
+  status: 'open to opportunities',
+  version: 'v4.2.1',
 };
 
+// Shared across the loudmumble/terryarbors through-line — the same line closes
+// terryarbors.com; here it lives in the status bar. Same person, same ethos.
+export const ethos =
+  "It's not a deficit of attention, it's an abundance of curiosity.";
+
 export const expertise: string[] = [
-  'Network & web app penetration testing: OWASP/PTES methodology, manual exploitation',
-  'Active Directory attack paths: Kerberoasting, DACL abuse, forest trust exploitation',
-  'Infrastructure hardening: Linux/Windows, firewall audits, segmentation validation',
-  'Security tooling: custom frameworks, automation pipelines, CI/CD security integration',
+  'Autonomous red team platform: C2 orchestration, agentic attack chains, full engagement pipeline',
+  'Network pivoting & tunneling: multi-transport (TCP/WS/DNS/ICMP), TUN/TAP, SOCKS, relay chains',
+  'ADCS/PKI exploitation: ESC1–14, shadow credentials, golden cert forging, cert-auth C2',
+  'Active Directory: Kerberoasting, DACL abuse, forest trust exploitation, BloodHound-driven paths',
+  'Detection engineering: eBPF behavioral IDS, PCAP credential detection, YARA/Sigma/Suricata',
+  'AI/LLM red teaming: prompt injection, jailbreaking, adversarial input, supply chain attacks',
 ];
 
 export const workstreams: string[] = [
-  'Building offensive security frameworks',
-  'AD attack automation',
-  'CVE research in self-hosted OSS',
+  'Integrated offensive platforms',
+  'Post-exploitation infrastructure',
+  'ADCS / PKI attack tooling',
+  'Agentic attack automation',
+  'Detection engineering',
 ];
 
 export const currentResearch =
-  'Agentic threat detection: catching LLM-driven attacks through behavioral analysis and cadence fingerprinting.';
+  'Agentic attack orchestration: marshaling autonomous AI loops against live targets with human-out-of-the-loop execution, gated by cryptographic identity and kill-switch authority.';
 
 export const services: Service[] = [
   {
@@ -96,55 +105,23 @@ export const projects: Project[] = [
   {
     name: 'burrow',
     description:
-      'Multi-transport network pivoting and tunneling tool for post-exploitation network traversal.',
-    tech: ['Go', 'C', 'Python'],
+      'Post-exploitation pivot framework combining Raw TCP, WebSocket, DNS, and ICMP transports in one static binary. Userspace TUN/TAP, SOCKS5, port forwarding, bidirectional relay, subnet scanner, file transfer, and in-place payload upgrade. Profile-based deployment deploys a full relay stack in under 30 seconds. Functional equivalent of ligolo-ng + chisel + pivotnacci + dnscat2 + socat — one binary, zero dependencies.',
+    tech: ['Go'],
     status: 'stable',
     github: 'https://github.com/loudmumble/burrow',
   },
   {
-    name: 'grimoire',
-    description:
-      'Local-first Obsidian-style markdown knowledge base with Electron, React, and Milkdown.',
-    tech: ['TypeScript', 'React', 'Electron', 'Rust'],
-    status: 'stable',
-    github: 'https://github.com/loudmumble/grimoire',
-  },
-  {
-    name: 'vibe',
-    description:
-      'Electron IDE for security engineering, binary exploitation, and AI-assisted development.',
-    tech: ['TypeScript', 'React', 'Electron', 'Rust'],
-    status: 'stable',
-    github: 'https://github.com/loudmumble/vibe',
-  },
-  {
     name: 'trusted',
     description:
-      'ADCS exploitation and PKI attack framework with integrated cert-auth C2.',
-    tech: ['Go', 'Shell'],
+      'ADCS/PKI attack framework with full ESC1–14 enumeration and exploitation automation. Shadow credentials, golden certificate forging, Kerberos/NTLM/cert-based authentication exploitation. Pure Go, CGO-free static binary. The ESC coverage is complete — every misconfiguration Certipy finds, trusted exploits.',
+    tech: ['Go'],
     status: 'stable',
     github: 'https://github.com/loudmumble/trusted',
   },
   {
-    name: 'pry',
-    description:
-      'Web testing proxy with HTTP/HTTPS interception, fuzzing, and AI agent integration.',
-    tech: ['Go', 'TypeScript'],
-    status: 'stable',
-    github: 'https://github.com/loudmumble/pry',
-  },
-  {
-    name: 'syscalld',
-    description:
-      'Unified kernel sensor framework for Linux security monitoring via /proc tracing.',
-    tech: ['C', 'Go'],
-    status: 'stable',
-    github: 'https://github.com/loudmumble/syscalld',
-  },
-  {
     name: 'sentinel',
     description:
-      'Security monitoring toolkit for Linux with /proc fallback and optional LLM analysis.',
+      'Host security monitor with C2 correlation output. Configurable scoring engine POSTs high-score events to HOG /sentinel/event for real-time session correlation — maps host alerts to active C2 implants automatically. MCP server included for AI agent integration.',
     tech: ['Go'],
     status: 'stable',
     github: 'https://github.com/loudmumble/sentinel',
@@ -152,39 +129,71 @@ export const projects: Project[] = [
   {
     name: 'lamprey',
     description:
-      'Real-time network traffic analysis and IDS for live interfaces and PCAP files.',
-    tech: ['Go', 'TypeScript'],
+      'Network forensics and credential detection engine. Live interface capture (no libpcap), PCAP parsing, protocol anomaly detection, credential harvesting from network traffic. 171 tests. Static binary with MCP server for fleet integration.',
+    tech: ['Go'],
     status: 'stable',
     github: 'https://github.com/loudmumble/lamprey',
   },
   {
-    name: 'crack-ng',
-    description:
-      'Intelligent hash-cracking orchestrator wrapping Hashcat and John the Ripper.',
-    tech: ['Rust', 'Shell'],
-    status: 'stable',
-    github: 'https://github.com/loudmumble/crack-ng',
-  },
-  {
     name: 'aegis',
     description:
-      'Behavioral intrusion detection system for AI-driven traffic using cadence analysis.',
+      'Behavioral IDS consuming eBPF/syscall sensor data. Flags LLM-driven attacks by network cadence — inter-arrival-time fingerprinting, model profiling, rule engine. Catches autonomous agents by behavioral signature, not payload.',
+    tech: ['Go'],
+    status: 'development',
+    github: 'https://github.com/loudmumble/aegis',
+  },
+  {
+    name: 'syscalld',
+    description:
+      'Pure-Go (CGO-free) kernel sensor: syscall tracing, process/file/network/DNS visibility via /proc and eBPF. Embeddable library consumed by aegis and lamprey. Live TUI included.',
     tech: ['Go'],
     status: 'stable',
-    github: 'https://github.com/loudmumble/aegis',
+    github: 'https://github.com/loudmumble/syscalld',
+  },
+  {
+    name: 'mtls-core',
+    description:
+      'Drop-in mutual TLS 1.3 foundation for Go services: private CA, per-service cert issuance, channel-bound peer identity via peer certificate (not bearer tokens). Standard library only, no CGO. Powers the identity layer across the entire fleet.',
+    tech: ['Go'],
+    status: 'stable',
+    github: 'https://github.com/loudmumble/mtls-core',
+  },
+  {
+    name: 'pry',
+    description:
+      'Intercepting web proxy with AI-assisted bug discovery. HTTP/HTTPS interception, request manipulation, automated fuzzing, session handling. Zero-false-positive proof generation for autonomous web app security testing.',
+    tech: ['Go', 'React', 'TypeScript'],
+    status: 'development',
+    github: 'https://github.com/loudmumble/pry',
   },
   {
     name: 'de-voidlink',
     description:
-      'Adversary-simulation framework for detection-engineering research: Zig beacon, Go C2, and published YARA/Sigma/Suricata rules.',
+      'Adversary simulation framework replicating published malware syscall and C2 fingerprints for detection engineering. Published 11 YARA rules, 7 Sigma rules, and Suricata signatures from replicated threat intelligence. No functional malware payloads.',
     tech: ['Zig', 'Go', 'C', 'YARA'],
-    status: 'stable',
+    status: 'development',
     github: 'https://github.com/loudmumble/de-voidlink',
+  },
+  {
+    name: 'crack-ng',
+    description:
+      'Hash-cracking orchestrator: auto-detects hash type and GPU, dispatches to Hashcat or John the Ripper, ratatui TUI. Built in Rust.',
+    tech: ['Rust'],
+    status: 'stable',
+    github: 'https://github.com/loudmumble/crack-ng',
+  },
+  {
+    name: 'grimoire',
+    description:
+      'Local-first Obsidian-style markdown knowledge base — Electron + React + Milkdown. Plain .md files on disk, no cloud, no database, agentic integrations with self-hosted models. Built for operators who want their notes offline and private.',
+    tech: ['TypeScript', 'React', 'Electron', 'Rust'],
+    status: 'stable',
+    github: 'https://github.com/loudmumble/grimoire',
   },
   {
     name: '00_oneoffs',
     description:
-      'Collection of standalone security scripts and pentest utilities — credential tooling, recon, and exploit helpers.',
+      'Standalone offensive-security scripts and operator utilities — credential tooling, recon helpers, hash manipulation, engagement one-liners.',
     tech: ['Bash', 'Python', 'PowerShell'],
     status: 'stable',
     github: 'https://github.com/loudmumble/00_oneoffs',
@@ -193,32 +202,35 @@ export const projects: Project[] = [
 
 // Categories ordered as a narrative: what I do -> how I build it -> what I use
 // -> where I run it. Within each category, skills are sorted by level so the
-// progress bars form a clean descending staircase. Levels are calibrated against
-// demonstrated work across the public repos on github.com/loudmumble.
+// progress bars form a clean descending staircase. Levels are a deliberately
+// conservative self-assessment, kept in lockstep with the proficiency numbers on
+// terryarbors.com so the same person reads the same way across both sites.
 export const skillCategories: SkillCategory[] = [
   {
     name: 'OFFENSIVE SECURITY',
     accent: '#ff4d4d',
     skills: [
       { name: 'OSINT / Recon', level: 9, max: 10 },
-      { name: 'Active Directory', level: 9, max: 10 },
-      { name: 'Network Penetration', level: 9, max: 10 },
-      { name: 'Privilege Escalation', level: 9, max: 10 },
+      { name: 'Active Directory', level: 8, max: 10 },
+      { name: 'Network Penetration', level: 8, max: 10 },
       { name: 'Web App Security', level: 8, max: 10 },
+      { name: 'ADCS / PKI', level: 8, max: 10 },
+      { name: 'AI / LLM Red Teaming', level: 7, max: 10 },
+      { name: 'Binary Exploitation', level: 6, max: 10 },
     ],
   },
   {
     name: 'DEVELOPMENT',
     accent: '#33ff99',
     skills: [
-      { name: 'Go', level: 9, max: 10 },
-      { name: 'Python', level: 9, max: 10 },
       { name: 'Bash / Shell', level: 8, max: 10 },
-      { name: 'TypeScript', level: 8, max: 10 },
-      { name: 'C / C++', level: 8, max: 10 },
-      { name: 'Rust', level: 7, max: 10 },
-      { name: 'Zig', level: 6, max: 10 },
-      { name: 'eBPF', level: 6, max: 10 },
+      { name: 'Go', level: 8, max: 10 },
+      { name: 'Python', level: 8, max: 10 },
+      { name: 'PowerShell', level: 7, max: 10 },
+      { name: 'C / C++', level: 7, max: 10 },
+      { name: 'Rust', level: 6, max: 10 },
+      { name: 'TypeScript', level: 5, max: 10 },
+      { name: 'Zig', level: 4, max: 10 },
     ],
   },
   {
@@ -226,10 +238,10 @@ export const skillCategories: SkillCategory[] = [
     accent: '#ffd11a',
     skills: [
       { name: 'Nmap / Masscan', level: 9, max: 10 },
-      { name: 'Burp Suite', level: 9, max: 10 },
-      { name: 'BloodHound', level: 9, max: 10 },
-      { name: 'Impacket / CME', level: 9, max: 10 },
-      { name: 'Metasploit', level: 9, max: 10 },
+      { name: 'Metasploit', level: 8, max: 10 },
+      { name: 'Burp Suite', level: 8, max: 10 },
+      { name: 'Impacket / CME', level: 8, max: 10 },
+      { name: 'BloodHound', level: 8, max: 10 },
       { name: 'Nuclei', level: 7, max: 10 },
       { name: 'YARA / Sigma / Suricata', level: 7, max: 10 },
       { name: 'Ghidra / RE', level: 6, max: 10 },
@@ -240,17 +252,29 @@ export const skillCategories: SkillCategory[] = [
     accent: '#3399ff',
     skills: [
       { name: 'Linux / Unix', level: 9, max: 10 },
-      { name: 'Networking / VLANs', level: 9, max: 10 },
-      { name: 'Windows Server / AD', level: 9, max: 10 },
+      { name: 'Networking / VLANs', level: 8, max: 10 },
+      { name: 'Windows Server / AD', level: 8, max: 10 },
+      { name: 'Proxmox / KVM', level: 8, max: 10 },
       { name: 'Docker / Containers', level: 8, max: 10 },
-      { name: 'Cloud (Azure/AWS)', level: 7, max: 10 },
+      { name: 'eBPF', level: 5, max: 10 },
+      { name: 'Cloud (Azure/AWS)', level: 6, max: 10 },
     ],
   },
 ];
 
+// Mirrors the cert/training record on terryarbors.com, curated to the
+// security-relevant subset (Microsoft fundamentals live on the professional
+// site). "earned" = passed exams; "training" = completed coursework/labs, which
+// is stated as such and never as a held certification.
 export const certs = {
-  pursuing: ['OSCP', 'PNPT', 'BSCP'],
-  activeStudy: ['HTB Academy', 'PortSwigger Web Security'],
+  earned: ['PJPT'],
+  inProgress: ['PNPT', 'BSCP'],
+  training: [
+    'HTB CPTS',
+    'HTB CWES',
+    'HTB AI Red Teamer (in progress)',
+    'THM Red Team Path',
+  ],
 };
 
 export const contactMethods: ContactMethod[] = [
@@ -275,3 +299,10 @@ export const stats = {
   publicRepos: projects.length,
   languages: primaryLanguages.length,
 };
+
+export const proofPoints = [
+  { label: 'HTB Global Rank', value: '#902', note: 'top 1,000 worldwide — verifiable' },
+  { label: 'HTB Academy', value: 'Top 1%', note: '490+ targets · CPTS + CWES complete' },
+  { label: 'TryHackMe', value: 'Top 4%', note: 'ADversary-badged · Red Team path complete' },
+  { label: 'Platform scale', value: '12+ tools', note: 'integrated, production-ready, single-binary each' },
+];

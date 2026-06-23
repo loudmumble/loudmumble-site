@@ -37,13 +37,14 @@ describe('homepage', () => {
     }
   });
 
-  it('lists exactly the public repos, no private ones', () => {
+  it('lists the curated public-facing repos and excludes the site itself', () => {
     const names = projects.map((p) => p.name);
     expect(names).toContain('lamprey');
+    expect(names).toContain('mtls-core');
     expect(names).not.toContain('glass-privacy-suite');
     expect(names).not.toContain('tls-toolkit');
     expect(names).not.toContain('loudmumble-site');
-    expect(names).toHaveLength(12);
+    expect(names).toHaveLength(13);
   });
 });
 

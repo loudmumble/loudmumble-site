@@ -4,9 +4,16 @@ import {
   Search, Shield, Terminal, Wrench, X, ChevronRight, Check, Copy,
 } from 'lucide-react';
 import {
-  identity, expertise, workstreams, currentResearch, services, projects,
-  skillCategories, certs, contactMethods, stats, primaryLanguages,
+  identity, ethos, expertise, workstreams, currentResearch, services, projects,
+  skillCategories, certs, contactMethods, stats, primaryLanguages, proofPoints,
 } from '@/lib/portfolio-data';
+
+// Status badge styling, driven by each project's real status (no hardcoding).
+const STATUS_BADGE: Record<string, { label: string; color: string }> = {
+  stable: { label: 'STABLE', color: '#33ff99' },
+  development: { label: 'ACTIVE DEV', color: '#ffd11a' },
+  alpha: { label: 'ALPHA', color: '#ff8c42' },
+};
 
 /**
  * loudmumble.com — "Mainframe"
@@ -209,6 +216,16 @@ export default function Index() {
                     <Mail className="w-4 h-4" /> get in touch
                   </button>
                 </div>
+
+                <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {proofPoints.map((p) => (
+                    <div key={p.label} className="rounded-lg border border-white/10 p-3 bg-black/30 text-center">
+                      <div className="text-lg font-bold" style={{ color: accent }}>{p.value}</div>
+                      <div className="text-[10px] text-white/60 font-semibold mt-0.5">{p.label}</div>
+                      <div className="text-[9px] text-white/30 mt-0.5 leading-tight">{p.note}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4 mt-8">
@@ -274,9 +291,13 @@ export default function Index() {
                     <div className="flex items-center gap-2 flex-wrap">
                       <Folder className="w-4 h-4 text-white/40" />
                       <span className="font-semibold text-white group-hover:text-[#33ff99] transition">{p.name}</span>
-                      <span className="text-[10px] px-1.5 py-0.5 rounded font-bold"
-                        style={{ background: `${accent}1a`, color: accent }}>STABLE</span>
-                      <span className="text-[10px] text-white/35">[LIVE]</span>
+                      {(() => {
+                        const badge = STATUS_BADGE[p.status] ?? STATUS_BADGE.stable;
+                        return (
+                          <span className="text-[10px] px-1.5 py-0.5 rounded font-bold"
+                            style={{ background: `${badge.color}1a`, color: badge.color }}>{badge.label}</span>
+                        );
+                      })()}
                       <ExternalLink className="w-3.5 h-3.5 ml-auto text-white/25 group-hover:text-white/60 transition" />
                     </div>
                     <p className="mt-2 text-sm text-white/50 leading-relaxed">{p.description}</p>
@@ -317,14 +338,26 @@ export default function Index() {
                   </div>
                 ))}
               </div>
-              <div className="mt-4 flex flex-wrap gap-2 text-xs">
-                <span className="text-white/35">certs:</span>
-                {certs.pursuing.map((c) => (
-                  <span key={c} className="px-2 py-0.5 rounded border border-[#ffd11a]/30 text-[#ffd11a]">{c}</span>
-                ))}
-                {certs.activeStudy.map((c) => (
-                  <span key={c} className="px-2 py-0.5 rounded border border-white/10 text-white/45">{c}</span>
-                ))}
+              <div className="mt-4 space-y-2 text-xs">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-white/35 w-20 shrink-0">certified</span>
+                  {certs.earned.map((c) => (
+                    <span key={c} className="px-2 py-0.5 rounded border"
+                      style={{ borderColor: `${accent}55`, color: accent }}>{c}</span>
+                  ))}
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-white/35 w-20 shrink-0">in progress</span>
+                  {certs.inProgress.map((c) => (
+                    <span key={c} className="px-2 py-0.5 rounded border border-[#ffd11a]/30 text-[#ffd11a]">{c}</span>
+                  ))}
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-white/35 w-20 shrink-0">training</span>
+                  {certs.training.map((c) => (
+                    <span key={c} className="px-2 py-0.5 rounded border border-white/10 text-white/45">{c}</span>
+                  ))}
+                </div>
               </div>
             </section>
 
@@ -362,7 +395,10 @@ export default function Index() {
         <span>~/portfolio/{active}</span>
         <span className="hidden sm:inline">UTF-8</span>
         <span className="hidden sm:inline">main</span>
-        <span className="ml-auto">{clock.toLocaleTimeString()}</span>
+        <span className="hidden lg:block flex-1 text-center italic text-white/25 truncate px-4">
+          &ldquo;{ethos}&rdquo;
+        </span>
+        <span className="ml-auto lg:ml-0">{clock.toLocaleTimeString()}</span>
         <span>{identity.version}</span>
       </footer>
 
