@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="11" fill="#0a0a0b"/>
+  <!-- ▚ offset-bars mark (chartreuse) — vertical bars, matches the on-page ▚ glyph -->
+  <rect x="15" y="8" width="13.5" height="24" rx="2.5" fill="#d4ff3f"/>
+  <rect x="35.5" y="32" width="13.5" height="24" rx="2.5" fill="#d4ff3f"/>
+</svg>
