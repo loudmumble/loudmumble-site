@@ -4,7 +4,7 @@ import {
   Search, Shield, Terminal, Wrench, X, ChevronRight, Check, Copy,
 } from 'lucide-react';
 import {
-  identity, ethos, expertise, workstreams, currentResearch, services, projects,
+  identity, flagship, ethos, expertise, workstreams, currentResearch, services, projects,
   skillCategories, certs, contactMethods, stats, primaryLanguages, proofPoints,
 } from '@/lib/portfolio-data';
 
@@ -32,7 +32,8 @@ const NAV = [
 
 type SectionId = (typeof NAV)[number]['id'];
 
-const accent = '#33ff99';
+const accent = '#d4ff3f'; // SA chartreuse signal — aligns with the Structured Anarchy launch page
+const DISPLAY = "'Anton', 'Arial Narrow', sans-serif";
 
 function useScrollSpy(ids: string[]) {
   const [active, setActive] = useState(ids[0]);
@@ -56,10 +57,10 @@ function useScrollSpy(ids: string[]) {
 }
 
 const Bar = ({ level, max, color }: { level: number; max: number; color: string }) => (
-  <div className="h-1.5 w-full rounded-full bg-white/5 overflow-hidden">
+  <div className="h-2 w-full bg-white/[0.04] overflow-hidden border border-white/[0.06]">
     <div
-      className="h-full rounded-full transition-all duration-700"
-      style={{ width: `${(level / max) * 100}%`, background: color, boxShadow: `0 0 8px ${color}88` }}
+      className="h-full transition-all duration-700"
+      style={{ width: `${(level / max) * 100}%`, background: color, boxShadow: `0 0 10px ${color}66` }}
     />
   </div>
 );
@@ -71,7 +72,7 @@ const SectionTitle = ({ cmd, children }: { cmd: string; children: React.ReactNod
       <span className="text-white/30">:~$ </span>
       {cmd}
     </div>
-    <h2 className="text-2xl font-semibold text-white tracking-tight">{children}</h2>
+    <h2 className="text-3xl md:text-4xl text-white tracking-tight" style={{ fontFamily: DISPLAY }}>{children}</h2>
   </div>
 );
 
@@ -127,7 +128,7 @@ export default function Index() {
   return (
     <div
       className="h-screen w-screen overflow-hidden text-white/80 flex flex-col font-mono"
-      style={{ background: '#0a0c0b', fontFamily: "'JetBrains Mono','Fira Code',monospace" }}
+      style={{ background: '#0a0a0b', fontFamily: "'JetBrains Mono','Fira Code',monospace" }}
     >
       {/* top chrome bar */}
       <header className="flex-none h-9 flex items-center gap-3 px-3 border-b border-white/10 bg-black/40 text-xs">
@@ -150,10 +151,10 @@ export default function Index() {
         {/* sidebar */}
         <aside className="hidden md:flex flex-col w-60 flex-none border-r border-white/10 bg-black/30">
           <div className="p-4 border-b border-white/10">
-            <div className="text-lg font-bold tracking-tight" style={{ color: accent }}>
+            <div className="text-2xl tracking-wide" style={{ color: accent, fontFamily: DISPLAY }}>
               {identity.handle}
             </div>
-            <div className="text-[11px] text-white/35 mt-0.5">{identity.tagline}</div>
+            <div className="text-[10px] uppercase tracking-[0.15em] text-white/40 mt-1">{identity.role}</div>
           </div>
           <nav className="p-2 space-y-0.5">
             {NAV.map((n) => {
@@ -200,10 +201,11 @@ export default function Index() {
                 style={{ background: 'linear-gradient(135deg, rgba(51,255,153,0.05), transparent 60%)' }}
               >
                 <div className="text-xs text-white/40 mb-4">$ whoami && cat overview.md</div>
-                <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
+                <h1 className="text-5xl md:text-7xl text-white leading-[0.9] tracking-tight" style={{ fontFamily: DISPLAY }}>
                   {identity.handle}
                 </h1>
-                <p className="mt-3 text-lg" style={{ color: accent }}>{identity.tagline}</p>
+                <p className="mt-2 text-xs sm:text-sm uppercase tracking-[0.22em] text-white/45">{identity.role}</p>
+                <p className="mt-4 text-lg italic" style={{ color: accent }}>“{identity.tagline}”</p>
                 <p className="mt-4 text-white/55 leading-relaxed max-w-2xl">{identity.blurb}</p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <a href="https://github.com/loudmumble" target="_blank" rel="noreferrer"
@@ -226,6 +228,21 @@ export default function Index() {
                     </div>
                   ))}
                 </div>
+              </div>
+
+              {/* flagship — a named PROJECT, kept distinct from the identity above */}
+              <div className="mt-6 rounded-xl border p-6 relative overflow-hidden"
+                style={{ borderColor: `${accent}40`, background: `linear-gradient(135deg, ${accent}0d, transparent 65%)` }}>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-white/40">flagship project</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded font-bold" style={{ background: `${accent}1a`, color: accent }}>{flagship.status}</span>
+                </div>
+                <div className="mt-2 flex items-baseline gap-3 flex-wrap">
+                  <h3 className="text-3xl md:text-4xl text-white tracking-tight" style={{ fontFamily: DISPLAY }}>{flagship.name}</h3>
+                  <span className="text-xs text-white/40">{flagship.kind}</span>
+                  <span className="ml-auto text-2xl" style={{ color: accent, fontFamily: DISPLAY }}>{flagship.metric}</span>
+                </div>
+                <p className="mt-3 text-sm text-white/55 leading-relaxed max-w-3xl">{flagship.blurb}</p>
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4 mt-8">

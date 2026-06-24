@@ -33,12 +33,25 @@ export interface ContactMethod {
 
 export const identity = {
   handle: 'loudmumble',
-  tagline: 'Autonomous red team platform. Built solo. Production-ready.',
+  // A person, not a product. Role-first so the handle never reads as a brand name.
+  role: 'Offensive Security Engineer · Red-Team Tooling Developer',
+  tagline: 'I build offensive security infrastructure — then operate it.',
   blurb:
-    'Two years of continuous solo development producing an integrated offensive security platform: C2 orchestration, multi-transport pivoting, ADCS exploitation, behavioral detection, PCAP credential harvesting, and agentic attack-chain automation — all single-binary, no Docker. HTB global rank #902. Top 1% Academy. Available for senior red team roles and consulting engagements.',
+    'Offensive security engineer and red-team operator. Over two years I built an integrated toolkit of 40+ purpose-built units — C2 orchestration, multi-transport pivoting, ADCS exploitation, behavioral detection, PCAP credential harvesting, and agentic attack-chain automation — solo, single-binary, no Docker. HTB global rank #902, Top 1% Academy. Available for senior red-team roles and consulting engagements.',
   location: 'remote / encrypted',
   status: 'open to opportunities',
   version: 'v4.2.1',
+};
+
+// The flagship is a named PROJECT — distinct from the handle above, so the site
+// never conflates "loudmumble the operator" with "the platform he built."
+export const flagship = {
+  name: 'Structured Anarchy',
+  kind: 'Agentic Operator Platform',
+  blurb:
+    'My flagship: an agentic operator platform that lets one person direct a coordinated swarm across offensive, defensive, and purple-team work. 40+ integrated units, channel-bound identity, a single kill-switch. Built solo.',
+  metric: '40+ units',
+  status: 'Private RC',
 };
 
 // Shared across the loudmumble/terryarbors through-line — the same line closes
@@ -229,7 +242,7 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     name: 'DEVELOPMENT',
-    accent: '#33ff99',
+    accent: '#d4ff3f',
     skills: [
       { name: 'Bash / Shell', level: 8, max: 10 },
       { name: 'Go', level: 8, max: 10 },

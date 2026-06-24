@@ -11,6 +11,11 @@ export default defineConfig(() => ({
       overlay: false,
     },
   },
+  // preview binds the LAN too, so a built test is reachable from another device on the RPi
+  preview: {
+    host: "::",
+    port: 8080,
+  },
   plugins: [react()].filter(Boolean),
   resolve: {
     alias: {
