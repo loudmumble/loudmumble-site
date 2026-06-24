@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Github, Mail, Copy, Check, ArrowUpRight, ChevronRight, Crosshair, Waypoints, KeyRound,
@@ -37,10 +37,7 @@ function SectionHead({ n, kicker, title, sub }: { n: string; kicker: string; tit
 const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 export default function Index() {
-  const [ti, setTi] = useState(0);
   const [copied, setCopied] = useState(false);
-  const taglines = useMemo(() => [identity.tagline, 'The one-man red, blue, and purple team.', ethos], []);
-  useEffect(() => { const t = setInterval(() => setTi((i) => (i + 1) % taglines.length), 3800); return () => clearInterval(t); }, [taglines]);
 
   const copyEmail = () => { navigator.clipboard.writeText('contact@loudmumble.com'); setCopied(true); setTimeout(() => setCopied(false), 1800); };
   const marquee = [...expertise.map((e) => e.split(':')[0].toUpperCase()), 'AVAILABLE FOR SENIOR RED-TEAM ROLES'];
@@ -75,8 +72,8 @@ export default function Index() {
             <span className="block" style={{ fontSize: 'clamp(3rem,14vw,11rem)' }}>LOUD<span style={{ color: ACCENT }}>MUMBLE</span></span>
           </h1>
           <p className="mt-3" style={hud({ fontSize: 13, letterSpacing: '0.22em' })}>{identity.role}</p>
-          <p key={ti} className="mt-5 h-7 text-lg md:text-2xl" style={{ fontFamily: DISPLAY, letterSpacing: '0.02em', color: INK }}>
-            <span style={{ color: ACCENT }}>“</span>{taglines[ti]}<span style={{ color: ACCENT }}>”</span>
+          <p className="mt-5 text-lg md:text-2xl" style={{ fontFamily: DISPLAY, letterSpacing: '0.02em', color: INK }}>
+            <span style={{ color: ACCENT }}>“</span>{ethos}<span style={{ color: ACCENT }}>”</span>
           </p>
           <p className="mt-5 text-sm md:text-base max-w-2xl leading-relaxed" style={{ color: DIM }}>{identity.blurb}</p>
 
@@ -231,7 +228,7 @@ export default function Index() {
         <footer className="border-t" style={{ borderColor: LINE }}>
           <div className="max-w-[1200px] mx-auto px-5 py-6 flex flex-wrap items-center justify-between gap-3">
             <span style={{ fontFamily: DISPLAY, fontSize: 14, letterSpacing: '0.06em' }}>LOUDMUMBLE</span>
-            <span className="hidden md:block italic" style={{ ...hud({ textTransform: 'none', letterSpacing: '0.02em' }) }}>“{ethos}”</span>
+            <span className="hidden md:block italic" style={{ ...hud({ textTransform: 'none', letterSpacing: '0.02em' }) }}>“{identity.tagline}”</span>
             <span style={hud()}>{identity.version}</span>
           </div>
         </footer>
