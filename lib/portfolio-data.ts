@@ -35,7 +35,9 @@ export const identity = {
   handle: 'loudmumble',
   // A person, not a product. Role-first so the handle never reads as a brand name.
   role: 'Offensive Security Engineer · Red-Team Tooling Developer',
-  tagline: 'I build offensive security infrastructure — then operate it.',
+  // Hero line. A deliberate inversion of "don't reinvent the wheel" — the whole
+  // thesis: in this domain, the bespoke offensive tool is worth building yourself.
+  tagline: 'This wheel is worth inventing.',
   blurb:
     'Offensive security engineer and red-team operator. Over two years I built an integrated toolkit of 40+ purpose-built units — C2 orchestration, multi-transport pivoting, ADCS exploitation, behavioral detection, PCAP credential harvesting, and agentic attack-chain automation — solo, single-binary, no Docker. HTB global rank #902, Top 1% Academy. Available for senior red-team roles and consulting engagements.',
   location: 'remote / encrypted',

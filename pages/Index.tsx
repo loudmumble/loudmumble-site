@@ -73,7 +73,7 @@ export default function Index() {
           </h1>
           <p className="mt-3" style={hud({ fontSize: 13, letterSpacing: '0.22em' })}>{identity.role}</p>
           <p className="mt-5 text-lg md:text-2xl" style={{ fontFamily: DISPLAY, letterSpacing: '0.02em', color: INK }}>
-            <span style={{ color: ACCENT }}>“</span>{ethos}<span style={{ color: ACCENT }}>”</span>
+            <span style={{ color: ACCENT }}>“</span>{identity.tagline}<span style={{ color: ACCENT }}>”</span>
           </p>
           <p className="mt-5 text-sm md:text-base max-w-2xl leading-relaxed" style={{ color: DIM }}>{identity.blurb}</p>
 
@@ -228,7 +228,7 @@ export default function Index() {
         <footer className="border-t" style={{ borderColor: LINE }}>
           <div className="max-w-[1200px] mx-auto px-5 py-6 flex flex-wrap items-center justify-between gap-3">
             <span style={{ fontFamily: DISPLAY, fontSize: 14, letterSpacing: '0.06em' }}>LOUDMUMBLE</span>
-            <span className="hidden md:block italic" style={{ ...hud({ textTransform: 'none', letterSpacing: '0.02em' }) }}>“{identity.tagline}”</span>
+            <span className="italic w-full md:w-auto order-last md:order-none text-center md:text-left" style={{ ...hud({ textTransform: 'none', letterSpacing: '0.02em' }) }}>“{ethos}”</span>
             <span style={hud()}>{identity.version}</span>
           </div>
         </footer>
