@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Activity, Boxes, Command, Cpu, ExternalLink, Folder, Github, Mail,
   Search, Shield, Terminal, Wrench, X, ChevronRight, Check, Copy,
@@ -10,7 +11,7 @@ import {
 
 // Status badge styling, driven by each project's real status (no hardcoding).
 const STATUS_BADGE: Record<string, { label: string; color: string }> = {
-  stable: { label: 'STABLE', color: '#33ff99' },
+  stable: { label: 'STABLE', color: '#d4ff3f' },
   development: { label: 'ACTIVE DEV', color: '#ffd11a' },
   alpha: { label: 'ALPHA', color: '#ff8c42' },
 };
@@ -130,8 +131,12 @@ export default function Index() {
       className="h-screen w-screen overflow-hidden text-white/80 flex flex-col font-mono"
       style={{ background: '#0a0a0b', fontFamily: "'JetBrains Mono','Fira Code',monospace" }}
     >
+      <div className="sa-grid" aria-hidden />
+      <div className="sa-vignette" aria-hidden />
+      <div className="sa-grain" aria-hidden />
+
       {/* top chrome bar */}
-      <header className="flex-none h-9 flex items-center gap-3 px-3 border-b border-white/10 bg-black/40 text-xs">
+      <header className="relative z-10 flex-none h-9 flex items-center gap-3 px-3 border-b border-white/10 bg-black/40 text-xs">
         <div className="flex items-center gap-1.5">
           <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
           <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
@@ -147,7 +152,7 @@ export default function Index() {
         </button>
       </header>
 
-      <div className="flex-1 flex min-h-0">
+      <div className="relative z-10 flex-1 flex min-h-0">
         {/* sidebar */}
         <aside className="hidden md:flex flex-col w-60 flex-none border-r border-white/10 bg-black/30">
           <div className="p-4 border-b border-white/10">
@@ -230,8 +235,8 @@ export default function Index() {
                 </div>
               </div>
 
-              {/* flagship — a named PROJECT, kept distinct from the identity above */}
-              <div className="mt-6 rounded-xl border p-6 relative overflow-hidden"
+              {/* flagship — a named PROJECT, kept distinct from the identity above; links to its launch page */}
+              <Link to="/structured-anarchy" className="group block mt-6 rounded-xl border p-6 relative overflow-hidden transition-colors"
                 style={{ borderColor: `${accent}40`, background: `linear-gradient(135deg, ${accent}0d, transparent 65%)` }}>
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] uppercase tracking-[0.2em] text-white/40">flagship project</span>
@@ -243,7 +248,10 @@ export default function Index() {
                   <span className="ml-auto text-2xl" style={{ color: accent, fontFamily: DISPLAY }}>{flagship.metric}</span>
                 </div>
                 <p className="mt-3 text-sm text-white/55 leading-relaxed max-w-3xl">{flagship.blurb}</p>
-              </div>
+                <div className="mt-4 text-xs font-bold uppercase tracking-widest inline-flex items-center gap-1 group-hover:gap-2 transition-all" style={{ color: accent }}>
+                  View the launch page <ChevronRight className="w-3.5 h-3.5" />
+                </div>
+              </Link>
 
               <div className="grid sm:grid-cols-2 gap-4 mt-8">
                 <div className="rounded-lg border border-white/10 p-5 bg-white/[0.02]">
@@ -407,7 +415,7 @@ export default function Index() {
       </div>
 
       {/* status bar */}
-      <footer className="flex-none h-7 flex items-center gap-4 px-3 border-t border-white/10 bg-black/50 text-[11px] text-white/40">
+      <footer className="relative z-10 flex-none h-7 flex items-center gap-4 px-3 border-t border-white/10 bg-black/50 text-[11px] text-white/40">
         <span style={{ color: accent }}>● SECURE</span>
         <span>~/portfolio/{active}</span>
         <span className="hidden sm:inline">UTF-8</span>

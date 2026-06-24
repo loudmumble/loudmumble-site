@@ -8,22 +8,22 @@
   :root {
     /* Terminal Green Theme */
     --background: 220 20% 4%;
-    --foreground: 120 100% 70%;
+    --foreground: 46 16% 90%;
 
     --card: 220 20% 6%;
-    --card-foreground: 120 100% 70%;
+    --card-foreground: 46 16% 90%;
 
     --popover: 220 20% 6%;
-    --popover-foreground: 120 100% 70%;
+    --popover-foreground: 46 16% 90%;
 
-    --primary: 120 100% 50%;
+    --primary: 74 100% 62%;
     --primary-foreground: 220 20% 4%;
 
     --secondary: 280 100% 60%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 220 15% 15%;
-    --muted-foreground: 120 40% 50%;
+    --muted-foreground: 240 5% 46%;
 
     --accent: 45 100% 50%;
     --accent-foreground: 220 20% 4%;
@@ -31,15 +31,15 @@
     --destructive: 0 85% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 120 100% 25%;
+    --border: 240 8% 15%;
     --input: 220 15% 12%;
-    --ring: 120 100% 50%;
+    --ring: 74 100% 62%;
 
     --radius: 0.25rem;
 
     /* Custom Terminal Colors */
-    --terminal-green: 120 100% 50%;
-    --terminal-bright-green: 120 100% 70%;
+    --terminal-green: 74 100% 62%;
+    --terminal-bright-green: 46 16% 90%;
     --terminal-cyan: 180 100% 50%;
     --terminal-magenta: 300 100% 60%;
     --terminal-yellow: 45 100% 50%;
@@ -50,22 +50,22 @@
     /* HSL raw values for JS integration */
     --terminal-cyan-hsl: hsl(180 100% 50%);
     --terminal-magenta-hsl: hsl(300 100% 60%);
-    --terminal-green-hsl: hsl(120 100% 50%);
+    --terminal-green-hsl: hsl(74 100% 62%);
 
     /* Glow effects */
-    --glow-green: 0 0 20px hsl(120 100% 50% / 0.5);
+    --glow-green: 0 0 20px hsl(74 100% 62% / 0.5);
     --glow-cyan: 0 0 20px hsl(180 100% 50% / 0.5);
     --glow-magenta: 0 0 20px hsl(300 100% 60% / 0.5);
 
     /* Sidebar - dark terminal style */
     --sidebar-background: 220 20% 3%;
-    --sidebar-foreground: 120 100% 70%;
-    --sidebar-primary: 120 100% 50%;
+    --sidebar-foreground: 46 16% 90%;
+    --sidebar-primary: 74 100% 62%;
     --sidebar-primary-foreground: 220 20% 4%;
     --sidebar-accent: 220 15% 10%;
-    --sidebar-accent-foreground: 120 100% 70%;
-    --sidebar-border: 120 100% 20%;
-    --sidebar-ring: 120 100% 50%;
+    --sidebar-accent-foreground: 46 16% 90%;
+    --sidebar-border: 240 8% 15%;
+    --sidebar-ring: 74 100% 62%;
   }
 }
 
@@ -133,7 +133,7 @@
 
   .title-bar-button.maximize {
     @apply bg-green-500 hover:bg-green-400;
-    box-shadow: 0 0 6px hsl(120 100% 50% / 0.5);
+    box-shadow: 0 0 6px hsl(74 100% 62% / 0.5);
   }
 
   /* Text glow effects */
@@ -432,4 +432,26 @@
   .animate-scanline {
     animation: scanline 4s linear infinite;
   }
+}
+/* ── Structured Anarchy atmosphere (shared by portfolio + launch page) ── */
+.sa-grid {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.55;
+  background-image:
+    linear-gradient(#1c1c22 1px, transparent 1px),
+    linear-gradient(90deg, #1c1c22 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask-image: radial-gradient(ellipse 130% 90% at 50% 0%, #000 28%, transparent 82%);
+  mask-image: radial-gradient(ellipse 130% 90% at 50% 0%, #000 28%, transparent 82%);
+}
+.sa-vignette {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse 90% 60% at 50% -6%, rgba(212,255,63,0.07), transparent 60%);
+}
+.sa-grain {
+  position: fixed; inset: 0; z-index: 50; pointer-events: none; opacity: 0.045; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.sa-scan {
+  position: fixed; inset: 0; z-index: 49; pointer-events: none; opacity: 0.35;
+  background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,0.16) 2px 3px);
 }
