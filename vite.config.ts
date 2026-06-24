@@ -6,7 +6,7 @@ export default defineConfig(() => ({
   base: "./",
   server: {
     host: "::",
-    port: 8080,
+    port: 4180,
     hmr: {
       overlay: false,
     },
@@ -14,7 +14,7 @@ export default defineConfig(() => ({
   // preview binds the LAN too, so a built test is reachable from another device on the RPi
   preview: {
     host: "::",
-    port: 8080,
+    port: 4180,
   },
   plugins: [react()].filter(Boolean),
   resolve: {

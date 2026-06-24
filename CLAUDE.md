@@ -37,7 +37,7 @@ are added/renamed.
 ## Commands
 
 ```bash
-npm run dev      # Vite dev server (http://localhost:8080)
+npm run dev      # Vite dev server (http://localhost:4180)
 npm run build    # Production build → dist/
 npm run preview  # Preview the production build
 npm run lint     # ESLint
