@@ -36,3 +36,8 @@ ROADMAP.md
 .sisyphus/
 .claude/
 .remember/
+
+# never publish agent instructions
+CLAUDE.md
+.remember/
+.claude/
