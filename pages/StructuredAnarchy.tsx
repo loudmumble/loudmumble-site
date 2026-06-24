@@ -6,11 +6,7 @@ import {
   Waves, Fingerprint, FileSearch, Share2, FileText, Hexagon, ArrowLeft, type LucideIcon,
 } from 'lucide-react';
 import { SA_FLEET, SA_TAGLINES, SA_MARQUEE, SA_PILLARS, SA_TRUST, type SANode } from '@/lib/sa-fleet';
-
-const ACCENT = '#d4ff3f';
-const VOID = '#0a0a0b';
-const DISPLAY = "'Anton','Arial Narrow',sans-serif";
-const MONO = "'JetBrains Mono','Fira Code',monospace";
+import { ACCENT, VOID, DISPLAY, MONO, hud } from '@/lib/sa-theme';
 
 const ICONS: Record<string, LucideIcon> = {
   hog: Crosshair, marshald: Network, aegis: ShieldCheck, sentinel: Radar, phantom: ScanSearch,
@@ -22,10 +18,6 @@ const DOMAIN_COLOR: Record<string, string> = { offensive: '#ff5a52', defensive: 
 const DOMAINS = [
   { id: 'offensive', label: 'Offensive' }, { id: 'defensive', label: 'Defensive' }, { id: 'infrastructure', label: 'Infrastructure' },
 ] as const;
-
-const hud = (extra?: React.CSSProperties): React.CSSProperties => ({
-  fontFamily: MONO, fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#76766f', ...extra,
-});
 
 function Card({ n }: { n: SANode }) {
   const c = DOMAIN_COLOR[n.domain];
