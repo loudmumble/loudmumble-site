@@ -672,6 +672,6 @@ export const SA_TRUST = [
   },
   {
     "k": "Honesty",
-    "v": "code-observed never claimed verified — facts are labelled as facts"
+    "v": "What the platform observes in code is labelled 'observed' — never inflated to 'verified working.' Claims stay claims; facts stay facts."
   }
 ];
