@@ -7,21 +7,21 @@ export interface SAFleet { generated: string; derived_at: string | null; stats: 
 
 export const SA_FLEET: SAFleet = {
   "generated": "2026-06-25",
-  "derived_at": "2026-06-25T01:13:20Z",
+  "derived_at": "2026-06-25T02:13:15Z",
   "stats": {
-    "nodes": 42,
-    "present": 42,
-    "tagged": 24,
-    "mcp": 24,
+    "nodes": 41,
+    "present": 41,
+    "tagged": 27,
+    "mcp": 28,
     "awaiting": 5,
-    "edges": 72
+    "edges": 64
   },
   "cats": [
     {
       "id": "offensive",
       "label": "Offensive",
       "color": "#ff5a52",
-      "count": 14
+      "count": 13
     },
     {
       "id": "defensive",
@@ -181,9 +181,9 @@ export const SA_FLEET: SAFleet = {
       "cat": "sensor",
       "tagline": "Shared kernel-level telemetry",
       "present": true,
-      "version": null,
-      "status": "untagged · 26 commits",
-      "commits_since_tag": null,
+      "version": "v2.1.0",
+      "status": "v2.1.0 · current",
+      "commits_since_tag": 0,
       "last_commit": "2026-06-20",
       "mcp": false,
       "awaiting": false,
@@ -193,32 +193,16 @@ export const SA_FLEET: SAFleet = {
       ]
     },
     {
-      "id": "de-voidlink",
-      "label": "DE-VoidLink",
-      "cat": "offensive",
-      "tagline": "Local adversary simulation — detection engineering",
-      "present": true,
-      "version": null,
-      "status": "untagged · 11 commits",
-      "commits_since_tag": null,
-      "last_commit": "2026-04-02",
-      "mcp": false,
-      "awaiting": false,
-      "planes": [
-        "product"
-      ]
-    },
-    {
       "id": "burrow",
       "label": "Burrow",
       "cat": "offensive",
       "tagline": "Advanced network pivoting tool",
       "present": true,
       "version": "v4.2.0-rc1",
-      "status": "v4.2.0-rc1 · current",
-      "commits_since_tag": 0,
-      "last_commit": "2026-06-20",
-      "mcp": false,
+      "status": "v4.2.0-rc1 · +1 since tag",
+      "commits_since_tag": 1,
+      "last_commit": "2026-06-24",
+      "mcp": true,
       "awaiting": false,
       "planes": [
         "product",
@@ -363,10 +347,10 @@ export const SA_FLEET: SAFleet = {
       "tagline": "BH CE v6 attack path scoring + engagement enrichment",
       "present": true,
       "version": "v9.1.0",
-      "status": "v9.1.0 · +29 since tag",
-      "commits_since_tag": 29,
+      "status": "v9.1.0 · +31 since tag",
+      "commits_since_tag": 31,
       "last_commit": "2026-06-24",
-      "mcp": false,
+      "mcp": true,
       "awaiting": false,
       "planes": [
         "product"
@@ -378,11 +362,11 @@ export const SA_FLEET: SAFleet = {
       "cat": "infra",
       "tagline": "Automated engagement report generation ← Sidekick",
       "present": true,
-      "version": null,
-      "status": "untagged · 48 commits",
-      "commits_since_tag": null,
+      "version": "v2024.1",
+      "status": "v2024.1 · +1 since tag",
+      "commits_since_tag": 1,
       "last_commit": "2026-06-24",
-      "mcp": false,
+      "mcp": true,
       "awaiting": false,
       "planes": [
         "product"
@@ -410,9 +394,9 @@ export const SA_FLEET: SAFleet = {
       "cat": "offensive",
       "tagline": "Social engineering toolkit",
       "present": true,
-      "version": null,
-      "status": "untagged · 15 commits",
-      "commits_since_tag": null,
+      "version": "v0.1.0",
+      "status": "v0.1.0 · current",
+      "commits_since_tag": 0,
       "last_commit": "2026-03-22",
       "mcp": true,
       "awaiting": false,
@@ -459,7 +443,7 @@ export const SA_FLEET: SAFleet = {
       "tagline": "Fleet authority — declared truth + conformance verify",
       "present": true,
       "version": null,
-      "status": "untagged · 30 commits",
+      "status": "untagged · 31 commits",
       "commits_since_tag": null,
       "last_commit": "2026-06-24",
       "mcp": false,
@@ -507,10 +491,10 @@ export const SA_FLEET: SAFleet = {
       "tagline": "Universal web/OSINT scraping daemon + CLI client agent",
       "present": true,
       "version": "v1.0.0-rc.1",
-      "status": "v1.0.0-rc.1 · +31 since tag",
-      "commits_since_tag": 31,
+      "status": "v1.0.0-rc.1 · +33 since tag",
+      "commits_since_tag": 33,
       "last_commit": "2026-06-24",
-      "mcp": false,
+      "mcp": true,
       "awaiting": false,
       "planes": [
         "control-plane"
@@ -555,8 +539,8 @@ export const SA_FLEET: SAFleet = {
       "tagline": "Markdown notes app host (hosts InfrAgent plugin)",
       "present": true,
       "version": "v1.2.0",
-      "status": "v1.2.0 · +6 since tag",
-      "commits_since_tag": 6,
+      "status": "v1.2.0 · +8 since tag",
+      "commits_since_tag": 8,
       "last_commit": "2026-06-24",
       "mcp": true,
       "awaiting": false,
