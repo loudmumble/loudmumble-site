@@ -118,76 +118,12 @@ export const services: Service[] = [
 // intentionally excluded.
 export const projects: Project[] = [
   {
-    name: 'hog',
-    description:
-      'C2 orchestration platform. Unified session management across Sliver, Havoc, Empire, and Metasploit — single TUI, single binary, embedded React web UI via go:embed. Real-time Sentinel alert correlation maps host-level events to active C2 sessions. MCP server for AI agent integration, marshald dispatch for autonomous attack chains, JWT auth, SSE feeds, PostgreSQL persistence. The orchestration layer for the full platform.',
-    tech: ['Go', 'React', 'TypeScript', 'PostgreSQL'],
-    status: 'stable',
-    github: 'https://github.com/loudmumble/hog',
-  },
-  {
-    name: 'burrow',
-    description:
-      'Post-exploitation pivot framework combining Raw TCP, WebSocket, DNS, and ICMP transports in one static binary. Userspace TUN/TAP, SOCKS5, port forwarding, bidirectional relay, subnet scanner, file transfer, and in-place payload upgrade. Profile-based deployment deploys a full relay stack in under 30 seconds. Functional equivalent of ligolo-ng + chisel + pivotnacci + dnscat2 + socat — one binary, zero dependencies.',
-    tech: ['Go'],
-    status: 'stable',
-    github: 'https://github.com/loudmumble/burrow',
-  },
-  {
-    name: 'trusted',
-    description:
-      'ADCS/PKI attack framework with full ESC1–14 enumeration and exploitation automation. Shadow credentials, golden certificate forging, Kerberos/NTLM/cert-based authentication exploitation. Pure Go, CGO-free static binary. The ESC coverage is complete — every misconfiguration Certipy finds, trusted exploits.',
-    tech: ['Go'],
-    status: 'stable',
-    github: 'https://github.com/loudmumble/trusted',
-  },
-  {
-    name: 'sentinel',
-    description:
-      'Host security monitor with C2 correlation output. Configurable scoring engine POSTs high-score events to HOG /sentinel/event for real-time session correlation — maps host alerts to active C2 implants automatically. MCP server included for AI agent integration.',
-    tech: ['Go'],
-    status: 'stable',
-    github: 'https://github.com/loudmumble/sentinel',
-  },
-  {
-    name: 'lamprey',
-    description:
-      'Network forensics and credential detection engine. Live interface capture (no libpcap), PCAP parsing, protocol anomaly detection, credential harvesting from network traffic. 171 tests. Static binary with MCP server for fleet integration.',
-    tech: ['Go'],
-    status: 'stable',
-    github: 'https://github.com/loudmumble/lamprey',
-  },
-  {
-    name: 'aegis',
-    description:
-      'Behavioral IDS consuming eBPF/syscall sensor data. Flags LLM-driven attacks by network cadence — inter-arrival-time fingerprinting, model profiling, rule engine. Catches autonomous agents by behavioral signature, not payload.',
-    tech: ['Go'],
-    status: 'development',
-    github: 'https://github.com/loudmumble/aegis',
-  },
-  {
-    name: 'syscalld',
-    description:
-      'Pure-Go (CGO-free) kernel sensor: syscall tracing, process/file/network/DNS visibility via /proc and eBPF. Embeddable library consumed by aegis and lamprey. Live TUI included.',
-    tech: ['Go'],
-    status: 'stable',
-    github: 'https://github.com/loudmumble/syscalld',
-  },
-  {
     name: 'mtls-core',
     description:
       'Drop-in mutual TLS 1.3 foundation for Go services: private CA, per-service cert issuance, channel-bound peer identity via peer certificate (not bearer tokens). Standard library only, no CGO. Powers the identity layer across the entire fleet.',
     tech: ['Go'],
     status: 'stable',
     github: 'https://github.com/loudmumble/mtls-core',
-  },
-  {
-    name: 'pry',
-    description:
-      'Intercepting web proxy with AI-assisted bug discovery. HTTP/HTTPS interception, request manipulation, automated fuzzing, session handling. Zero-false-positive proof generation for autonomous web app security testing.',
-    tech: ['Go', 'React', 'TypeScript'],
-    status: 'development',
-    github: 'https://github.com/loudmumble/pry',
   },
   {
     name: 'de-voidlink',
@@ -204,14 +140,6 @@ export const projects: Project[] = [
     tech: ['Rust'],
     status: 'stable',
     github: 'https://github.com/loudmumble/crack-ng',
-  },
-  {
-    name: 'grimoire',
-    description:
-      'Local-first Obsidian-style markdown knowledge base — Electron + React + Milkdown. Plain .md files on disk, no cloud, no database, agentic integrations with self-hosted models. Built for operators who want their notes offline and private.',
-    tech: ['TypeScript', 'React', 'Electron', 'Rust'],
-    status: 'stable',
-    github: 'https://github.com/loudmumble/grimoire',
   },
   {
     name: '00_oneoffs',

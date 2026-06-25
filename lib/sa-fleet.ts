@@ -7,7 +7,7 @@ export interface SAFleet { generated: string; derived_at: string | null; stats: 
 
 export const SA_FLEET: SAFleet = {
   "generated": "2026-06-25",
-  "derived_at": "2026-06-25T02:53:08Z",
+  "derived_at": "2026-06-25T03:10:15Z",
   "stats": {
     "nodes": 41,
     "present": 41,
@@ -362,9 +362,9 @@ export const SA_FLEET: SAFleet = {
       "cat": "infra",
       "tagline": "Automated engagement report generation ← Sidekick",
       "present": true,
-      "version": "v2024.1",
-      "status": "v2024.1 · +1 since tag",
-      "commits_since_tag": 1,
+      "version": "v1.0.0",
+      "status": "v1.0.0 · current",
+      "commits_since_tag": 0,
       "last_commit": "2026-06-24",
       "mcp": true,
       "awaiting": false,
