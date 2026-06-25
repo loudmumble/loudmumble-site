@@ -7,12 +7,12 @@ export interface SAFleet { generated: string; derived_at: string | null; stats: 
 
 export const SA_FLEET: SAFleet = {
   "generated": "2026-06-25",
-  "derived_at": "2026-06-25T02:13:15Z",
+  "derived_at": "2026-06-25T02:21:48Z",
   "stats": {
     "nodes": 41,
     "present": 41,
     "tagged": 27,
-    "mcp": 28,
+    "mcp": 29,
     "awaiting": 5,
     "edges": 64
   },
@@ -443,7 +443,7 @@ export const SA_FLEET: SAFleet = {
       "tagline": "Fleet authority — declared truth + conformance verify",
       "present": true,
       "version": null,
-      "status": "untagged · 31 commits",
+      "status": "untagged · 32 commits",
       "commits_since_tag": null,
       "last_commit": "2026-06-24",
       "mcp": false,
@@ -635,10 +635,10 @@ export const SA_FLEET: SAFleet = {
       "tagline": "Hash-cracking orchestrator (Rust)",
       "present": true,
       "version": "v1.0.0-rc.1",
-      "status": "v1.0.0-rc.1 · +26 since tag",
-      "commits_since_tag": 26,
-      "last_commit": "2026-04-05",
-      "mcp": false,
+      "status": "v1.0.0-rc.1 · +27 since tag",
+      "commits_since_tag": 27,
+      "last_commit": "2026-06-24",
+      "mcp": true,
       "awaiting": false,
       "planes": [
         "control-plane"
