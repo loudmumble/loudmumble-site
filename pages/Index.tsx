@@ -8,7 +8,8 @@ import {
   identity, flagship, ethos, expertise, currentResearch, services, projects,
   skillCategories, certs, contactMethods, proofPoints, primaryLanguages,
 } from '@/lib/portfolio-data';
-import { ACCENT, VOID, INK, DIM, FAINT, LINE, SURFACE2, DISPLAY, MONO, hud } from '@/lib/sa-theme';
+import { ACCENT, VOID, INK, DIM, FAINT, LINE, DISPLAY, MONO, hud } from '@/lib/sa-theme';
+import { SA_FLEET } from '@/lib/sa-fleet';
 
 const STATUS_COLOR: Record<string, string> = { stable: ACCENT, development: '#ffd11a', alpha: '#ff8c42' };
 const PROJECT_ICON: Record<string, LucideIcon> = {
@@ -118,7 +119,7 @@ export default function Index() {
             <div className="mt-2 flex items-baseline gap-3 flex-wrap">
               <h3 className="text-4xl md:text-5xl" style={{ fontFamily: DISPLAY, color: INK }}>{flagship.name.toUpperCase()}</h3>
               <span className="text-xs" style={{ color: DIM }}>{flagship.kind}</span>
-              <span className="ml-auto text-3xl" style={{ fontFamily: DISPLAY, color: ACCENT }}>{flagship.metric}</span>
+              <span className="ml-auto text-3xl" style={{ fontFamily: DISPLAY, color: ACCENT }}>{SA_FLEET.stats.nodes} units</span>
             </div>
             <p className="mt-3 text-sm leading-relaxed max-w-3xl" style={{ color: DIM }}>{flagship.blurb}</p>
             <div className="mt-4 inline-flex items-center gap-1 group-hover:gap-2 transition-all text-xs font-bold uppercase tracking-widest" style={{ color: ACCENT }}>View the launch page <ChevronRight className="w-3.5 h-3.5" /></div>

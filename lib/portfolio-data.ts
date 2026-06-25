@@ -39,7 +39,7 @@ export const identity = {
   // thesis: in this domain, the bespoke offensive tool is worth building yourself.
   tagline: 'This wheel is worth inventing.',
   blurb:
-    'Offensive security engineer and red-team operator. Over two years I built an integrated toolkit of 40+ purpose-built units — C2 orchestration, multi-transport pivoting, ADCS exploitation, behavioral detection, PCAP credential harvesting, and agentic attack-chain automation — solo, single-binary, no Docker. HTB global rank #902, Top 1% Academy. Available for senior red-team roles and consulting engagements.',
+    'Offensive security engineer and red-team operator. Over two years I built an integrated 42-unit fleet — C2 orchestration, multi-transport pivoting, ADCS exploitation, behavioral detection, PCAP credential harvesting, and agentic attack-chain automation — solo, single-binary, no Docker. HTB global rank #902, Top 1% Academy. Available for senior red-team roles and consulting engagements.',
   location: 'remote / encrypted',
   status: 'open to opportunities',
   version: 'v4.2.1',
@@ -51,8 +51,8 @@ export const flagship = {
   name: 'Structured Anarchy',
   kind: 'Agentic Operator Platform',
   blurb:
-    'My flagship: an agentic operator platform that lets one person direct a coordinated swarm across offensive, defensive, and purple-team work. 40+ integrated units, channel-bound identity, a single kill-switch. Built solo.',
-  metric: '40+ units',
+    'My flagship: an agentic operator platform that lets one person direct a coordinated swarm across offensive, defensive, and purple-team work. A 42-unit fleet, channel-bound identity, a single kill-switch. Built solo.',
+  metric: '42 units',
   status: 'Private RC',
 };
 
@@ -327,5 +327,5 @@ export const proofPoints = [
   { label: 'HTB Global Rank', value: '#902', note: 'top 1,000 worldwide — verifiable' },
   { label: 'HTB Academy', value: 'Top 1%', note: '490+ targets · CPTS + CWES complete' },
   { label: 'TryHackMe', value: 'Top 4%', note: 'ADversary-badged · Red Team path complete' },
-  { label: 'Platform scale', value: '12+ tools', note: 'integrated, production-ready, single-binary each' },
+  { label: 'Platform scale', value: '42 units', note: 'generated from the real repos · single-binary each' },
 ];
