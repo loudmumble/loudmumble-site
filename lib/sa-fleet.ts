@@ -7,7 +7,7 @@ export interface SAFleet { generated: string; derived_at: string | null; stats: 
 
 export const SA_FLEET: SAFleet = {
   "generated": "2026-06-25",
-  "derived_at": "2026-06-25T03:14:32Z",
+  "derived_at": "2026-06-25T03:25:43Z",
   "stats": {
     "nodes": 41,
     "present": 41,
@@ -113,10 +113,10 @@ export const SA_FLEET: SAFleet = {
       "cat": "defensive",
       "tagline": "Agentic IDS via cadence analysis",
       "present": true,
-      "version": "v0.3.0",
-      "status": "v0.3.0 · current",
+      "version": "v0.4.0",
+      "status": "v0.4.0 · current",
       "commits_since_tag": 0,
-      "last_commit": "2026-04-04",
+      "last_commit": "2026-06-24",
       "mcp": true,
       "awaiting": false,
       "planes": [
@@ -539,8 +539,8 @@ export const SA_FLEET: SAFleet = {
       "tagline": "Markdown notes app host (hosts InfrAgent plugin)",
       "present": true,
       "version": "v1.2.0",
-      "status": "v1.2.0 · +8 since tag",
-      "commits_since_tag": 8,
+      "status": "v1.2.0 · +9 since tag",
+      "commits_since_tag": 9,
       "last_commit": "2026-06-24",
       "mcp": true,
       "awaiting": false,
