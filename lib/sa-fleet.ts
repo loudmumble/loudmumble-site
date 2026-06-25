@@ -7,7 +7,7 @@ export interface SAFleet { generated: string; derived_at: string | null; stats: 
 
 export const SA_FLEET: SAFleet = {
   "generated": "2026-06-25",
-  "derived_at": "2026-06-25T02:47:24Z",
+  "derived_at": "2026-06-25T02:53:08Z",
   "stats": {
     "nodes": 41,
     "present": 41,
@@ -586,9 +586,9 @@ export const SA_FLEET: SAFleet = {
       "cat": "agent",
       "tagline": "ADCS/PKI + cert-auth C2",
       "present": true,
-      "version": "release-ready-20260615",
-      "status": "release-ready-20260615 · +3 since tag",
-      "commits_since_tag": 3,
+      "version": "v1.0.0",
+      "status": "v1.0.0 · +12 since tag",
+      "commits_since_tag": 12,
       "last_commit": "2026-06-23",
       "mcp": true,
       "awaiting": false,
