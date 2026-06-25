@@ -5,7 +5,8 @@ import {
   Waypoints, RadioTower, FlaskConical, FolderSync, SquareTerminal, BrainCircuit,
   Waves, Fingerprint, FileSearch, Share2, FileText, Hexagon, ArrowLeft, type LucideIcon,
 } from 'lucide-react';
-import { SA_FLEET, SA_TAGLINES, SA_MARQUEE, SA_PILLARS, SA_TRUST, type SANode } from '@/lib/sa-fleet';
+import { SA_FLEET, type SANode } from '@/lib/sa-fleet';
+import { SA_TAGLINES, SA_MARQUEE, SA_PILLARS, SA_TRUST } from '@/lib/sa-content';
 import { ACCENT, VOID, DISPLAY, MONO, hud } from '@/lib/sa-theme';
 
 const ICONS: Record<string, LucideIcon> = {
@@ -14,26 +15,28 @@ const ICONS: Record<string, LucideIcon> = {
   fester: FlaskConical, grip: FolderSync, vibe: SquareTerminal, mojodojo: BrainCircuit, lamprey: Waves,
   glass: Fingerprint, dossier: FileSearch, fenrir: Share2, 'report-ng': FileText,
 };
-const DOMAIN_COLOR: Record<string, string> = { offensive: '#ff5a52', defensive: '#4d9bff', infrastructure: '#34d3a6' };
-const DOMAINS = [
-  { id: 'offensive', label: 'Offensive' }, { id: 'defensive', label: 'Defensive' }, { id: 'infrastructure', label: 'Infrastructure' },
-] as const;
+// category display metadata comes straight from the generated feed (the real `cat` taxonomy)
+const CAT_META: Record<string, { id: string; label: string; color: string; count: number }> =
+  Object.fromEntries(SA_FLEET.cats.map((c) => [c.id, c]));
 
 function Card({ n }: { n: SANode }) {
-  const c = DOMAIN_COLOR[n.domain];
+  const meta = CAT_META[n.cat];
+  const c = meta?.color ?? '#8a8a93';
   const Icon = ICONS[n.id] ?? Hexagon;
   return (
     <div className="relative p-4 border transition-colors group" style={{ borderColor: '#24242a', background: 'rgba(255,255,255,0.015)' }}>
       <div className="absolute left-0 top-0 h-full" style={{ width: 2, background: c, opacity: 0.55 }} />
       <div className="flex items-start justify-between gap-2">
         <Icon className="w-6 h-6" strokeWidth={1.6} style={{ color: '#e9e7e0' }} />
-        <span style={hud({ fontSize: 9, color: c })}>{n.domain}</span>
+        <span style={hud({ fontSize: 9, color: c })}>{meta?.label ?? n.cat}</span>
       </div>
       <div className="mt-3 text-lg leading-none" style={{ fontFamily: DISPLAY, letterSpacing: '0.02em', color: '#e9e7e0' }}>{n.label}</div>
       <p className="mt-2 leading-snug" style={{ fontSize: 11, color: '#76766f', minHeight: 28 }}>{n.tagline}</p>
-      <div className="mt-3 pt-2 flex items-center justify-between border-t" style={{ borderColor: '#24242a', ...hud({ fontSize: 9 }) }}>
-        <span>{n.status}</span>
-        {n.verdict && <span style={{ color: n.verdict === 'aligned' ? ACCENT : undefined }}>{n.verdict}</span>}
+      <div className="mt-3 pt-2 flex items-center justify-between gap-2 border-t" style={{ borderColor: '#24242a', ...hud({ fontSize: 9 }) }}>
+        {n.awaiting
+          ? <span style={{ color: '#ffb454' }}>awaiting integration</span>
+          : <span className="truncate" title={n.status}>{n.version ?? 'untagged'}{n.commits_since_tag ? ` +${n.commits_since_tag}` : ''}</span>}
+        <span style={{ color: n.mcp ? ACCENT : '#46464a' }} title={n.mcp ? 'MCP server present — agentic control' : 'awaiting MCP / agentic wiring'}>{n.mcp ? '⬡ agentic' : (n.last_commit ?? '')}</span>
       </div>
     </div>
   );
@@ -41,17 +44,16 @@ function Card({ n }: { n: SANode }) {
 
 export default function StructuredAnarchy() {
   const [ti, setTi] = useState(0);
-  const [filter, setFilter] = useState<'all' | 'offensive' | 'defensive' | 'infrastructure'>('all');
+  const [filter, setFilter] = useState<string>('all');
   useEffect(() => { const id = setInterval(() => setTi((i) => (i + 1) % SA_TAGLINES.length), 3600); return () => clearInterval(id); }, []);
 
-  const product = useMemo(() => SA_FLEET.nodes.filter((n) => n.planes.includes('product')), []);
-  const shown = useMemo(() => (filter === 'all' ? product : product.filter((n) => n.domain === filter)), [product, filter]);
-  const counts = useMemo(() => { const c: Record<string, number> = { offensive: 0, defensive: 0, infrastructure: 0 }; product.forEach((n) => c[n.domain]++); return c; }, [product]);
+  // the whole fleet — one product, grouped by the real `cat` taxonomy (no fabricated splits)
+  const shown = useMemo(() => (filter === 'all' ? SA_FLEET.nodes : SA_FLEET.nodes.filter((n) => n.cat === filter)), [filter]);
 
   const stats = [
     { v: String(SA_FLEET.stats.nodes), l: 'fleet units' },
-    { v: String(SA_FLEET.stats.product), l: 'product suite' },
-    { v: String(SA_FLEET.stats.control_plane), l: 'control plane' },
+    { v: String(SA_FLEET.stats.mcp), l: 'agentic · MCP' },
+    { v: String(SA_FLEET.stats.awaiting), l: 'awaiting integ.' },
     { v: String(SA_FLEET.stats.edges), l: 'wired flows' },
   ];
 
@@ -76,7 +78,7 @@ export default function StructuredAnarchy() {
       <main className="relative" style={{ zIndex: 10 }}>
         {/* hero */}
         <section className="max-w-[1400px] mx-auto px-5 pt-20 md:pt-28 pb-14">
-          <p style={hud()}><span style={{ color: ACCENT }}>▶ </span>an agentic operator platform · 40+ integrated units · built solo</p>
+          <p style={hud()}><span style={{ color: ACCENT }}>▶ </span>an agentic operator platform · {SA_FLEET.stats.nodes}-unit fleet · built solo</p>
           <h1 className="mt-5 leading-[0.84]" style={{ fontFamily: DISPLAY }}>
             <span className="block" style={{ fontSize: 'clamp(3rem,13vw,10rem)' }}>STRUCTURED</span>
             <span className="block" style={{ fontSize: 'clamp(3rem,13vw,10rem)', color: ACCENT }}>ANARCHY</span>
@@ -121,16 +123,14 @@ export default function StructuredAnarchy() {
         <section id="fleet" className="max-w-[1400px] mx-auto px-5 py-20 md:py-24" style={{ scrollMarginTop: 48 }}>
           <div className="flex flex-wrap items-end justify-between gap-4 border-b pb-4" style={{ borderColor: '#24242a' }}>
             <div>
-              <span style={hud()}>§01 / the suite</span>
+              <span style={hud()}>§01 / the fleet</span>
               <h2 className="mt-2 text-4xl md:text-6xl" style={{ fontFamily: DISPLAY }}>THE FLEET, NOT A PITCH</h2>
-              <p className="mt-3 text-sm max-w-lg" style={{ color: '#76766f' }}>Real units, generated from the platform itself — across offensive, defensive, and infrastructure. Most already deliver value standalone; the platform is the act of composing them.</p>
+              <p className="mt-3 text-sm max-w-lg" style={{ color: '#76766f' }}>Every unit generated from the real repositories — category, version, and last-commit read straight from the code{SA_FLEET.derived_at ? `, ${SA_FLEET.derived_at.slice(0, 10)}` : ''}. Nothing hand-typed.</p>
             </div>
             <div className="flex flex-wrap border" style={{ borderColor: '#24242a', gap: 1, background: '#24242a' }}>
-              {(['all', ...DOMAINS.map((d) => d.id)] as const).map((f) => {
-                const on = filter === f;
-                const color = f === 'all' ? ACCENT : DOMAIN_COLOR[f];
-                const label = f === 'all' ? `ALL · ${product.length}` : `${DOMAINS.find((d) => d.id === f)!.label} · ${counts[f]}`;
-                return <button key={f} onClick={() => setFilter(f)} className="px-3 py-2" style={{ ...hud(), background: on ? '#15151a' : VOID, color: on ? color : '#76766f' }}>{label}</button>;
+              {[{ id: 'all', label: 'ALL', color: ACCENT, count: SA_FLEET.stats.nodes }, ...SA_FLEET.cats].map((f) => {
+                const on = filter === f.id;
+                return <button key={f.id} onClick={() => setFilter(f.id)} className="px-3 py-2" style={{ ...hud(), background: on ? '#15151a' : VOID, color: on ? f.color : '#76766f' }}>{f.label} · {f.count}</button>;
               })}
             </div>
           </div>
