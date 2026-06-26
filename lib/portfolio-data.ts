@@ -56,8 +56,7 @@ export const flagship = {
   status: 'Private RC',
 };
 
-// Shared across the loudmumble/terryarbors through-line — the same line closes
-// terryarbors.com; here it lives in the status bar. Same person, same ethos.
+// Hero/status-bar ethos line for the persona.
 export const ethos =
   "It's not a deficit of attention, it's an abundance of curiosity.";
 
@@ -226,8 +225,7 @@ export const projects: Project[] = [
 // Categories ordered as a narrative: what I do -> how I build it -> what I use
 // -> where I run it. Within each category, skills are sorted by level so the
 // progress bars form a clean descending staircase. Levels are a deliberately
-// conservative self-assessment, kept in lockstep with the proficiency numbers on
-// terryarbors.com so the same person reads the same way across both sites.
+// conservative self-assessment.
 export const skillCategories: SkillCategory[] = [
   {
     name: 'OFFENSIVE SECURITY',
@@ -285,9 +283,8 @@ export const skillCategories: SkillCategory[] = [
   },
 ];
 
-// Mirrors the cert/training record on terryarbors.com, curated to the
-// security-relevant subset (Microsoft fundamentals live on the professional
-// site). "earned" = passed exams; "training" = completed coursework/labs, which
+// Cert/training record, curated to the security-relevant subset.
+// "earned" = passed exams; "training" = completed coursework/labs, which
 // is stated as such and never as a held certification.
 export const certs = {
   earned: ['PJPT'],
