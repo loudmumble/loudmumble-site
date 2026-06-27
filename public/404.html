@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redirecting...</title>
+  <script>
+    // GitHub Pages serves this for any path that doesn't match a static file.
+    // Convert the path to a hash fragment so HashRouter can handle it client-side.
+    // e.g., /structured-anarchy → /index.html#/structured-anarchy
+    var path = window.location.pathname;
+    var hash = window.location.hash;
+    var search = window.location.search;
+    // If there's already a hash, the SPA should handle it — just reload index.html
+    if (hash) {
+      window.location.replace('/index.html' + hash + search);
+    } else {
+      // No hash — convert the path to a hash fragment
+      window.location.replace('/index.html#' + path + search);
+    }
+  </script>
+</head>
+<body>
+  <p>Redirecting...</p>
+</body>
+</html>
