@@ -228,10 +228,10 @@ export const SA_FLEET: SAFleet = {
         "control-plane"
       ],
       "conformance": {
-        "v": "n/a",
-        "t2": "na",
-        "mtls": "na",
-        "dw": "na"
+        "v": "aligned",
+        "t2": "yes",
+        "mtls": "yes",
+        "dw": "yes"
       }
     },
     {
@@ -661,10 +661,10 @@ export const SA_FLEET: SAFleet = {
         "control-plane"
       ],
       "conformance": {
-        "v": "n/a",
-        "t2": "na",
-        "mtls": "na",
-        "dw": "na"
+        "v": "aligned",
+        "t2": "yes",
+        "mtls": "yes",
+        "dw": "yes"
       }
     },
     {
